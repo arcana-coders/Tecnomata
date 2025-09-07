@@ -1,0 +1,219 @@
+---
+import SocialIcons from "./ui/SocialIcons.astro";
+import GuaranteeBar from "./ui/GuaranteeBar.astro";
+import MobileDualCTA from "./ui/MobileDualCTA.astro";
+---
+<!-- Footer con estilo Visinex aplicado al contenido original de Tecnomata -->
+<footer class="bg-white">
+
+  <!-- Barras de garantía (full-bleed) + banner negro como cuarta -->
+  <div class="bg-white">
+    <div class="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+  <GuaranteeBar />
+    </div>
+  </div>
+
+  <!-- Sección principal con el estilo limpio de Visinex -->
+  <div class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <!-- Header principal estilo over-ons pero con contenido de Tecnomata -->
+      <!-- Animación impresionante de TECNOMATA -->
+      <div class="text-center mb-24">
+        <div class="mb-8">
+          <h1 id="tecnomata-animation" class="text-4xl md:text-6xl lg:text-8xl font-black text-gray-900 tracking-wider">
+            <span>T</span>
+            <span>E</span>
+            <span>C</span>
+            <span>N</span>
+            <span class="text-blue-600">Ó</span>
+            <span>M</span>
+            <span>A</span>
+            <span>T</span>
+            <span>A</span>
+          </h1>
+        </div>
+      </div>
+
+      <style>
+        /* Estilos para la animación de "sello" */
+        #tecnomata-animation span {
+          display: inline-block; /* Necesario para que transform funcione */
+          opacity: 0;
+          transform: scale(0.5);
+          transition: opacity 0.1s ease-in, transform 0.1s ease-in;
+        }
+
+        #tecnomata-animation span.stamped {
+          opacity: 1;
+          transform: scale(1);
+        }
+
+        #tecnomata-animation.visible span {
+          opacity: 1;
+          transform: scale(1);
+          transition: opacity 0.3s ease-in, transform 0.3s ease-in; 
+        }
+
+        /* Hover effect para las letras */
+        #tecnomata-animation span:hover {
+          transform: translateY(-10px) scale(1.2) !important;
+          transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Ajuste específico para móviles pequeños (≤ 390px) */
+        @media (max-width: 390px) {
+          /* Evitar salto: quitar espacios entre inline-blocks y no permitir wrap */
+          #tecnomata-animation {
+            font-size: 0; /* elimina el espacio entre los spans inline-block */
+            letter-spacing: 0; /* anula tracking-wider */
+            line-height: 1; /* compacto */
+            white-space: nowrap; /* no permitir salto de línea */
+          }
+          #tecnomata-animation span {
+            font-size: 2rem; /* tamaño real de las letras */
+          }
+        }
+      </style>
+
+      <!-- Grid de información estilo Visinex -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-6">
+        
+        <!-- Ubicación con número grande -->
+        <div class="space-y-6 border border-gray-200 rounded-lg p-8">
+          <div class="space-y-3 relative">
+            <span class="text-6xl font-black text-blue-600">01</span>
+            <!-- Línea azul debajo del número - solo tablet y desktop, más cerca del número -->
+            <div class="hidden md:block absolute top-12 left-0 w-12 h-0.5 bg-blue-600"></div>
+            <h3 class="text-2xl font-black text-gray-900">Ubicación</h3>
+            <p class="text-sm text-gray-500 uppercase tracking-wider">Morelos, México</p>
+          </div>
+          <div class="space-y-2 text-gray-600">
+            <div class="responsive-text-width">
+              <p>Trabajamos desde el corazón de México.
+              Con negocios locales de todo el estado y empresas en toda la República.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contacto con número grande -->
+        <div class="space-y-6 border border-gray-200 rounded-lg p-8">
+          <div class="space-y-3 relative">
+            <span class="text-6xl font-black text-blue-600">02</span>
+            <!-- Línea azul debajo del número - solo tablet y desktop, más cerca del número -->
+            <div class="hidden md:block absolute top-12 left-0 w-12 h-0.5 bg-blue-600"></div>
+            <h3 class="text-2xl font-black text-gray-900">Contacto</h3>
+            <p class="text-sm text-gray-500 uppercase tracking-wider">Teléfono & Email</p>
+          </div>
+          <div class="space-y-2 text-gray-600">
+            <a href="tel:7774094647" class="block hover:text-gray-900 transition-colors font-medium">777 409 4647</a>
+            <a href="mailto:hola@tecnomata.com" class="block hover:text-gray-900 transition-colors">hola@tecnomata.com</a>
+            <p class="text-sm">Lun - Vie / 9:00 - 18:00</p>
+          </div>
+        </div>
+
+        <!-- Servicios con número grande -->
+        <div class="space-y-6 border border-gray-200 rounded-lg p-8">
+          <div class="space-y-3 relative">
+            <span class="text-6xl font-black text-blue-600">03</span>
+            <!-- Línea azul debajo del número - solo tablet y desktop, más cerca del número -->
+            <div class="hidden md:block absolute top-12 left-0 w-12 h-0.5 bg-blue-600"></div>
+            <h3 class="text-2xl font-black text-gray-900">Servicios</h3>
+            <p class="text-sm text-gray-500 uppercase tracking-wider">Lo que hacemos</p>
+          </div>
+          <div class="space-y-2 text-gray-600">
+            <a href="/seo-local-morelos" class="block hover:text-gray-900 transition-colors">SEO Local</a>
+            <a href="/diseno-web-seo" class="block hover:text-gray-900 transition-colors">Diseño Web</a>
+            <a href="/seo-local-morelos" class="block hover:text-gray-900 transition-colors">Google My Business</a>
+            <a href="/mas-resenas" class="block hover:text-gray-900 transition-colors">Gestión de Reseñas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de redes sociales con espacio reducido -->
+  <div class="py-4 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <SocialIcons />
+    </div>
+  </div>
+
+  <!-- Bottom footer con menos espacio -->
+  <div class="border-t border-gray-200/50 pt-4 pb-6">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-center items-center text-center gap-8 text-gray-500">
+        <p class="text-sm">© 2025 Tecnómata. Hecho con ❤️ en Morelos.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile/Tablet side CTA tabs (site-wide) -->
+<MobileDualCTA />
+
+<style>
+  .responsive-text-width {
+    width: 75%;
+  }
+
+  @media (min-width: 431px) {
+    .responsive-text-width {
+      width: 30%;
+    }
+  }
+
+  @media (min-width: 1024px) { /* lg breakpoint from tailwind */
+    .responsive-text-width {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const animationContainer = document.getElementById('tecnomata-animation');
+    if (!animationContainer) return;
+    const container = animationContainer as HTMLElement;
+
+    const letters = Array.from(container.querySelectorAll('span'));
+
+    async function sleep(ms: number): Promise<void> {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function animate() {
+      // Ocultar todo para empezar
+      container.classList.remove('visible');
+      letters.forEach(l => l.classList.remove('stamped'));
+      await sleep(100); // Pequeña pausa
+
+      // 1. Animar cada letra
+      for (const letter of letters) {
+        letter.classList.add('stamped');
+        await sleep(200); // Tiempo visible de la letra
+        letter.classList.remove('stamped');
+        await sleep(50); // Pausa entre letras
+      }
+
+      await sleep(500); // Pausa antes de mostrar la palabra completa
+
+      // 2. Mostrar palabra completa
+  container.classList.add('visible');
+      await sleep(2000); // Tiempo visible de la palabra
+
+      // 3. Ocultar palabra y prepararse para el bucle
+  container.classList.remove('visible');
+      await sleep(1000); // Pausa antes de repetir
+    }
+
+    async function loop() {
+      while (true) {
+        await animate();
+      }
+    }
+
+    loop();
+  });
+</script>

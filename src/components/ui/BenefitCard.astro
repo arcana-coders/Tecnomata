@@ -1,0 +1,20 @@
+---
+// src/components/ui/BenefitCard.astro
+import MaterialSymbol from './MaterialSymbol.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+const { title, description, icon } = Astro.props;
+---
+
+<div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 font-dmsans flex flex-col items-center text-center">
+  <div class="w-16 h-16 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-6">
+    <MaterialSymbol icon={icon} size="3xl" />
+  </div>
+  <h3 class="text-xl font-bold text-gray-900 mb-3">{title}</h3>
+  <p class="text-gray-600 leading-relaxed">{description}</p>
+</div>

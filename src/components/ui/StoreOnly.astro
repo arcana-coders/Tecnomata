@@ -1,0 +1,47 @@
+---
+// Simple vector of three stores (stroke-only), no animation.
+---
+<div class="stores-wrapper">
+  <svg class="stores-svg" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tres negocios" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <style>
+        .stroke { fill: none; stroke: #111827; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+        .accent { stroke: #2563eb; }
+      </style>
+    </defs>
+
+    <!-- Store template as a group -->
+    <g id="store">
+      <!-- Roof (top at y=0) -->
+      <path class="stroke" d="M0 16 L12 0 H48 L60 16"/>
+      <!-- Awning line -->
+      <path class="stroke accent" d="M0 16 H60"/>
+      <!-- Facade box (down to y=64) -->
+      <path class="stroke" d="M0 16 L0 64 H60 L60 16"/>
+      <!-- Door & window -->
+      <rect class="stroke" x="10" y="30" width="16" height="28" rx="2"/>
+      <rect class="stroke" x="34" y="30" width="20" height="22" rx="2"/>
+      <!-- Ground line within bounds -->
+      <path class="stroke" d="M0 68 H60"/>
+    </g>
+
+    <!-- Three stores: left, center, right -->
+  <!-- Anchor stores near bottom (baseline y ~ 168 with small margin) -->
+  <g transform="translate(30,100)">
+      <use href="#store" />
+    </g>
+  <g transform="translate(130,100)">
+      <use href="#store" />
+    </g>
+  <g transform="translate(230,100)">
+      <use href="#store" />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .stores-wrapper { width: 100%; display: flex; align-items: center; justify-content: center; }
+  .stores-svg { width: 100%; max-width: 520px; height: auto; }
+  @media (max-width: 1023px) { .stores-svg { max-width: 440px; } }
+  @media (max-width: 767px) { .stores-svg { max-width: 360px; } }
+</style>

@@ -1,0 +1,79 @@
+---
+// Lightweight vector animation: map pin rotates, then transitions to 5 stars (stroke-only)
+// Respects reduced motion; configurable via props if needed later.
+---
+<div class="map-anim-wrapper">
+  <svg class="map-anim" viewBox="0 0 200 200" role="img" aria-label="Animación: pin de mapa que se convierte en estrellas" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <style>
+        .stroke { fill: none; stroke: #2563eb; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+        .muted { stroke: #93c5fd; }
+        @media (prefers-reduced-motion: reduce) {
+          .pin, .stars, .draw { animation: none !important; }
+        }
+        /* Cycle total: 8s. Pin visible 0%-50%, Stars 50%-100% */
+        @keyframes pinCycle {
+          0%   { opacity: 1; transform: rotate(0deg) scale(1); }
+          40%  { opacity: 1; transform: rotate(360deg) scale(1); }
+          50%  { opacity: 0; transform: rotate(450deg) scale(0.9); }
+          100% { opacity: 0; transform: rotate(720deg) scale(0.9); }
+        }
+        @keyframes starsCycle {
+          0%   { opacity: 0; }
+          49%  { opacity: 0; }
+          50%  { opacity: 1; }
+          100% { opacity: 1; }
+        }
+        @keyframes dashDraw {
+          0% { stroke-dashoffset: var(--len, 120); }
+          60% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: 0; }
+        }
+        .pin { transform-origin: 100px 75px; animation: pinCycle 8s linear infinite; }
+        .stars { opacity: 0; animation: starsCycle 8s linear infinite; }
+        .draw { stroke-dasharray: var(--len, 120); stroke-dashoffset: var(--len, 120); animation: dashDraw 3s ease-out infinite; animation-delay: 4s; }
+      </style>
+    </defs>
+
+    <!-- Pin group -->
+    <g class="pin">
+      <!-- Outer pin shape -->
+      <path class="stroke" d="M100 20c-22 0-40 18-40 40 0 26 40 74 40 74s40-48 40-74c0-22-18-40-40-40z"/>
+      <!-- Inner circle -->
+      <circle class="stroke muted" cx="100" cy="60" r="12"/>
+      <!-- Base shadow line -->
+      <ellipse class="stroke muted" cx="100" cy="160" rx="28" ry="6"/>
+    </g>
+
+    <!-- Stars group (five stars horizontal) -->
+    <g class="stars">
+      <!-- helpers: simple 5-point star path; we'll duplicate across x positions -->
+      <g transform="translate(40,120)">
+        <path class="stroke draw" style="--len: 140" d="M0,-10 L3,-2 L12,-2 L5,3 L8,11 L0,6 L-8,11 L-5,3 L-12,-2 L-3,-2 Z"/>
+      </g>
+      <g transform="translate(70,120)">
+        <path class="stroke draw" style="--len: 140" d="M0,-10 L3,-2 L12,-2 L5,3 L8,11 L0,6 L-8,11 L-5,3 L-12,-2 L-3,-2 Z"/>
+      </g>
+      <g transform="translate(100,120)">
+        <path class="stroke draw" style="--len: 140" d="M0,-10 L3,-2 L12,-2 L5,3 L8,11 L0,6 L-8,11 L-5,3 L-12,-2 L-3,-2 Z"/>
+      </g>
+      <g transform="translate(130,120)">
+        <path class="stroke draw" style="--len: 140" d="M0,-10 L3,-2 L12,-2 L5,3 L8,11 L0,6 L-8,11 L-5,3 L-12,-2 L-3,-2 Z"/>
+      </g>
+      <g transform="translate(160,120)">
+        <path class="stroke draw" style="--len: 140" d="M0,-10 L3,-2 L12,-2 L5,3 L8,11 L0,6 L-8,11 L-5,3 L-12,-2 L-3,-2 Z"/>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<style>
+  .map-anim-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .map-anim { width: 100%; max-width: 520px; height: auto; }
+  @media (max-width: 1023px) {
+    .map-anim { max-width: 420px; }
+  }
+  @media (max-width: 767px) {
+    .map-anim { max-width: 360px; }
+  }
+</style>

@@ -1,0 +1,95 @@
+---
+// BannerMarquee.astro — Marquee continuo (estilo marquesina) con CSS
+import MaterialSymbol from "../ui/MaterialSymbol.astro";
+
+interface BannerItem {
+  icon: string;
+  label: string;
+}
+
+interface Props {
+  text?: string; // texto simple (fallback)
+  items?: BannerItem[]; // ícono + texto (recomendado)
+  variant?: 'default' | 'accent';
+  speed?: 'slow' | 'normal' | 'fast';
+}
+
+const {
+  text = "Potencia tu negocio online con Tecnomata",
+  items,
+  variant = 'default',
+  speed = 'normal',
+} = Astro.props as Props;
+
+const variantClasses = {
+  default: 'bg-gray-900 text-white',
+  accent: 'bg-blue-600 text-white'
+};
+
+const speedClasses = {
+  slow: 'animate-scroll-30s',
+  normal: 'animate-scroll-15s',
+  fast: 'animate-scroll-8s',
+} as const;
+---
+
+<div
+  class:list={["relative overflow-hidden py-4 font-dmsans group", variantClasses[variant]]}
+>
+  <div class="relative">
+    <div class:list={["marquee-track flex items-center whitespace-nowrap", speedClasses[speed]]}>
+      <div class="marquee-group flex items-center">
+        {items && items.length > 0 ? (
+          items.map((it) => (
+            <span class="inline-flex items-center mx-8 font-semibold text-base tracking-wider">
+              <span class="mr-3 inline-flex items-center justify-center w-8 h-8 rounded-full border-2 border-blue-600 text-blue-600 bg-white shadow-sm shrink-0">
+                <MaterialSymbol icon={it.icon} size="lg" weight={500} />
+              </span>
+              <span class="whitespace-nowrap">{it.label}</span>
+              <span class="ml-6 w-2 h-2 bg-current/60 rounded-full" aria-hidden="true"></span>
+            </span>
+          ))
+        ) : (
+          <span class="inline-flex items-center mx-8 font-semibold text-base tracking-wider">
+            <span class="w-2 h-2 bg-current rounded-full mr-4 opacity-60"></span>
+            {text}
+          </span>
+        )}
+      </div>
+      <div class="marquee-group flex items-center" aria-hidden="true">
+        {items && items.length > 0 ? (
+          items.map((it) => (
+            <span class="inline-flex items-center mx-8 font-semibold text-base tracking-wider">
+              <span class="mr-3 inline-flex items-center justify-center w-8 h-8 rounded-full border-2 border-blue-600 text-blue-600 bg-white shadow-sm shrink-0">
+                <MaterialSymbol icon={it.icon} size="lg" weight={500} />
+              </span>
+              <span class="whitespace-nowrap">{it.label}</span>
+              <span class="ml-6 w-2 h-2 bg-current/60 rounded-full" aria-hidden="true"></span>
+            </span>
+          ))
+        ) : (
+          <span class="inline-flex items-center mx-8 font-semibold text-base tracking-wider">
+            <span class="w-2 h-2 bg-current rounded-full mr-4 opacity-60"></span>
+            {text}
+          </span>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll-8s { animation: scroll-left 6s linear infinite; }
+.animate-scroll-15s { animation: scroll-left 15s linear infinite; }
+.animate-scroll-30s { animation: scroll-left 30s linear infinite; }
+
+/* Pausa al hover */
+.group:hover .animate-scroll-8s,
+.group:hover .animate-scroll-15s,
+.group:hover .animate-scroll-30s { animation-play-state: paused; }
+</style>

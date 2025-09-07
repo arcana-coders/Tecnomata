@@ -1,0 +1,73 @@
+---
+// src/components/ui/MainServiceCard.astro
+interface Props {
+  title: string;
+  ctaLink: string;
+  ctaText: string;
+  color?: 'blue' | 'green' | 'red';
+  theme?: 'light' | 'dark';
+}
+
+const { title, ctaLink, ctaText, color = 'blue', theme = 'light' } = Astro.props;
+
+const isDark = theme === 'dark';
+
+const colorClasses = {
+  border: {
+    blue: 'hover:border-blue-500',
+    green: 'hover:border-green-500',
+    red: 'hover:border-red-500',
+  },
+  button: {
+    blue: 'bg-blue-600 hover:bg-blue-700',
+    green: 'bg-green-600 hover:bg-green-700',
+    red: 'bg-red-600 hover:bg-red-700',
+  }
+}
+---
+
+<div class:list={[
+  "group rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 text-center flex flex-col", 
+  isDark ? 'bg-gray-800' : 'bg-white border-2 border-gray-100',
+  colorClasses.border[color]
+]}>
+  <div class="w-20 h-20 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center mx-auto my-6 text-3xl font-bold flex-shrink-0">
+    <slot name="icon" />
+  </div>
+  
+  <div class:list={["font-dmsans flex-grow flex flex-col h-full text-left", isDark && 'bg-white rounded-xl p-6']}>
+    <h3 class="text-2xl font-black text-gray-900 mb-4 text-center">{title}</h3>
+    <div class="flex-grow space-y-4">
+        <p class="text-base text-gray-600 leading-relaxed">
+            <slot name="description" />
+        </p>
+        <ul class="text-base text-gray-600 leading-relaxed space-y-3">
+            <slot name="features" />
+        </ul>
+    </div>
+    <a href={ctaLink} class:list={[
+      "relative inline-block font-bold transition-all duration-300 mt-8",
+      "after:absolute after:w-full after:h-0.5 after:left-0 after:-bottom-1 after:bg-blue-600", // Blue line
+      "text-blue-600 hover:text-blue-800" // Blue text, darker on hover
+    ]}>
+      {ctaText}
+    </a>
+  </div>
+</div>
+
+<style define:vars={{ bulletColor: '#F97316' }}> /* Orange-600 */
+  /* Estilo para los items de la lista que se pasan por slot */
+  :global(.main-service-feature) {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  :global(.main-service-feature::before) {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--bulletColor);
+    flex-shrink: 0;
+  }
+</style>

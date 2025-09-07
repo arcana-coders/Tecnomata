@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TestSEOPageHero from '../components/sections/TestSEOPageHero.astro';
+import TestSEOStats from '../components/sections/TestSEOStats.astro';
+import AnalysisDetails from '../components/sections/AnalysisDetails.astro';
+import CommonProblems from '../components/sections/CommonProblems.astro';
+import TestSEOCTA from '../components/sections/TestSEOCTA.astro';
+import SimulatedResults from '../components/sections/SimulatedResults.astro';
+import WhatYouGet from '../components/sections/WhatYouGet.astro';
+---
+
+<Layout 
+  title="Test SEO Gratuito | Tecnomata - Analiza tu Posicionamiento"
+  description="Test SEO gratuito para analizar el posicionamiento de tu página web. Descubre qué necesita tu sitio para aparecer en Google."
+>
+
+<!-- Hero Section -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+<TestSEOPageHero
+  badgeText="Test SEO Gratuito"
+  title="¿Aparece tu página<br/> en <span class='text-google-blue'>G</span><span class='text-google-red'>o</span><span class='text-google-yellow'>o</span><span class='text-google-blue'>g</span><span class='text-google-green'>l</span><span class='text-google-red'>e</span> cuando<br/> <span class='font-light text-gray-600'>buscan tu <span class='text-blue-600 font-medium'>negocio</span>?</span>"
+  subtitle="Descúbrelo en 30 segundos. <span class='text-gray-900 font-medium'>¡Totalmente gratis!</span>"
+/>
+</section>
+
+<!-- Estadísticas importantes -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <TestSEOStats />
+</section>
+
+<!-- Qué incluye el análisis -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <AnalysisDetails />
+</section>
+
+<!-- Qué recibes con el test -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <WhatYouGet />
+</section>
+
+<!-- Problemas comunes -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <CommonProblems />
+</section>
+
+<!-- CTA para test -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+<TestSEOCTA
+  title="¿Tu <span class='text-blue-600'>página</span> tiene estos problemas?"
+  subtitle="Descúbrelo ahora con nuestro test SEO gratuito. Solo toma 30 segundos."
+  ctaText="Hacer Test Gratis"
+  ctaLink="/contacto"
+/>
+</section>
+
+<!-- Resultados simulados (inicialmente ocultos) -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+<SimulatedResults
+  seoScore="45"
+  scoreDescription="Tu web necesita mejoras importantes"
+  ctaTitle="¿Quieres arreglar estos problemas?"
+  ctaDescription="Te ayudamos a mejorar tu SEO y posicionamiento en Google"
+  ctaLink="/contacto"
+  ctaText="Solicitar consulta gratuita"
+/>
+</section>
+
+</Layout>
+
+<script src="../scripts/test-seo-functions.js"></script>

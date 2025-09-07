@@ -1,0 +1,37 @@
+---
+// src/components/ui/GuaranteeBar.astro
+import MaterialSymbol from './MaterialSymbol.astro';
+---
+<section class="font-dmsans">
+  <div class="w-full">
+    <!-- Verde (full-bleed) -->
+    <div class="w-full bg-emerald-600">
+      <div class="mx-auto flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
+        <p class="text-white text-sm md:text-base font-medium leading-snug">Respuesta habitual en ~2 horas hábiles</p>
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full border-2 border-blue-600 text-blue-600 bg-white shadow-sm shrink-0">
+          <MaterialSymbol icon="schedule" size="lg" weight={500} />
+        </span>
+      </div>
+    </div>
+
+    <!-- Amarilla (como el sol, full-bleed) -->
+    <div class="w-full bg-yellow-400">
+      <div class="mx-auto flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
+        <p class="text-white text-sm md:text-base font-medium leading-snug">Sin contratos forzosos</p>
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full border-2 border-blue-600 text-blue-600 bg-white shadow-sm shrink-0">
+          <MaterialSymbol icon="lock_open" size="lg" weight={500} />
+        </span>
+      </div>
+    </div>
+
+    <!-- Naranja (full-bleed) -->
+    <div class="w-full bg-orange-600">
+      <div class="mx-auto flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
+        <p class="text-white text-sm md:text-base font-medium leading-snug">Puedes pausar cuando quieras</p>
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full border-2 border-blue-600 text-blue-600 bg-white shadow-sm shrink-0">
+          <MaterialSymbol icon="pause_circle" size="lg" weight={500} />
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

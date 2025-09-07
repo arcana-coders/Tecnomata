@@ -1,0 +1,52 @@
+---
+// src/components/sections/WhyReviewsAreCritical.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import StatsCard from '../ui/StatsCard.astro';
+---
+
+<section class="py-24 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Importancia"
+      title="Por qué las Reseñas Son <span class='text-blue-600'>Críticas</span>"
+      subtitle="Las reseñas son el factor más importante para que los clientes confíen en tu negocio."
+      color="blue"
+    />
+
+    <div class="grid md:grid-cols-3 gap-8 mt-16">
+      <StatsCard 
+        number="92"
+        suffix="%"
+        label="Confían en reseñas"
+        description="De consumidores leen reseñas antes de elegir un negocio local"
+        variant="accent"
+        animated={true}
+        delay={200}
+        color="blue"
+      />
+      
+      <StatsCard 
+        number="84"
+        suffix="%"
+        label="Confían como recomendaciones"
+        description="Consideran las reseñas online tan confiables como recomendaciones personales"
+        variant="default"
+        animated={true}
+        delay={400}
+        color="blue"
+      />
+      
+      <StatsCard 
+        number="300"
+        suffix="%"
+        label="Más probabilidad de visita"
+        description="Más probabilidades de que te visiten si tienes buenas reseñas"
+        variant="default"
+        animated={true}
+        delay={600}
+        color="blue"
+      />
+    </div>
+  </div>
+</section>

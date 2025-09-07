@@ -1,0 +1,61 @@
+---
+// src/components/sections/SEOPageHero.astro
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+
+interface Props {
+  subtitle: string;
+  title: string;
+  description: string;
+  ctaText: string;
+  ctaHref: string;
+  stats: { number: string; label: string; suffix: string }[];
+  twoColFrom590?: boolean;
+}
+
+const { subtitle, title, description, ctaText, ctaHref, stats, twoColFrom590 = false } = Astro.props;
+---
+
+<section class="bg-white font-dmsans py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6">
+  <div class:list={["grid gap-16 items-center", twoColFrom590 ? 'two-col-590' : 'lg:grid-cols-2']}>
+      <!-- Left Column: Content -->
+      <div class="space-y-8">
+        <p class="text-lg font-semibold text-blue-600">{subtitle}</p>
+  <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 leading-tight tracking-tighter" set:html={title} data-typewriter data-type-speed="46" data-type-delay="200" data-type-loop="true" data-type-loop-pause="4000" />
+        <p class="text-xl text-gray-600 leading-relaxed" set:html={description} />
+        
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href={ctaHref} class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 font-bold text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/30">
+            <MaterialSymbol icon="ads_click" size="lg" class="mr-2" />{ctaText}
+          </a>
+        </div>
+
+        <!-- Stats Display -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 pt-8 border-t border-gray-100 mt-8">
+          {stats.map(stat => (
+            <div>
+              <div class="text-3xl font-black text-gray-900">{stat.number}{stat.suffix}</div>
+              <div class="text-sm text-gray-600">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right Column: Animation (visible >=1024px). For <=1023px down to 426px, we'll show a centered version below -->
+  <div class:list={[twoColFrom590 ? 'right-col-590 flex items-center justify-center' : 'hidden lg:block']}>
+        <slot name="image" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* When enabled, switch to 2 columns starting at 590px */
+  .two-col-590 { grid-template-columns: 1fr; }
+  @media (min-width: 590px) {
+    .two-col-590 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .right-col-590 { display: block; }
+  }
+  /* Default for the right-col when not matched */
+  .right-col-590 { display: none; }
+</style>

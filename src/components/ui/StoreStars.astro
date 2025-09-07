@@ -1,0 +1,110 @@
+---
+// Store + falling yellow stars animation (vector, lines + fills)
+// Stars fall individually and trigger a brief shake on the store.
+---
+<div class="store-anim-wrapper">
+  <svg class="store-anim" viewBox="0 0 300 200" role="img" aria-label="Animación: estrellas caen sobre un negocio" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <style>
+  .stroke { fill: none; stroke: #111827; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+  .accent { stroke: #2563eb; }
+  .star { fill: none; stroke: #F59E0B; stroke-width: 3.5; filter: drop-shadow(0 0 2px rgba(245, 158, 11, 0.6)); }
+        @media (prefers-reduced-motion: reduce) {
+          .star, .store { animation: none !important; }
+        }
+        /* Shake for store on impact */
+        @keyframes shake {
+          0% { transform: translateX(0) rotate(0deg); }
+          20% { transform: translateX(-2px) rotate(-0.5deg); }
+          40% { transform: translateX(2px) rotate(0.6deg); }
+          60% { transform: translateX(-1px) rotate(-0.3deg); }
+          80% { transform: translateX(1px) rotate(0.3deg); }
+          100% { transform: translateX(0) rotate(0deg); }
+        }
+        /* Star birth & pull motion (12s cycle): start invisible above, appear with slight jitter, then gravity curve towards store */
+        @keyframes starDrop {
+          0%   { opacity: 0; transform: translate(var(--sx, 120px), -120px) scale(1.2) rotate(0deg); }
+          5%   { opacity: 1; transform: translate(var(--sx, 120px), -110px) scale(1.2) rotate(10deg); }
+          20%  { transform: translate(calc(var(--sx, 120px) - 5px), -60px) rotate(0deg); }
+          40%  { transform: translate(calc(var(--sx, 120px) - 15px), -10px) rotate(-5deg); }
+          50%  { transform: translate(calc(var(--tx, 150px)), var(--ty, 80px)) rotate(0deg); }
+          55%  { opacity: 0; }
+          100% { opacity: 0; transform: translate(var(--sx, 120px), -120px) scale(1.2) rotate(0deg); }
+        }
+        .s { animation: starDrop 12s ease-in-out infinite; }
+      </style>
+    </defs>
+
+    <!-- Store base -->
+  <g class="store" id="store" transform="scale(0.8)" >
+      <!-- Awning -->
+      <path class="stroke accent" d="M70 90 H230"/>
+      <path class="stroke" d="M70 90 L70 160 H230 L230 90"/>
+      <!-- Roof -->
+      <path class="stroke" d="M60 90 L90 60 H210 L240 90"/>
+      <!-- Door & window -->
+      <rect class="stroke" x="95" y="110" width="30" height="50" rx="2"/>
+      <rect class="stroke" x="140" y="110" width="70" height="35" rx="2"/>
+      <!-- Ground line -->
+      <path class="stroke" d="M40 165 H260"/>
+    </g>
+
+    <!-- Stars (animated) -->
+    <g>
+      <!-- Larger hollow stars, each with different start/target vars and delays -->
+      <polygon class="star s" style="--sx: 70px; --tx: 80px; --ty: 80px; animation-delay: 1s;" points="0,-14 3,-4 14,-4 5,2 8,13 0,6 -8,13 -5,2 -14,-4 -3,-4"/>
+      <polygon class="star s" style="--sx: 120px; --tx: 130px; --ty: 78px; animation-delay: 4s;" points="0,-14 3,-4 14,-4 5,2 8,13 0,6 -8,13 -5,2 -14,-4 -3,-4"/>
+      <polygon class="star s" style="--sx: 180px; --tx: 170px; --ty: 82px; animation-delay: 7s;" points="0,-14 3,-4 14,-4 5,2 8,13 0,6 -8,13 -5,2 -14,-4 -3,-4"/>
+    </g>
+  </svg>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+  const store = document.getElementById('store') as SVGGElement | null;
+  if (!store) return;
+  const wrapper = (store.closest('.store-anim-wrapper') as HTMLElement) || null;
+    // Count impacts and scale store a bit on each up to 10, then reset
+    let impacts = 0;
+  const baseScale = 0.8; // start smaller (matches initial transform)
+  const growStep = 0.05; // ~10 steps => ~1.3x
+
+    // Observe when any star becomes invisible after passing target (impact around 50% of its cycle)
+    const stars = Array.from(document.querySelectorAll('.star.s')) as HTMLElement[];
+    const scheduleImpact = (star: HTMLElement, delay: number) => {
+      window.setTimeout(() => {
+        // Trigger impact: shake + grow
+  if (wrapper) wrapper.style.animation = 'shake 320ms ease';
+        impacts = (impacts + 1) % 10;
+        const scale = baseScale + growStep * impacts;
+        store.setAttribute('transform', `translate(0 0) scale(${scale})`);
+  if (wrapper) window.setTimeout(() => { wrapper.style.animation = ''; }, 340);
+        // When we complete 10 impacts, reset scale
+        if (impacts === 0) {
+          store.setAttribute('transform', 'translate(0 0) scale(1)');
+        }
+      }, delay);
+    };
+    // Align with CSS animation-delays and 12s cycle: impact at ~50%
+    const cycle = 12000;
+    stars.forEach((star) => {
+      const d = parseFloat(star.style.animationDelay || '0') * 1000;
+      const first = d + cycle * 0.5;
+      scheduleImpact(star, first);
+      // Repeat every cycle
+      window.setTimeout(() => {
+        scheduleImpact(star, 0);
+        window.setInterval(() => scheduleImpact(star, 0), cycle);
+      }, d + cycle);
+    });
+  });
+</script>
+
+<style>
+  .store-anim-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .store-anim { width: 100%; max-width: 520px; height: auto; }
+  @media (max-width: 1023px) { .store-anim { max-width: 440px; } }
+  @media (max-width: 767px) { .store-anim { max-width: 360px; } }
+</style>

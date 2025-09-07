@@ -1,0 +1,33 @@
+---
+// Definimos las propiedades que el componente aceptará
+interface Props {
+  href: string;
+  ariaLabel: string;
+  bgColorClasses: string; // Pasamos las clases de color como texto
+  dataAction: string;
+  dataUrl?: string;
+}
+
+const { href, ariaLabel, bgColorClasses, dataAction, dataUrl = '' } = Astro.props;
+
+// Clases base que no cambian
+const baseClasses = "w-10 h-10 md:h-12 rounded-full text-white shadow-xl ring-1 ring-white/20 border border-white/10 flex items-center justify-center active:scale-95 transition-all duration-300 ease-out relative overflow-hidden hover:-translate-x-0.5 outline-none focus-visible:ring-2 focus-visible:ring-white/40 hover:ring-2 hover:ring-white/30 origin-right will-change-transform";
+---
+
+<a
+  href={href}
+  aria-label={ariaLabel}
+  target="_blank"
+  rel="noopener noreferrer"
+  data-action={dataAction}
+  data-url={dataUrl}
+  class:list={[baseClasses, bgColorClasses]}
+>
+  <!-- brillo superior suave -->
+  <span class="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent"></span>
+  <!-- contenido (icono) con ligera sombra para contraste -->
+  <span class="relative drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]">
+    <slot />
+  </span>
+  <span class="sr-only">{ariaLabel}</span>
+</a>

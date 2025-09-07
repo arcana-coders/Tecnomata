@@ -1,0 +1,38 @@
+---
+// src/components/sections/WhatYouGet.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+---
+<section class="py-20 bg-gray-50 font-dmsans">
+  <div class="max-w-6xl mx-auto px-6">
+    <SectionHeader
+      pill="Tu reporte"
+      title="¿Qué <span class='text-blue-600'>recibes</span> con el test?"
+      subtitle="Un resumen accionable con oportunidades y prioridades; sin promesas exageradas."
+      color="blue"
+    />
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white border rounded-xl p-6 shadow-sm">
+        <div class="w-12 h-12 rounded-full border-2 border-blue-600 text-blue-600 flex items-center justify-center mb-4">
+          <MaterialSymbol icon="speed" size="lg" />
+        </div>
+        <h3 class="font-bold text-lg text-gray-900 mb-1">Puntaje SEO</h3>
+        <p class="text-gray-600 text-sm">Una calificación general del estado de tu sitio y ficha de Google.</p>
+      </div>
+      <div class="bg-white border rounded-xl p-6 shadow-sm">
+        <div class="w-12 h-12 rounded-full border-2 border-blue-600 text-blue-600 flex items-center justify-center mb-4">
+          <MaterialSymbol icon="task_alt" size="lg" />
+        </div>
+        <h3 class="font-bold text-lg text-gray-900 mb-1">Prioridades</h3>
+        <p class="text-gray-600 text-sm">3-5 acciones rápidas que más impacto generan en 30 días.</p>
+      </div>
+      <div class="bg-white border rounded-xl p-6 shadow-sm">
+        <div class="w-12 h-12 rounded-full border-2 border-blue-600 text-blue-600 flex items-center justify-center mb-4">
+          <MaterialSymbol icon="map" size="lg" />
+        </div>
+        <h3 class="font-bold text-lg text-gray-900 mb-1">Oportunidad en Maps</h3>
+        <p class="text-gray-600 text-sm">Qué tan cerca estás del Top 3 y cómo llegar ahí.</p>
+      </div>
+    </div>
+  </div>
+</section>

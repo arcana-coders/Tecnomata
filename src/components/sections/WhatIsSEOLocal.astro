@@ -1,0 +1,42 @@
+---
+// src/components/sections/WhatIsSEOLocal.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import FeatureCard from '../ui/FeatureCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+---
+
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Concepto Clave"
+      title="¿Qué es <span class='text-blue-600'>SEO </span>Local?"
+      subtitle="Es la estrategia que hace que tu negocio aparezca <strong>primero en Google</strong> cuando alguien busca tus servicios en Morelos."
+      color="blue"
+    />
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      
+      <FeatureCard
+        title="Aparecer en Google Maps"
+        color="blue"
+      >
+        <MaterialSymbol slot="icon" icon="location_on" size="2xl" />
+        <p slot="description">
+          Tu negocio se muestra en el mapa cuando alguien busca "cerca de mí" o incluye el nombre de tu ciudad.
+        </p>
+      </FeatureCard>
+      
+      <FeatureCard
+        title="Búsquedas Locales"
+        color="green"
+      >
+        <MaterialSymbol slot="icon" icon="search" size="2xl" />
+        <p slot="description">
+          Cuando buscan "abogado Cuernavaca" o "dentista Jiutepec", tu negocio aparece en los primeros resultados.
+        </p>
+      </FeatureCard>
+
+    </div>
+  </div>
+</section>

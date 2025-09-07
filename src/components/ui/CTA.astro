@@ -1,0 +1,46 @@
+---
+// src/components/ui/CTA.astro
+import MaterialSymbol from './MaterialSymbol.astro'; // Ensure this is the first import
+interface Props {
+    title: string;
+    subtitle: string;
+    ctaText: string;
+    ctaLink: string;
+    variant?: 'default' | 'strong' | 'dark'; // Added variant prop
+}
+
+const { title, subtitle, ctaText, ctaLink, variant = 'default' } = Astro.props as Props;
+
+const variantClasses = {
+  default: 'bg-gray-50 text-gray-900',
+  strong: 'bg-blue-600 text-white',
+  dark: 'bg-gray-900 text-white'
+}
+
+const titleClasses = {
+  default: 'text-gray-900',
+  strong: 'text-white',
+  dark: 'text-white'
+}
+
+const subtitleClasses = {
+  default: 'text-gray-600',
+  strong: 'text-white/80',
+  dark: 'text-gray-300'
+}
+
+const ctaButtonClasses = {
+  default: 'bg-blue-600 hover:bg-blue-700 text-white',
+  strong: 'bg-white text-blue-600 hover:bg-gray-100',
+  dark: 'bg-blue-600 hover:bg-blue-700 text-white'
+}
+---
+<section class:list={["py-24 font-dmsans scroll-animate", variantClasses[variant]]} data-animate="fade-up">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+  <h2 class:list={["text-4xl lg:text-5xl font-black mb-6 tracking-tighter scroll-animate", titleClasses[variant]]} data-animate="fade-up" data-delay="100" set:html={title} />
+  <p class:list={["text-lg leading-relaxed mb-8 scroll-animate", subtitleClasses[variant]]} data-animate="fade-up" data-delay="200" set:html={subtitle} />
+  <a href={ctaLink} class:list={["px-10 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 inline-block shadow-lg hover:shadow-blue-500/30 scroll-animate", ctaButtonClasses[variant]]} data-animate="fade-up" data-delay="300">
+            <MaterialSymbol icon="ads_click" size="lg" class="mr-2" />{ctaText}
+        </a>
+    </div>
+</section>

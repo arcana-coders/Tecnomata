@@ -1,0 +1,63 @@
+---
+// src/components/sections/TestSEOStats.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import StatsCard from '../ui/StatsCard.astro';
+---
+
+<section class="py-24 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Datos Clave"
+      title="Datos que <span class='text-blue-600'>importan</span>"
+      subtitle="Por qué es crucial aparecer en Google y tener buen SEO."
+      color="blue"
+    />
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <StatsCard 
+        number="93"
+        suffix="%"
+        label="Empiezan en Google"
+        description="De todas las experiencias online comienzan con una búsqueda en Google"
+        variant="accent"
+        animated={true}
+        delay={200}
+        color="blue"
+      />
+      
+      <StatsCard 
+        number="75"
+        suffix="%"
+        label="No pasan de página 1"
+        description="De usuarios nunca van más allá de la primera página de resultados"
+        variant="default"
+        animated={true}
+        delay={400}
+        color="green"
+      />
+      
+      <StatsCard 
+        number="68"
+        suffix="%"
+        label="Hacen clic en orgánico"
+        description="De clics van a resultados orgánicos, no a anuncios pagados"
+        variant="default"
+        animated={true}
+        delay={600}
+        color="purple"
+      />
+
+      <StatsCard 
+        number="30"
+        suffix="s"
+        label="Segundos"
+        description="Es todo lo que necesitamos para analizar tu SEO completamente gratis"
+        variant="default"
+        animated={true}
+        delay={800}
+        color="orange"
+      />
+    </div>
+  </div>
+</section>

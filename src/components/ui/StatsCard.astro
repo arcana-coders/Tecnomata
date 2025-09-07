@@ -1,0 +1,137 @@
+---
+import MaterialSymbol from './MaterialSymbol.astro'; // Added import
+interface Props {
+  number: string;
+  label: string;
+  description?: string;
+  icon?: string;
+  prefix?: string;
+  suffix?: string;
+  variant?: 'default' | 'accent' | 'minimal';
+  size?: 'sm' | 'md' | 'lg';
+  animated?: boolean;
+  delay?: number;
+  color?: 'blue' | 'green' | 'red' | 'orange'; // Added color prop
+  theme?: 'light' | 'dark'; // Added theme prop
+}
+
+const {
+  number,
+  label,
+  description,
+  icon,
+  prefix = '',
+  suffix = '',
+  variant = 'default',
+  size = 'md',
+  animated = true,
+  delay = 0,
+  color = 'blue', // Default color
+  theme = 'light' // Default theme
+} = Astro.props;
+
+const isDark = theme === 'dark';
+
+const variantClasses = {
+  default: isDark ? 'bg-white border border-gray-100 shadow-lg hover:shadow-xl text-gray-900' : 'bg-white border border-gray-100 shadow-lg hover:shadow-xl text-gray-900',
+  accent: `bg-${color}-600 text-white shadow-lg hover:shadow-xl`,
+  minimal: isDark ? 'bg-transparent border-none text-white' : 'bg-transparent border-none text-gray-900'
+};
+
+const sizeClasses = {
+  sm: {
+    container: 'p-6',
+    number: 'text-3xl',
+    label: 'text-sm',
+    description: 'text-xs'
+  },
+  md: {
+    container: 'p-8',
+    number: 'text-4xl lg:text-5xl',
+    label: 'text-base',
+    description: 'text-sm'
+  },
+  lg: {
+    container: 'p-10',
+    number: 'text-5xl lg:text-6xl',
+    label: 'text-lg',
+    description: 'text-base'
+  }
+};
+
+const textColors = {
+  number: 'text-gray-900',
+  label: 'text-gray-900',
+  description: 'text-gray-600',
+};
+
+const iconBgColors = {
+  default: isDark ? 'bg-gray-700' : `bg-${color}-100`,
+  accent: 'bg-white/20'
+}
+---
+
+<div 
+  class:list={[
+    "rounded-xl transition-all duration-300 transform hover:scale-105 text-center group font-dmsans",
+    variantClasses[variant],
+    sizeClasses[size].container,
+    animated ? 'scroll-animate animate-fade-in-up' : ''
+  ]}
+  style={animated && delay ? `animation-delay: ${delay}ms` : ''}
+>
+  <!-- Icon -->
+  {icon && (
+    <div class="mb-4">
+      <div class:list={[
+        "inline-flex items-center justify-center w-12 h-12 rounded-lg",
+        variant === 'accent' ? iconBgColors.accent : iconBgColors.default
+      ]}>
+        <MaterialSymbol icon={icon} size="2xl" />
+      </div>
+    </div>
+  )}
+
+  <!-- Number -->
+  <div 
+    class:list={[
+      "counter font-black mb-3 border-b-2 border-blue-500 pb-1", 
+      sizeClasses[size].number,
+      variant === 'accent' ? 'text-white' : textColors.number,
+      "transition-all duration-300 group-hover:scale-110"
+    ]}
+    data-target={number}
+    data-prefix={prefix}
+    data-suffix={suffix}
+    data-duration="2500"
+  >
+    {prefix}0<span set:html={suffix} />
+  </div>
+  <div class="flex justify-center gap-1.5 mb-2">
+    <span class="w-2 h-2 bg-[#4285F4] rounded-full"></span>
+    <span class="w-2 h-2 bg-[#EA4335] rounded-full"></span>
+    <span class="w-2 h-2 bg-[#FBBC05] rounded-full"></span>
+    <span class="w-2 h-2 bg-[#34A853] rounded-full"></span>
+  </div>
+
+  <!-- Label -->
+  <div 
+    class:list={[
+      "font-bold mb-2",
+      sizeClasses[size].label,
+      variant === 'accent' ? 'text-white' : textColors.label
+    ]}>
+    {label}
+  </div>
+
+  <!-- Description -->
+  {description && (
+    <p class:list={[
+      sizeClasses[size].description,
+      variant === 'accent' ? 'text-white/80' : textColors.description,
+      "leading-relaxed"
+    ]}>
+      {description}
+    </p>
+  )}
+</div>

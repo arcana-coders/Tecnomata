@@ -1,0 +1,65 @@
+---
+// src/components/sections/HowSystemWorks.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import TimelineCard from '../ui/TimelineCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+---
+
+<section class="py-24 bg-white">
+  <div class="max-w-5xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Funcionamiento"
+      title="Cómo <span class='text-blue-600'>Funciona</span> Más Reseñas"
+      subtitle="Del escaneo al mensaje en WhatsApp y la reseña en Google, mientras capturas el lead."
+      color="blue"
+    />
+
+    <div class="relative">
+      <!-- Línea central para desktop -->
+      <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-blue-600 transform -translate-x-1/2"></div>
+      
+      <div class="space-y-16">
+        <TimelineCard 
+          step={1}
+          icon="settings"
+          title="Configura tu <span class='text-blue-600'>WhatsApp</span> y enlace de reseñas"
+          description="Ingresa tu número de WhatsApp y el link directo para reseñar tu ficha de Google. Configuración en minutos."
+          isEven={false}
+          animated={true}
+          delay={200}
+        />
+        
+        <TimelineCard 
+          step={2}
+          icon="qr_code"
+          title="Generamos tu <span class='text-blue-600'>QR único</span>"
+          description="El sistema crea un código QR listo para imprimir y colocar en tu negocio (mostrador, mesas, entrada)."
+          isEven={true}
+          animated={true}
+          delay={400}
+        />
+        
+        <TimelineCard 
+          step={3}
+          icon="chat"
+          title="Escanean y reciben <span class='text-blue-600'>mensaje</span> en WhatsApp"
+          description="Al escanear el QR, se abre WhatsApp con un mensaje listo invitando a reseñar. El contacto queda guardado como lead."
+          isEven={false}
+          animated={true}
+          delay={600}
+        />
+        
+        <TimelineCard 
+          step={4}
+          icon="rate_review"
+          title="Publican su <span class='text-blue-600'>reseña</span> en Google"
+          description="Con un toque, abren tu enlace de reseñas en Google y dejan su opinión. Tú ganas una reseña y un nuevo contacto."
+          isEven={true}
+          animated={true}
+          delay={800}
+        />
+      </div>
+    </div>
+  </div>
+</section>

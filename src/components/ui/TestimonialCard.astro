@@ -1,0 +1,42 @@
+---
+// src/components/ui/TestimonialCard.astro
+interface Props {
+  author: string;
+  company: string;
+  color?: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'yellow' | 'pink';
+}
+
+const { author, company, color = 'blue' } = Astro.props;
+
+const colorClasses = {
+  border: {
+    blue: 'hover:border-blue-200',
+    green: 'hover:border-green-200',
+    purple: 'hover:border-purple-200',
+    orange: 'hover:border-orange-200',
+    red: 'hover:border-red-200',
+    yellow: 'hover:border-yellow-200',
+    pink: 'hover:border-pink-200',
+  }
+}
+---
+
+<div class:list={["group bg-white border-2 border-gray-100 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full flex flex-col font-dmsans", colorClasses.border[color]]}>
+  <div class="flex-grow">
+    <div class="flex text-yellow-400 text-xl mb-4">
+      ⭐⭐⭐⭐⭐
+    </div>
+    <p class="text-gray-700 leading-relaxed italic">
+      "<slot />"
+    </p>
+  </div>
+  <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-100">
+    <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+      <slot name="avatar" />
+    </div>
+    <div>
+      <div class="font-bold text-gray-900">{author}</div>
+      <div class="text-gray-600 text-sm">{company}</div>
+    </div>
+  </div>
+</div>

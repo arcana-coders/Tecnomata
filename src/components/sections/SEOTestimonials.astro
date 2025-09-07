@@ -1,0 +1,40 @@
+---
+// src/components/sections/SEOTestimonials.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import TestimonialCard from '../ui/TestimonialCard.astro';
+---
+
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Casos de Éxito"
+      title="Negocios reales con <span class='text-blue-600'>resultados reales</span>"
+      subtitle="Descubre cómo hemos transformado la presencia digital de negocios como el tuyo en Morelos."
+      color="blue"
+    />
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <TestimonialCard author="María González" company="Clínica Dental" color="blue">
+        <div slot="avatar" class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">MG</div>
+        <Fragment slot="default">
+          En 3 meses pasamos de 0 a ser el primer resultado en Google Maps. Ahora recibimos mas clientes.
+        </Fragment>
+      </TestimonialCard>
+      
+      <TestimonialCard author="Roberto Martínez" company="Bufete Jurídico" color="green">
+        <div slot="avatar" class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">RM</div>
+        <Fragment slot="default">
+          El SEO local cambió nuestro negocio. De 2 clientes por semana a 20. La inversión se pagó sola en el primer mes.
+        </Fragment>
+      </TestimonialCard>
+      
+      <TestimonialCard author="Ana López" company="Restaurante Tradicional" color="red">
+        <div slot="avatar" class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white font-bold"><span class="material-symbols-outlined">person</span></div>
+        <Fragment slot="default">
+          Tecnomata nos posicionó #1 en Google Maps en Jiutepec. Nuestras ventas aumentaron 400% en 6 meses.
+        </Fragment>
+      </TestimonialCard>
+    </div>
+  </div>
+</section>

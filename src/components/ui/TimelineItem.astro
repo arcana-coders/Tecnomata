@@ -1,0 +1,105 @@
+---
+interface Props {
+  step: number;
+  title: string;
+  description: string;
+  icon?: string;
+  isLast?: boolean;
+  variant?: 'vertical' | 'horizontal';
+  animated?: boolean;
+  delay?: number;
+}
+
+const {
+  step,
+  title,
+  description,
+  icon,
+  isLast = false,
+  variant = 'vertical',
+  animated = true,
+  delay = 0
+} = Astro.props;
+---
+
+{variant === 'vertical' ? (
+  <!-- Timeline Vertical -->
+  <div 
+    class={`
+      relative flex items-start
+      ${animated ? 'scroll-animate animate-fade-in-up' : ''}
+    `}
+    style={animated && delay ? `animation-delay: ${delay}ms` : ''}
+  >
+    <!-- Timeline Line -->
+    {!isLast && (
+      <div class="absolute left-6 top-12 bottom-0 w-0.5 bg-gradient-to-b from-orange-300 to-orange-500"></div>
+    )}
+
+    <!-- Step Circle -->
+    <div class="relative z-10 flex-shrink-0">
+      <div class="flex items-center justify-center w-12 h-12 rounded-full bg-orange-500 text-white font-bold text-lg shadow-lg">
+        {icon ? (
+          <span class="text-xl">{icon}</span>
+        ) : (
+          step
+        )}
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="ml-6 pb-8">
+      <h3 class="text-xl font-black text-gray-900 mb-3">
+        {title}
+      </h3>
+      <p class="text-gray-600 leading-relaxed">
+        {description}
+      </p>
+    </div>
+  </div>
+) : (
+  <!-- Timeline Horizontal -->
+  <div 
+    class={`
+      flex flex-col items-center text-center max-w-sm
+      ${animated ? 'scroll-animate animate-fade-in-up' : ''}
+    `}
+    style={animated && delay ? `animation-delay: ${delay}ms` : ''}
+  >
+    <!-- Step Circle -->
+    <div class="relative mb-6">
+      <div class="flex items-center justify-center w-16 h-16 rounded-full bg-orange-500 text-white font-bold text-xl shadow-lg">
+        {icon ? (
+          <span class="text-2xl">{icon}</span>
+        ) : (
+          step
+        )}
+      </div>
+      
+      <!-- Connection Line -->
+      {!isLast && (
+        <div class="hidden md:block absolute left-full top-1/2 transform -translate-y-1/2 w-24 h-0.5 bg-gradient-to-r from-orange-300 to-orange-500"></div>
+      )}
+    </div>
+
+    <!-- Content -->
+    <div>
+      <h3 class="text-lg font-black text-gray-900 mb-3">
+        {title}
+      </h3>
+      <p class="text-gray-600 text-sm leading-relaxed">
+        {description}
+      </p>
+    </div>
+  </div>
+)}
+
+<style>
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .scroll-animate {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+</style>

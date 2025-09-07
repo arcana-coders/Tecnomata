@@ -1,0 +1,66 @@
+---
+// src/components/sections/QRReviewDemo.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+import qrImg from '../../../images/qr-tecnomata.png';
+---
+
+<section class="py-20 bg-white font-dmsans">
+  <div class="max-w-6xl mx-auto px-6">
+    <SectionHeader
+      pill="Demo QR"
+      title="Escanea el QR y deja tu <span class='text-blue-600'>reseña</span> en Google"
+      subtitle="Esto es un QR real generado con nuestra herramienta de Más Reseñas para Tecnomata. Pruébalo con tu teléfono."
+      color="blue"
+    />
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <!-- QR card -->
+      <div class="bg-white border rounded-2xl shadow-lg p-6 md:p-8 flex items-center justify-center">
+        <img
+          src={qrImg.src}
+          width={qrImg.width}
+          height={qrImg.height}
+          alt="QR para dejar reseña en Google a Tecnomata"
+          class="w-full max-w-sm h-auto rounded-lg"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Steps -->
+      <div class="space-y-5">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-full border-2 border-blue-600 text-blue-600 bg-white flex items-center justify-center shrink-0">
+            <MaterialSymbol icon="photo_camera" size="xl" />
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">1) Abre la cámara de tu celular</h3>
+            <p class="text-gray-600">O cualquier app de lector QR.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-full border-2 border-blue-600 text-blue-600 bg-white flex items-center justify-center shrink-0">
+            <MaterialSymbol icon="qr_code_2" size="xl" />
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">2) Escanea el QR</h3>
+            <p class="text-gray-600">Se mostrará un enlace para continuar.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-full border-2 border-blue-600 text-blue-600 bg-white flex items-center justify-center shrink-0">
+            <MaterialSymbol icon="rate_review" size="xl" />
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">3) Deja tu reseña en Google</h3>
+            <p class="text-gray-600">Te llevará directo a la página de reseñas del perfil de Google de Tecnomata.</p>
+          </div>
+        </div>
+
+        <p class="text-sm text-gray-500 mt-4">Nota: En escritorio, escanéalo con tu celular para probar la experiencia real del cliente.</p>
+      </div>
+    </div>
+  </div>
+</section>

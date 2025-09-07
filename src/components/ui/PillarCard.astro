@@ -1,0 +1,89 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  description: string;
+  variant?: 'form' | 'frame' | 'flow';
+  features: string[];
+  image?: string;
+}
+
+const { title, subtitle, description, variant = 'form', features, image } = Astro.props;
+
+const variantConfig = {
+  form: {
+    icon: '🎨',
+    color: 'from-blue-500 to-cyan-500',
+    bg: 'from-blue-50/80 to-cyan-50/80',
+    accent: 'blue'
+  },
+  frame: {
+    icon: '🖼️',
+    color: 'from-purple-500 to-pink-500', 
+    bg: 'from-purple-50/80 to-pink-50/80',
+    accent: 'purple'
+  },
+  flow: {
+    icon: '🌊',
+    color: 'from-green-500 to-emerald-500',
+    bg: 'from-green-50/80 to-emerald-50/80', 
+    accent: 'green'
+  }
+};
+
+const config = variantConfig[variant];
+---
+
+<div class={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${config.bg} backdrop-blur-sm border border-${config.accent}-200/50 p-8 md:p-10 hover:shadow-2xl hover:scale-[1.02] transition-all duration-700`}>
+  
+  <!-- Google dots como detalle sutil -->
+  <div class="absolute top-6 right-6 flex gap-1 opacity-30 group-hover:opacity-60 transition-opacity">
+    <div class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+    <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse delay-100"></div>
+    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse delay-200"></div>
+    <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse delay-300"></div>
+  </div>
+
+  <!-- Header con símbolo registrado estilo Visinex -->
+  <div class="mb-8">
+    <div class="flex items-center gap-4 mb-6">
+      <div class={`w-16 h-16 bg-gradient-to-r ${config.color} rounded-2xl flex items-center justify-center shadow-lg`}>
+        <span class="text-2xl">{config.icon}</span>
+      </div>
+      <div>
+        <h3 class="text-3xl md:text-4xl font-black text-gray-900 flex items-center gap-2">
+          {title}
+          <span class={`text-lg font-light text-${config.accent}-500`}>®</span>
+        </h3>
+        {subtitle && (
+          <p class={`text-sm font-medium text-${config.accent}-600 mt-1`}>{subtitle}</p>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <!-- Descripción elegante -->
+  <div class="mb-8">
+    <p class="text-gray-600 text-lg leading-relaxed">{description}</p>
+  </div>
+
+  <!-- Features con estilo refinado -->
+  <div class="space-y-4">
+    {features.map((feature, index) => (
+      <div class="flex items-center gap-4 group/item hover:translate-x-2 transition-transform duration-300">
+        <div class={`w-8 h-8 bg-gradient-to-r ${config.color} rounded-xl flex items-center justify-center shadow-sm`}>
+          <span class="text-white text-sm font-bold">{String(index + 1).padStart(2, '0')}</span>
+        </div>
+        <span class="text-gray-700 font-medium group-hover/item:text-gray-900 transition-colors">{feature}</span>
+      </div>
+    ))}
+  </div>
+
+  <!-- Línea decorativa estilo Visinex -->
+  <div class={`absolute bottom-0 left-0 w-full h-1.5 bg-gradient-to-r ${config.color} opacity-60 group-hover:opacity-100 transition-opacity`}></div>
+  
+  <!-- Pattern decorativo sutil -->
+  <div class="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity">
+    <div class="w-full h-full" style="background-image: radial-gradient(circle, currentColor 1px, transparent 1px); background-size: 20px 20px;"></div>
+  </div>
+</div>

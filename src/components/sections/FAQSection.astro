@@ -1,0 +1,47 @@
+---
+// src/components/sections/FAQSection.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import FAQItem from '../ui/FAQItem.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
+
+interface Props {
+  title: string;
+  subtitle: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<section class="py-24 bg-white">
+  <div class="max-w-4xl mx-auto px-6">
+    <SectionHeader
+      pill="Preguntas Frecuentes"
+      title={title}
+      subtitle={subtitle}
+      color="blue"
+    />
+
+    <div class="grid md:grid-cols-2 gap-8 text-left">
+      <FAQItem
+        question="¿El diagnóstico es realmente gratis?"
+        answer="Sí, completamente gratis y sin compromiso. Analizamos tu situación actual y te damos recomendaciones específicas."
+      />
+
+      <FAQItem
+        question="¿Cuánto tiempo toma el diagnóstico?"
+        answer="Entre 15-30 minutos vía WhatsApp o videollamada. Te explicamos todo de forma clara y sin tecnicismos."
+      />
+
+      <FAQItem
+        question="¿Trabajan con negocios pequeños?"
+        answer="Sí, nos especializamos en pequeñas y medianas empresas. Tenemos planes accesibles para cualquier presupuesto."
+      
+      />
+
+      <FAQItem
+        question="¿Ofrecen garantía en sus servicios?"
+        answer="Sí, garantizamos nuestro trabajo. Si no ves resultados en el tiempo acordado, ajustamos la estrategia."
+      />
+    </div>
+  </div>
+</section>

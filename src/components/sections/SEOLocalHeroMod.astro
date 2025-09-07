@@ -1,0 +1,41 @@
+---
+// Modular hero for SEO Local with 590px two-column breakpoint.
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+import storeSvgUrl from '../../../images/storeconstars.svg?url';
+
+interface Props {
+  subtitle: string;
+  title: string; // can include HTML spans
+  description: string; // allow basic HTML
+  ctaText: string;
+  ctaHref: string;
+}
+
+const { subtitle, title, description, ctaText, ctaHref } = Astro.props;
+---
+<section class="bg-white font-dmsans py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid gap-16 items-center two-col-590">
+      <!-- Left: content -->
+      <div class="space-y-8">
+        <p class="text-lg font-semibold text-blue-600">{subtitle}</p>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 leading-tight tracking-tighter" set:html={title} />
+        <p class="text-xl text-gray-600 leading-relaxed" set:html={description} />
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href={ctaHref} class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 font-bold text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/30">
+            <MaterialSymbol icon="ads_click" size="lg" class="mr-2" />{ctaText}
+          </a>
+        </div>
+      </div>
+      <!-- Right: visual -->
+      <div class="flex items-center justify-center">
+        <img src={storeSvgUrl} alt="Ilustración de tiendas con estrella" class="w-full max-w-[520px] h-auto" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .two-col-590 { grid-template-columns: 1fr; }
+  @media (min-width: 590px) { .two-col-590 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

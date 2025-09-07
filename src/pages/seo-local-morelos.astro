@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Banner from '../components/ui/Banner.astro';
+import SEOLocalHeroMod from '../components/sections/SEOLocalHeroMod.astro';
+import WhatIsSEOLocal from '../components/sections/WhatIsSEOLocal.astro';
+import SEOPowerStats from '../components/sections/SEOPowerStats.astro';
+import OurProcess from '../components/sections/OurProcess.astro';
+import SEOTestimonials from '../components/sections/SEOTestimonials.astro';
+import CTA from '../components/ui/CTA.astro';
+import MaterialSymbol from '../components/ui/MaterialSymbol.astro'; // Added import
+import TrustBar from '../components/ui/TrustBar.astro';
+---
+
+<Layout 
+  title="SEO Local Morelos | Tecnomata - Primeros en Google Maps"
+  description="Especialistas en SEO Local en Morelos. Posicionamos tu negocio en Google Maps y búsquedas locales. Resultados garantizados en 90 días. ¡Cotiza gratis!"
+>
+
+<!-- Banner Superior -->
+<Banner 
+  text="💎 Especialistas en SEO Local Morelos • Más clientes locales • Resultados garantizados"
+  variant="accent"
+  speed="normal"
+/>
+
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <TrustBar />
+</section>
+
+<!-- Hero Principal (modular, 3 tiendas, sin estrellas aún) -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <SEOLocalHeroMod 
+    subtitle="#1 en SEO Local Morelos"
+    title="Más <span class='text-blue-600'>Clientes</span> para tu Negocio"
+    description="Posicionamos tu empresa en Google Maps y búsquedas locales de Morelos. 76% de las personas que buscan un negocio local lo visitan en menos de 24 horas."
+    ctaText="Diagnóstico SEO Gratuito"
+    ctaHref="/contacto"
+  />
+</section>
+
+<!-- ¿Qué es SEO Local? -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <WhatIsSEOLocal />
+</section>
+
+<!-- Estadísticas Impactantes -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <SEOPowerStats />
+</section>
+
+<!-- Proceso de Trabajo -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <OurProcess />
+</section>
+
+<!-- Testimoniales -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <SEOTestimonials />
+</section>
+
+<!-- CTA Final -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+<CTA 
+  title="¿Listo para Ser #1 en <span class='sr-only'>Google</span><span aria-hidden='true'><span class='text-[#4285F4]'>G</span><span class='text-[#EA4335]'>o</span><span class='text-[#FBBC05]'>o</span><span class='text-[#4285F4]'>g</span><span class='text-[#34A853]'>l</span><span class='text-[#EA4335]'>e</span></span> <span class='text-blue-600'>Maps</span>?"
+  subtitle="Impulsa tu visibilidad en Morelos con un plan claro y acciones medibles."
+  ctaText="Diagnóstico SEO Gratuito"
+  ctaLink="/contacto"
+/>
+</section>
+
+
+<!-- Banner Inferior -->
+<Banner 
+  text="🚀 Garantía de resultados en 90 días • Especialistas certificados • Soporte 24/7"
+  variant="default"
+  speed="fast"
+/>
+
+</Layout>

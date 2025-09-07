@@ -1,0 +1,77 @@
+---
+// src/components/sections/MainServices.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import MainServiceCard from '../ui/MainServiceCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+---
+
+<section class="py-24 bg-gray-900 scroll-animate" data-animate="fade-up">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Nuestros Servicios"
+      title="Servicios que <span class='text-blue-500'>transforman</span><br/>tu presencia digital"
+      subtitle="Nuestros servicios están diseñados específicamente para negocios de Morelos que quieren dominar su mercado local."
+      color="blue"
+      theme="dark"
+    />
+
+  <div class="grid lg:grid-cols-3 gap-8 scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="150">
+      
+      <MainServiceCard
+        title="SEO Local Morelos"
+        ctaLink="/seo-local-morelos"
+        ctaText="Saber más"
+        color="blue"
+        theme="dark"
+      >
+        <MaterialSymbol slot="icon" icon="location_on" size="3xl" />
+        <p slot="description">
+          Posicionamos tu negocio en Google Maps y búsquedas locales. Aparece cuando tus clientes te necesiten en Cuernavaca, Temixco, Jiutepec y toda la zona.
+        </p>
+        <ul slot="features">
+          <li class="main-service-feature">Optimización de Google My Business</li>
+          <li class="main-service-feature">Palabras clave locales estratégicas</li>
+          <li class="main-service-feature">Citations y directorios locales</li>
+        </ul>
+      </MainServiceCard>
+      
+      <MainServiceCard
+        title="Diseño Web + SEO"
+        ctaLink="/diseno-web-seo"
+        ctaText="Saber más"
+        color="green"
+        theme="dark"
+      >
+        <MaterialSymbol slot="icon" icon="palette" size="3xl" />
+        <p slot="description">
+          Páginas web rápidas, atractivas y optimizadas para convertir visitantes en clientes. Diseñamos pensando en resultados, no solo en apariencia.
+        </p>
+        <ul slot="features">
+          <li class="main-service-feature">Páginas que cargan en menos de 3 segundos</li>
+          <li class="main-service-feature">Optimizadas para móviles (responsive)</li>
+          <li class="main-service-feature">SEO técnico incluido desde el inicio</li>
+        </ul>
+      </MainServiceCard>
+
+      <MainServiceCard
+        title="Más Reseñas"
+        ctaLink="/mas-resenas"
+        ctaText="Saber más"
+        color="red"
+        theme="dark"
+      >
+        <MaterialSymbol slot="icon" icon="star" size="3xl" />
+        <p slot="description">
+          Ayudamos a generar más reseñas positivas de manera ética y natural. Las reseñas son fundamentales para la confianza y el SEO local.
+        </p>
+        <ul slot="features">
+          <li class="main-service-feature">Campañas de solicitud de reseñas</li>
+          <li class="main-service-feature">Monitoreo y respuesta a comentarios</li>
+          <li class="main-service-feature">Estrategias de mejora de reputación</li>
+        </ul>
+      </MainServiceCard>
+
+    </div>
+  </div>
+</section>

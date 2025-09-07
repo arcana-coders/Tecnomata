@@ -1,0 +1,58 @@
+---
+// src/components/sections/LocalSEO.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import ServiceCard from '../ui/ServiceCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
+---
+
+<section class="py-24 bg-white scroll-animate" data-animate="fade-up">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Estrategia SEO"
+      title="Posicionamiento <span class='text-blue-600'>SEO</span> local con<br/>estrategia real"
+      subtitle="No hacemos SEO genérico. Cada estrategia se diseña específicamente para tu negocio y ubicación."
+      color="blue"
+    />
+
+  <div class="grid lg:grid-cols-3 gap-8 scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="150">
+      
+      <ServiceCard
+        title="Auditoría técnica y contenido relevante"
+        badge="📈 Análisis profundo"
+        color="blue"
+        theme="dark"
+      >
+        <MaterialSymbol slot="icon" icon="search" size="3xl" />
+        <pn slot="description">
+          Revisamos tu web, competencia, ficha de Google y palabras clave locales para crear una estrategia basada en datos.
+        </pn>
+      </ServiceCard>
+      
+      <ServiceCard
+        title="Optimización de tu ficha de Google (GMB)"
+        badge="⭐ Más reseñas"
+        color="green"
+        theme="dark"
+      >
+        <MaterialSymbol slot="icon" icon="business" size="3xl" />
+        <pn slot="description">
+          Completamos, corregimos y potenciamos tu perfil de empresa para que gane visibilidad y clics.
+        </pn>
+      </ServiceCard>
+
+      <ServiceCard
+        title="Backlinks y autoridad local"
+        badge="💪 Autoridad real"
+        color="red"
+        theme="dark"
+      >
+        <MaterialSymbol slot="icon" icon="link" size="3xl" />
+        <pn slot="description">
+          Conseguimos enlaces desde medios y portales locales que mejoran tu posición sin trucos.
+        </pn>
+      </ServiceCard>
+
+    </div>
+  </div>
+</section>

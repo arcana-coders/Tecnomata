@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Banner from '../components/ui/Banner.astro';
+import GoogleMaps from '../components/sections/GoogleMaps.astro';
+import LocalSEO from '../components/sections/LocalSEO.astro';
+import WebDesign from '../components/sections/WebDesign.astro';
+import MainServices from '../components/sections/MainServices.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import CTA from '../components/ui/CTA.astro';
+import MaterialSymbol from '../components/ui/MaterialSymbol.astro'; // Added import
+import TrustBar from '../components/ui/TrustBar.astro';
+import LocalResults from '../components/sections/LocalResults.astro';
+---
+
+<Layout>
+
+  <Hero />
+
+  <TrustBar />
+
+  <Banner
+    items={[
+      { icon: 'my_location', label: 'SEO LOCAL MORELOS' },
+      { icon: 'map', label: 'GOOGLE MAPS' },
+      { icon: 'store', label: 'GOOGLE MY BUSINESS' },
+      { icon: 'trending_up', label: 'PRIMEROS LUGARES' },
+    ]}
+    variant="default"
+    speed="fast"
+  />
+
+  <GoogleMaps />
+
+  <LocalSEO />
+
+  <LocalResults />
+
+  <WebDesign />
+
+  <MainServices />
+
+  <Testimonials />
+
+  <CTA 
+    title="¿Quieres ser nuestro próximo <span class='text-blue-600'>caso de éxito?</span>"
+    subtitle="Únete a más de 100 negocios de Morelos que ya están dominando Google y generando más clientes cada día."
+    ctaText="🎯 Solicitar mi estrategia personalizada"
+    ctaLink="/contacto"
+  />
+
+</Layout>

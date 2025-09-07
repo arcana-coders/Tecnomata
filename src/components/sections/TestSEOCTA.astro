@@ -1,0 +1,56 @@
+---
+// src/components/sections/TestSEOCTA.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaLink: string;
+}
+
+const { title, subtitle, ctaText, ctaLink } = Astro.props;
+---
+
+<section class="py-24 bg-gray-900 font-dmsans">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    
+    <SectionHeader
+      pill="Test Gratuito"
+      title={title}
+      subtitle={subtitle}
+      color="blue"
+      theme="dark"
+    />
+
+    <!-- Formulario de test integrado -->
+    <div class="pt-8 max-w-2xl mx-auto">
+      <div class="bg-gray-800 border-2 border-gray-700 p-8 shadow-lg rounded-xl">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <input 
+            type="url" 
+            placeholder="https://tu-sitio-web.com" 
+            class="flex-1 px-4 py-3 border-2 border-gray-700 bg-gray-900 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none text-lg rounded-lg"
+            id="website-url-2"
+          />
+          <button 
+            onclick="analyzeSEO2()" 
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 transition-all duration-300 hover:scale-105 whitespace-nowrap rounded-lg"
+          >
+            <MaterialSymbol icon="search" size="lg" class="mr-2" />Analizar SEO Gratis
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center mt-8">
+      <a href={ctaLink} class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 transition-all duration-300 hover:scale-105 rounded-lg">
+        ¿Necesitas ayuda con tu SEO?
+      </a>
+      <a href="tel:7774094647" class="inline-block border-2 border-gray-300 hover:bg-white hover:text-gray-900 text-white font-bold px-8 py-4 transition-all duration-300 rounded-lg">
+        777 409 4647
+      </a>
+    </div>
+  </div>
+</section>

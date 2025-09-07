@@ -1,0 +1,83 @@
+---
+// src/components/sections/Pricing.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+
+interface Plan {
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+  features: string[];
+  cta: string;
+  href: string;
+  featured?: boolean;
+  badge?: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  plans: Plan[];
+}
+
+const { title, description, plans } = Astro.props;
+---
+
+<section class="py-24 bg-white font-dmsans">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Nuestros Precios"
+      title={title}
+      subtitle={description}
+      color="blue"
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+      {plans.map((plan) => (
+        <div class:list={[
+          "group relative h-full rounded-xl p-8 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
+          plan.featured ? 'bg-blue-600 text-white shadow-lg' : 'bg-white border border-gray-200 text-gray-900'
+        ]}>
+          {plan.badge && (
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+              <div class="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold">
+                {plan.badge}
+              </div>
+            </div>
+          )}
+
+          <div class="mb-8 pt-4">
+            <h3 class="text-2xl font-bold mb-2">{plan.name}</h3>
+            <div class="flex items-baseline gap-2 mb-4">
+              <span class:list={["text-4xl font-black", plan.featured ? 'text-white' : 'text-blue-600']}>{plan.price}</span>
+              <span class:list={["text-lg", plan.featured ? 'text-white/70' : 'text-gray-600']}>/ {plan.period}</span>
+            </div>
+            <p class:list={["leading-relaxed break-words", plan.featured ? 'text-white/80' : 'text-gray-600']}>{plan.description}</p>
+          </div>
+
+          <div class="mb-8 flex-grow">
+            <ul class="space-y-4">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-3">
+                  <MaterialSymbol icon="check_circle" size="lg" class:list={["flex-shrink-0", plan.featured ? 'text-white' : 'text-blue-600']} />
+                  <span class:list={[plan.featured ? 'text-white/90' : 'text-gray-700']}>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="mt-auto">
+            <a href={plan.href} class:list={[
+              "block w-full text-center font-bold px-6 py-4 rounded-lg transition-all duration-300 hover:scale-105",
+              plan.featured ? 'bg-white text-blue-600 hover:bg-gray-100' : 'bg-blue-600 text-white hover:bg-blue-700'
+            ]}>
+              {plan.cta}
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

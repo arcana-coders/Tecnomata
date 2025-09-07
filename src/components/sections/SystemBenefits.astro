@@ -1,0 +1,55 @@
+---
+// src/components/sections/SystemBenefits.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import BenefitCard from '../ui/BenefitCard.astro';
+---
+
+<section class="py-24 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Ventajas"
+      title="Beneficios de <span class='text-blue-600'>Más Reseñas</span>"
+      subtitle="Más reseñas, más confianza y ahora también más leads gracias al flujo con WhatsApp + QR."
+      color="blue"
+    />
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <BenefitCard
+        icon="qr_code"
+        title="Fricción Cero en el Local"
+        description="El cliente escanea el QR y listo: mensaje prellenado y enlace directo a reseñar. Sin pasos extra."
+      />
+
+      <BenefitCard
+        icon="contacts"
+        title="Captura de Leads"
+        description="Cada escaneo guarda el contacto en WhatsApp. Ganas reseñas y una base de clientes para futuras campañas."
+      />
+
+      <BenefitCard
+        icon="trending_up"
+        title="Sube en Resultados Locales"
+        description="Más reseñas recientes y positivas mejoran tu visibilidad en el mapa y en el ranking local de Google."
+      />
+
+      <BenefitCard
+        icon="manage_accounts"
+        title="Control del Mensaje"
+        description="Personaliza el texto de invitación en WhatsApp y guía la experiencia del cliente de manera consistente."
+      />
+
+      <BenefitCard
+        icon="analytics"
+        title="Métricas Claras"
+        description="Ve cuántos escaneos, mensajes y reseñas se generan por sucursal y periodo. Toma decisiones con datos."
+      />
+
+      <BenefitCard
+        icon="shield"
+        title="Protege tu Reputación"
+        description="Canaliza feedback sensible por WhatsApp antes de que se publique. Convierte problemas en oportunidades."
+      />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Banner from '../components/ui/Banner.astro';
+import ContactPageHero from '../components/sections/ContactPageHero.astro';
+import ContactMethods from '../components/sections/ContactMethods.astro';
+import ContactFormSection from '../components/sections/ContactFormSection.astro';
+import FAQSection from '../components/sections/FAQSection.astro';
+import CTA from '../components/ui/CTA.astro';
+---
+
+<Layout 
+  title="Contacto | Tecnomata - Agencia SEO y Diseño Web en Morelos"
+  description="Contáctanos para tu proyecto de SEO local, diseño web o app de reseñas. Diagnóstico gratuito. Respuesta en menos de 2 horas. WhatsApp: 777 409 4647"
+>
+
+<!-- Banner superior -->
+<Banner 
+  text="📞 Respuesta en menos de 2 horas • Diagnóstico SEO gratuito • WhatsApp: 777 409 4647"
+  variant="accent"
+  speed="slow"
+/>
+
+<!-- Hero Section -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+<ContactPageHero
+  subtitle="Diagnóstico SEO gratuito y cotización personalizada"
+  title="¡<span class='text-blue-600'>Hablemos</span> de tu proyecto!"
+  description="¿Listo para hacer crecer tu negocio en Morelos? Solicita tu diagnóstico SEO gratis o cotiza tu página web. Te respondemos personalmente en menos de 2 horas."
+  ctaText="Contactar por WhatsApp"
+  ctaHref="https://wa.me/527774094647"
+  stats={[
+    { number: "2", label: "Horas respuesta", suffix: "" },
+    { number: "200", label: "Proyectos exitosos", suffix: "+" },
+    { number: "100", label: "Diagnóstico gratuito", suffix: "%" }
+  ]}
+/>
+</section>
+
+<!-- Información de contacto y formulario -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <ContactMethods />
+  
+</section>
+
+<!-- Formulario de contacto -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+<ContactFormSection
+  title="Solicitar Diagnóstico <span class='text-blue-600'>Gratuito</span>"
+  subtitle="Te ayudamos a mejorar tu SEO y posicionamiento en Google."
+/>
+</section>
+
+<!-- Sección de preguntas frecuentes -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+<FAQSection
+  title="🤔 ¿Tienes dudas?"
+  subtitle="Estas son las preguntas más frecuentes sobre nuestros servicios."
+/>
+</section>
+
+<!-- CTA final -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+<CTA
+  title="¿Listo para despegar en <span class='align-baseline inline-block' aria-label='Google'><span class='text-[#4285F4]'>G</span><span class='text-[#EA4335]'>o</span><span class='text-[#FBBC05]'>o</span><span class='text-[#4285F4]'>g</span><span class='text-[#34A853]'>l</span><span class='text-[#EA4335]'>e</span></span>? <span class='text-blue-600'>Hablemos</span> hoy"
+  subtitle="Obtén tu diagnóstico SEO local gratis y un plan claro para posicionarte en Maps y resultados orgánicos."
+  ctaText="Quiero mi diagnóstico"
+  ctaLink="https://wa.me/527774094647"
+  variant="default"
+/>
+</section>
+
+</Layout>

@@ -1,0 +1,40 @@
+---
+// src/components/ui/MaterialSymbol.astro
+interface Props {
+  icon: string; // The name of the Material Symbol (e.g., 'search', 'location_on')
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'; // Tailwind text sizes
+  fill?: 0 | 1; // Material Symbols fill property
+  weight?: 100 | 200 | 300 | 400 | 500 | 600 | 700; // Material Symbols weight property
+  grade?: -25 | 0 | 200; // Material Symbols grade property
+  opticalSize?: 20 | 24 | 40 | 48; // Material Symbols optical size property
+  class?: string; // Optional class to pass to the span
+}
+
+const { icon, size = 'md', fill = 0, weight = 400, grade = 0, opticalSize = 24, class: className = '' } = Astro.props as Props;
+// Some brand names are not available in Material Symbols.
+// Provide reasonable fallbacks to avoid rendering plain text.
+const resolvedIcon = icon === 'whatsapp' ? 'chat' : icon;
+
+const sizeClasses = {
+  sm: 'text-base',
+  md: 'text-lg',
+  lg: 'text-xl',
+  xl: 'text-2xl',
+  '2xl': 'text-3xl',
+  '3xl': 'text-4xl',
+  '4xl': 'text-5xl',
+};
+---
+
+<span 
+  class:list={["material-symbols-outlined", sizeClasses[size], className]}
+  style={`
+    font-variation-settings: 
+      'FILL' ${fill},
+      'wght' ${weight},
+      'GRAD' ${grade},
+      'opsz' ${opticalSize};
+  `}
+>
+  {resolvedIcon}
+</span>

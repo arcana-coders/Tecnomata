@@ -1,0 +1,44 @@
+---
+// src/components/sections/GoogleMaps.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import FeatureCard from '../ui/FeatureCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
+---
+
+<section class="py-24 bg-white scroll-animate" data-animate="fade-up">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Google Maps Local"
+      title="¿Buscas <span class='text-blue-600'>más clientes</span><br/>para tu negocio?"
+      subtitle="Aparecer en Google Maps es la clave para que te encuentren cuando más te necesitan."
+      color="blue"
+    />
+
+  <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="150">
+      
+      <FeatureCard
+        title="Aparece en el paquete local de resultados"
+        badge="🚀 +300% más visibilidad"
+        color="blue"
+      >
+        <MaterialSymbol slot="icon" icon="location_on" size="2xl" />
+        <p slot="description">
+          ¿Sabías que más del 80% de los clics locales van a los tres negocios que aparecen en el mapa? Optimizamos tu ficha para que estés ahí.
+        </p>
+      </FeatureCard>
+      
+      <FeatureCard
+        title="Atrae clientes listos para comprar cerca de ti"
+        badge="💰 Clientes de calidad"
+        color="green"
+      >
+        <MaterialSymbol slot="icon" icon="ads_click" size="2xl" />
+        <p slot="description">
+          Cuando buscan "abogado Cuernavaca" o "dentista Jiutepec", que sea tu negocio el que aparezca en los resultados.
+        </p>
+      </FeatureCard>
+
+    </div>
+  </div>
+</section>

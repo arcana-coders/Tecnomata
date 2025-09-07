@@ -1,0 +1,131 @@
+---
+// src/components/sections/TestSEOPageHero.astro
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+
+interface Props {
+  badgeText: string;
+  title: string;
+  subtitle: string;
+}
+
+const { badgeText, title, subtitle } = Astro.props;
+---
+
+<section class="relative min-h-screen bg-white overflow-hidden font-dmsans">
+  <!-- Pattern decorativo sutil -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute inset-0" style="background-image: radial-gradient(circle, #6b7280 1px, transparent 1px); background-size: 30px 30px;"></div>
+  </div>
+
+  <!-- Efectos decorativos -->
+  <div class="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-green-400/10 rounded-full blur-3xl animate-pulse"></div>
+  <div class="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-orange-400/10 to-yellow-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+  
+  <!-- Hero Content minimalista -->
+  <div class="max-w-6xl mx-auto px-6 py-20 relative z-10">
+    <div class="max-w-4xl mx-auto text-center space-y-12">
+      
+      <!-- Badge superior discreto -->
+      <div class="inline-flex items-center gap-3 bg-gray-100 text-gray-700 px-6 py-3 text-sm font-medium rounded-full">
+        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+        {badgeText}
+      </div>
+
+      <!-- Título ultra limpio estilo Visinex -->
+      <div class="space-y-8">
+  <h1 class="text-5xl lg:text-7xl font-black leading-none text-gray-900" set:html={title} data-typewriter data-type-speed="46" data-type-delay="200" data-type-loop="true" data-type-loop-pause="4000" />
+        <p class="text-xl lg:text-2xl font-light text-gray-600 leading-tight max-w-3xl mx-auto" set:html={subtitle} />
+      </div>
+
+      <!-- Formulario de test integrado -->
+      <div class="pt-8 max-w-2xl mx-auto">
+        <div class="bg-white border-2 border-gray-200 p-8 shadow-lg rounded-xl">
+          <div class="flex flex-col gap-4">
+            <input 
+              type="email" 
+              placeholder="tu@email.com" 
+              class="px-4 py-3 border-2 border-gray-200 focus:border-blue-500 focus:outline-none text-lg rounded-lg"
+              id="lead-email"
+              aria-label="Correo electrónico"
+              required
+            />
+            <div class="flex flex-col sm:flex-row gap-4">
+              <input 
+                type="url" 
+                placeholder="https://tu-sitio-web.com" 
+                class="flex-1 px-4 py-3 border-2 border-gray-200 focus:border-blue-500 focus:outline-none text-lg rounded-lg"
+                id="website-url"
+                aria-label="URL de tu sitio web"
+                required
+              />
+              <button 
+                onclick="analyzeSEO()" 
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 transition-all duration-300 hover:scale-105 whitespace-nowrap rounded-lg"
+              >
+                <MaterialSymbol icon="send" size="lg" class="mr-2" />Recibir análisis gratis
+              </button>
+            </div>
+          </div>
+          <p class="text-sm text-gray-500 mt-4 text-center flex justify-center flex-wrap gap-x-4">
+            <span><MaterialSymbol icon="fiber_manual_record" size="sm" class="text-orange-500 mr-1" />Análisis completo</span>
+            <span><MaterialSymbol icon="fiber_manual_record" size="sm" class="text-orange-500 mr-1" />Entrega por email</span>
+            <span><MaterialSymbol icon="fiber_manual_record" size="sm" class="text-orange-500 mr-1" />Resultados en minutos</span>
+          </p>
+        </div>
+      </div>
+      <!-- Estado del análisis -->
+      <div id="seo-status" class="hidden max-w-2xl mx-auto mt-4 space-y-2">
+        <!-- Estado: trabajando -->
+        <div id="seo-status-working" class="flex items-center gap-3 px-4 py-3 rounded-lg border border-blue-200 bg-blue-50 text-blue-700">
+          <MaterialSymbol icon="mark_email_unread" size="lg" class="shrink-0" />
+          <p class="text-sm sm:text-base">
+            Estamos trabajando en tu análisis SEO. Te llegará a tu correo en unos minutos.
+          </p>
+        </div>
+        <!-- Estado: enviado -->
+  <div id="seo-status-done" class="hidden items-center gap-3 px-4 py-3 rounded-lg border border-green-200 bg-green-50 text-green-700">
+          <MaterialSymbol icon="check_circle" size="lg" class="shrink-0" />
+          <p class="text-sm sm:text-base">
+            Análisis enviado. Revisa tu bandeja de entrada.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal de captura de lead antes de ver resultados -->
+<div id="lead-modal" class="fixed inset-0 z-50 hidden font-dmsans">
+  <div class="absolute inset-0 bg-black/60"></div>
+  <div class="relative max-w-lg mx-auto mt-20 bg-white rounded-xl shadow-2xl border-2 border-gray-200 overflow-hidden">
+    <div class="p-6 border-b">
+      <h3 class="text-2xl font-black text-gray-900">¿Dónde te enviamos tu análisis SEO?</h3>
+      <p class="text-gray-600 mt-1">Déjanos tu correo y confirmemos tu sitio para mostrarte el resultado.</p>
+    </div>
+    <div class="p-6 space-y-4">
+      <input 
+        id="lead-modal-email"
+        type="email"
+        placeholder="tu@email.com"
+        class="w-full px-4 py-3 border-2 border-gray-200 focus:border-blue-500 focus:outline-none rounded-lg"
+        aria-label="Correo electrónico"
+        required
+      />
+      <input 
+        id="lead-modal-url"
+        type="url"
+        placeholder="https://tu-sitio-web.com"
+        class="w-full px-4 py-3 border-2 border-gray-200 focus:border-blue-500 focus:outline-none rounded-lg"
+        aria-label="URL de tu sitio web"
+        required
+      />
+      <div class="flex justify-end gap-3 pt-2">
+        <button onclick="closeLeadModal()" class="px-5 py-2 rounded-lg border-2 border-gray-200 text-gray-700 hover:bg-gray-50">Cancelar</button>
+        <button onclick="submitLeadAndShowResults()" class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold">
+          Ver resultados
+        </button>
+      </div>
+    </div>
+  </div>
+  <button class="absolute inset-0 w-full h-full" onclick="closeLeadModal()" aria-label="Cerrar modal" tabindex="-1"></button>
+</div>

@@ -1,0 +1,138 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  projects: Array<{
+    name: string;
+    category: string;
+    description: string;
+    image?: string;
+    tags?: string[];
+    link?: string;
+  }>;
+  showAll?: boolean;
+  ctaText?: string;
+  ctaHref?: string;
+}
+
+const { 
+  title, 
+  description, 
+  projects, 
+  showAll = false, 
+  ctaText = "Ver todos los proyectos",
+  ctaHref = "/contacto"
+} = Astro.props;
+
+const displayProjects = showAll ? projects : projects.slice(0, 4);
+---
+
+<div class="relative">
+  <!-- Header -->
+  <div class="text-center mb-16">
+    <div class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-50 to-pink-50 text-purple-700 px-6 py-3 rounded-full text-sm font-semibold mb-6 border border-purple-200/50">
+      <span class="text-xl">🚀</span>
+      <span>Trabajo reciente</span>
+    </div>
+    <h2 class="text-4xl md:text-5xl font-black bg-gradient-to-r from-gray-900 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6">
+      {title}
+    </h2>
+    <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+      {description}
+    </p>
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+    {displayProjects.map((project, index) => {
+      const colors = ['blue', 'purple', 'pink', 'green'];
+      const color = colors[index % colors.length];
+      
+      return (
+        <div class="group relative">
+          <div class={`relative overflow-hidden rounded-3xl bg-gradient-to-br from-white/90 to-${color}-50/80 backdrop-blur-sm border border-${color}-200/50 hover:shadow-2xl hover:scale-[1.02] transition-all duration-700`}>
+            
+            <!-- Image Section -->
+            {project.image && (
+              <div class="aspect-video overflow-hidden rounded-t-3xl">
+                <img 
+                  src={project.image} 
+                  alt={project.name}
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  loading="lazy"
+                />
+              </div>
+            )}
+
+            <!-- Content -->
+            <div class="p-8">
+              <!-- Category Badge -->
+              <div class={`inline-flex items-center gap-2 bg-${color}-100 text-${color}-700 px-4 py-2 rounded-full text-sm font-semibold mb-4`}>
+                <span class="w-2 h-2 bg-current rounded-full animate-pulse"></span>
+                {project.category}
+              </div>
+
+              <!-- Title & Description -->
+              <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-500">
+                {project.name}
+              </h3>
+              <p class="text-gray-600 leading-relaxed mb-6">
+                {project.description}
+              </p>
+
+              <!-- Tags -->
+              {project.tags && (
+                <div class="flex flex-wrap gap-2 mb-6">
+                  {project.tags.map(tag => (
+                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-200 transition-colors">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <!-- CTA -->
+              {project.link && (
+                <a href={project.link} class={`inline-flex items-center gap-2 text-${color}-600 hover:text-${color}-700 font-semibold group/link transition-colors`}>
+                  <span>Ver proyecto</span>
+                  <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                  </svg>
+                </a>
+              )}
+            </div>
+
+            <!-- Google-inspired accent -->
+            <div class="absolute top-4 right-4 flex gap-1 opacity-30 group-hover:opacity-60 transition-opacity">
+              <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+              <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+              <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+              <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+            </div>
+
+            <!-- Bottom accent line -->
+            <div class={`absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-${color}-400 to-${color}-600 opacity-60 group-hover:opacity-100 transition-opacity`}></div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- CTA Section -->
+  {!showAll && (
+    <div class="text-center">
+      <div class="relative inline-block group">
+        <div class="absolute -inset-1 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
+        <div class="relative bg-white rounded-2xl px-8 py-6 border border-gray-200/50">
+          <p class="text-gray-600 mb-4 text-lg">¿Te gusta lo que ves?</p>
+          <a href={ctaHref} class="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 hover:from-purple-700 hover:via-pink-700 hover:to-red-700 text-white font-bold px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
+            <span>{ctaText}</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  )}
+</div>

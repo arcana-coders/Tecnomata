@@ -1,0 +1,41 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import CaseStudyCard from '../ui/CaseStudyCard.astro';
+---
+<section class="py-24 bg-gray-900 font-dmsans">
+  <div class="max-w-6xl mx-auto px-6">
+    <SectionHeader
+      pill="Resultados"
+      title="Casos de <span class='text-blue-600'>éxito</span>"
+      subtitle="Negocios que confiaron en nosotros y ahora tienen más clientes."
+      color="blue"
+      theme="dark"
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+      <CaseStudyCard
+        percentage="+150%"
+        title="Clínica Dental"
+        description="Aumento en citas online después del rediseño web + SEO local."
+        features={['Posición #1 en "dentista Cuernavaca"', '+50 reseñas positivas', 'Web optimizada para móvil']}
+        theme="dark"
+      />
+
+      <CaseStudyCard
+        percentage="+200%"
+        title="Restaurante"
+        description="Incremento en pedidos online con nueva web y sistema de reservas."
+        features={['Sistema de pedidos integrado', 'Aparece en Maps', '+300% visitas web']}
+        theme="dark"
+      />
+
+      <CaseStudyCard
+        percentage="+80%"
+        title="Inmobiliaria"
+        description="Más leads calificados con nueva web y formularios optimizados."
+        features={['Catálogo de propiedades', 'Formularios inteligentes', 'SEO para búsquedas locales']}
+        theme="dark"
+      />
+    </div>
+  </div>
+</section>

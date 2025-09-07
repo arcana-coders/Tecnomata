@@ -1,0 +1,61 @@
+---
+// src/components/sections/CommonProblems.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import ProblemCard from '../ui/ProblemCard.astro';
+---
+
+<section class="py-24 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Problemas Comunes"
+      title="Problemas más <span class='text-blue-600'>comunes</span>"
+      subtitle="Errores que encontramos en 9 de cada 10 páginas web."
+      color="blue"
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <ProblemCard
+        icon="timer_off"
+        title="Velocidad lenta"
+        description="Tu sitio tarda más de 3 segundos en cargar. Los usuarios se van y Google te penaliza."
+        percentage="85% de sitios"
+      />
+
+      <ProblemCard
+        icon="smartphone"
+        title="No es responsive"
+        description="Tu web no se ve bien en móviles. Pierdes 70% del tráfico actual."
+        percentage="65% de sitios"
+      />
+
+      <ProblemCard
+        icon="search"
+        title="SEO básico mal"
+        description="Títulos, descripciones y palabras clave están mal configurados."
+        percentage="90% de sitios"
+      />
+
+      <ProblemCard
+        icon="analytics"
+        title="Sin Analytics"
+        description="No tienes Google Analytics. No sabes cuántos clientes pierdes."
+        percentage="70% de sitios"
+      />
+
+      <ProblemCard
+        icon="map"
+        title="No aparece en Maps"
+        description="Google My Business mal configurado o inexistente. Pierdes clientes locales."
+        percentage="80% de sitios"
+      />
+
+      <ProblemCard
+        icon="lock"
+        title="Sin HTTPS"
+        description="Tu sitio no es seguro. Google lo marca como 'No seguro' y te penaliza."
+        percentage="40% de sitios"
+      />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+---
+// src/components/sections/AnalysisDetails.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import TestSEOCard from '../ui/TestSEOCard.astro';
+---
+
+<section class="py-24 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Análisis Detallado"
+      title="¿Qué <span class='text-blue-600'>analizamos</span>?"
+      subtitle="Nuestro test SEO revisa los aspectos más importantes de tu página web."
+      color="blue"
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <TestSEOCard
+        title="SEO Técnico"
+        percentage="30%"
+        percentageColor="text-red-500"
+        features={[
+          { text: 'Velocidad muy lenta (7.2s)', status: 'fail' },
+          { text: 'HTTPS configurado', status: 'ok' },
+          { text: 'No es responsive', status: 'fail' },
+        ]}
+      />
+
+      <TestSEOCard
+        title="SEO On-Page"
+        percentage="45%"
+        percentageColor="text-orange-500"
+  variant="dark"
+        features={[
+          { text: 'Título muy largo', status: 'fail' },
+          { text: 'Sin meta descripción', status: 'fail' },
+          { text: 'Headings bien estructurados', status: 'ok' },
+        ]}
+      />
+
+      <TestSEOCard
+        title="SEO Local"
+        percentage="20%"
+        percentageColor="text-red-500"
+        features={[
+          { text: 'Sin Google My Business', status: 'fail' },
+          { text: 'Datos de contacto incompletos', status: 'fail' },
+          { text: 'No aparece en Maps', status: 'fail' },
+        ]}
+      />
+    </div>
+  </div>
+</section>

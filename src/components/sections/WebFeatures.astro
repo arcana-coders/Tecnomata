@@ -1,0 +1,47 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import FeatureCard from '../ui/FeatureCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+---
+<section class="py-24 bg-gray-50 font-dmsans">
+  <div class="max-w-6xl mx-auto px-6">
+    <SectionHeader
+      pill="Incluye"
+      title="¿Qué incluye tu <span class='text-blue-600'>página</span> web?"
+      subtitle="Todo lo necesario para tener una presencia digital profesional y efectiva."
+      color="blue"
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mt-12">
+      <FeatureCard title="Diseño Responsive" color="blue">
+        <MaterialSymbol slot="icon" icon="phone_iphone" size="2xl" />
+        <p slot="description">Tu web se ve perfecta en cualquier dispositivo: móvil, tablet y desktop.</p>
+      </FeatureCard>
+
+      <FeatureCard title="Velocidad Optimizada" color="blue">
+        <MaterialSymbol slot="icon" icon="bolt" size="2xl" />
+        <p slot="description">Páginas ultra rápidas que cargan en menos de 3 segundos para mejor experiencia.</p>
+      </FeatureCard>
+
+      <FeatureCard title="SEO Incluido" color="blue">
+        <MaterialSymbol slot="icon" icon="target" size="2xl" />
+        <p slot="description">Optimización completa para aparecer en Google desde el primer día.</p>
+      </FeatureCard>
+
+      <FeatureCard title="Panel Administrador" color="blue">
+        <MaterialSymbol slot="icon" icon="settings" size="2xl" />
+        <p slot="description">Edita contenidos fácilmente sin necesidad de conocimientos técnicos.</p>
+      </FeatureCard>
+
+      <FeatureCard title="Google Analytics" color="blue">
+        <MaterialSymbol slot="icon" icon="insights" size="2xl" />
+        <p slot="description">Configuración completa para medir visitas, conversiones y resultados.</p>
+      </FeatureCard>
+
+      <FeatureCard title="Soporte 6 Meses" color="blue">
+        <MaterialSymbol slot="icon" icon="handshake" size="2xl" />
+        <p slot="description">Te acompañamos durante los primeros meses con soporte técnico incluido.</p>
+      </FeatureCard>
+    </div>
+  </div>
+</section>

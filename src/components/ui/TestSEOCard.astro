@@ -1,0 +1,55 @@
+---
+// src/components/ui/TestSEOCard.astro
+
+interface Props {
+  title: string;
+  percentage: string;
+  percentageColor: string;
+  features: { text: string; status: 'ok' | 'fail' }[];
+  variant?: 'light' | 'dark';
+}
+
+const { title, percentage, percentageColor, features, variant = 'light' } = Astro.props;
+
+// Paleta de puntos estilo Google
+const dotColors = ['bg-[#4285F4]', 'bg-[#EA4335]', 'bg-[#FBBC05]', 'bg-[#34A853]'];
+
+// Clases del card
+const cardClasses = [
+  'p-6 rounded-xl shadow-lg font-dmsans',
+  variant === 'dark'
+    ? 'bg-gray-900 text-white border-2 border-gray-800'
+    : 'bg-white text-gray-900 border'
+].join(' ');
+
+// Clases del título
+const titleClasses = variant === 'dark' ? 'text-white' : 'text-gray-900';
+
+// Clases del texto de características
+const featureTextClasses = variant === 'dark' ? 'text-gray-200' : 'text-gray-700';
+
+// Color del porcentaje con contraste adecuado
+const percentageContrastClass = variant === 'dark'
+  ? 'text-green-400'
+  : 'text-green-600';
+---
+
+<div class={cardClasses}>
+  <!-- Título y porcentaje apilados -->
+  <div class="flex flex-col gap-1 mb-4">
+    <h3 class={`text-base sm:text-lg font-bold ${titleClasses}`}>{title}</h3>
+    <div class={`text-sm sm:text-base font-bold leading-tight ${percentageContrastClass} break-words`}>
+      {percentage}
+    </div>
+  </div>
+
+  <!-- Lista de características -->
+  <ul class="space-y-2 text-sm">
+    {features.map((feature, i) => (
+      <li class="flex items-center gap-2">
+        <span class={`w-2 h-2 rounded-full ${dotColors[i % dotColors.length]}`}></span>
+        <span class={featureTextClasses}>{feature.text}</span>
+      </li>
+    ))}
+  </ul>
+</div>

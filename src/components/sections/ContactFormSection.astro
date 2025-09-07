@@ -1,0 +1,28 @@
+---
+// src/components/sections/ContactFormSection.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import ContactForm from '../ui/ContactForm.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
+
+interface Props {
+  title: string;
+  subtitle: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<section class="py-24 bg-gray-900">
+  <div class="max-w-6xl mx-auto px-6">
+    <SectionHeader
+      pill="Formulario"
+      title={title}
+      subtitle={subtitle}
+      color="blue"
+      theme="dark"
+    />
+    <div class="max-w-3xl mx-auto">
+      <ContactForm title="Solicitar Diagnóstico Gratuito" variant="dark" />
+    </div>
+  </div>
+</section>

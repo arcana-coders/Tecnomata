@@ -1,0 +1,204 @@
+---
+// src/components/ui/ContactForm.astro
+import MaterialSymbol from './MaterialSymbol.astro';
+
+interface Props {
+  title: string;
+  variant?: 'light' | 'dark';
+}
+
+const { title, variant = 'light' } = Astro.props as Props;
+
+const inputBase = 'w-full px-4 py-3 border-2 rounded-xl transition-all';
+const inputLight = 'border-gray-200 focus:ring-4 focus:ring-blue-100 focus:border-blue-600';
+const inputDark = 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:ring-4 focus:ring-blue-200 focus:border-blue-500';
+---
+
+<div class:list={[
+  'relative rounded-2xl shadow-xl border-2 p-8 md:p-10 font-dmsans',
+  variant === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'
+]}>
+  <div class="absolute -top-1 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-t-2xl"></div>
+  <h2 class:list={[
+    'text-3xl lg:text-4xl font-black mb-2 tracking-tight',
+    variant === 'dark' ? 'text-white' : 'text-gray-900'
+  ]}>{title}</h2>
+  <p class:list={[variant === 'dark' ? 'text-gray-300' : 'text-gray-600', 'mb-8']}>Cuéntanos de ti y de tu negocio. Te daremos un plan claro y accionable.</p>
+
+  <form class="space-y-8" id="contact-form" method="POST" action="https://api.web3forms.com/submit" onsubmit="handleSubmit(event)">
+    <!-- Clave Web3Forms (reemplaza el valor por tu access_key real) -->
+    <input type="hidden" name="access_key" value="ba14b143-143f-425b-b5f6-cea1e2bccdb3" />
+    <!-- Asunto personalizado -->
+    <input type="hidden" name="subject" value="Nuevo contacto desde tecnomata.com" />
+    <!-- HoneyPot (anti-spam) -->
+    <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+    <!-- Redirección opcional (comenta si prefieres manejar solo JS) -->
+    <!-- <input type="hidden" name="redirect" value="https://tecnomata.com/gracias" /> -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="flex gap-4 items-start">
+        <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
+          <MaterialSymbol icon="person" size="xl" />
+        </div>
+        <div class="flex-1">
+          <label for="name" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>Nombre completo *</label>
+          <input 
+            type="text" id="name" name="name" required
+            class:list={[inputBase, variant === 'dark' ? inputDark : inputLight]}
+            placeholder="Tu nombre"
+          />
+        </div>
+      </div>
+
+      <div class="flex gap-4 items-start">
+        <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
+          <MaterialSymbol icon="storefront" size="xl" />
+        </div>
+        <div class="flex-1">
+          <label for="business" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>Nombre del negocio *</label>
+          <input 
+            type="text" id="business" name="business" required
+            class:list={[inputBase, variant === 'dark' ? inputDark : inputLight]}
+            placeholder="Mi Empresa"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="flex gap-4 items-start">
+        <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
+          <MaterialSymbol icon="call" size="xl" />
+        </div>
+        <div class="flex-1">
+          <label for="phone" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>WhatsApp / Teléfono *</label>
+          <input 
+            type="tel" id="phone" name="phone" required
+            class:list={[inputBase, variant === 'dark' ? inputDark : inputLight]}
+            placeholder="777 123 4567"
+          />
+        </div>
+      </div>
+
+      <div class="flex gap-4 items-start">
+        <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
+          <MaterialSymbol icon="mail" size="xl" />
+        </div>
+        <div class="flex-1">
+          <label for="email" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>Email</label>
+          <input 
+            type="email" id="email" name="email"
+            class:list={[inputBase, variant === 'dark' ? inputDark : inputLight]}
+            placeholder="tu@email.com"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="flex gap-4 items-start">
+      <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
+        <MaterialSymbol icon="language" size="xl" />
+      </div>
+      <div class="flex-1">
+        <label for="website" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>Sitio web actual (si tienes)</label>
+        <input 
+          type="url" id="website" name="website"
+          class:list={[inputBase, variant === 'dark' ? inputDark : inputLight]}
+          placeholder="https://tusitio.com"
+        />
+      </div>
+    </div>
+
+    <div class="flex gap-4 items-start">
+      <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
+        <MaterialSymbol icon="category" size="xl" />
+      </div>
+      <div class="flex-1">
+        <label for="service" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>¿Qué servicio te interesa? *</label>
+        <select 
+          id="service" name="service" required
+          class:list={[inputBase, variant === 'dark' ? inputDark : inputLight]}
+        >
+          <option value="">Selecciona un servicio</option>
+          <option value="seo-local">SEO Local - Aparecer en Google Maps</option>
+          <option value="diseno-web">Diseño de Página Web</option>
+          <option value="app-resenas">App de Reseñas - Más opiniones</option>
+          <option value="paquete-completo">Paquete Completo (Web + SEO + Reseñas)</option>
+          <option value="consultoria">Solo Consultoría/Asesoramiento</option>
+          <option value="otro">Otro (especifica en el mensaje)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex gap-4 items-start">
+      <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
+        <MaterialSymbol icon="edit_note" size="xl" />
+      </div>
+      <div class="flex-1">
+        <label for="message" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>Cuéntanos sobre tu proyecto</label>
+        <textarea 
+          id="message" name="message" rows="4"
+          class:list={[inputBase, variant === 'dark' ? inputDark : inputLight]}
+          placeholder="Describe tu negocio, qué quieres lograr, tu presupuesto aproximado, etc. Mientras más detalles, mejor será nuestro diagnóstico."
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="pt-2">
+      <button 
+        type="submit"
+        class="w-full inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 md:hover:scale-105 shadow-lg hover:shadow-blue-500/30"
+      >
+        <MaterialSymbol icon="ads_click" size="lg" class="mr-1" /> Solicitar Diagnóstico Gratuito
+      </button>
+  <div class:list={["flex items-center justify-center gap-2 text-sm mt-4", variant === 'dark' ? 'text-gray-400' : 'text-gray-500']}>
+        <MaterialSymbol icon="lock" size="sm" />
+        <span>Datos seguros. No compartimos tu información.</span>
+      </div>
+      <p class="text-xs text-gray-400 mt-2 text-center">* Respuesta garantizada en menos de 2 horas (horario laboral)</p>
+    </div>
+  </form>
+
+  <!-- Resultado del formulario (inicialmente oculto) -->
+  <div id="form-success" class:list={[
+    'hidden mt-6 p-4 rounded-lg',
+    variant === 'dark' ? 'bg-green-900/30 border border-green-500/40' : 'bg-green-50 border border-green-200'
+  ]}>
+    <h3 class:list={["text-lg font-bold mb-2", variant === 'dark' ? 'text-green-300' : 'text-green-800']}>✅ ¡Mensaje enviado exitosamente!</h3>
+    <p class:list={[variant === 'dark' ? 'text-green-300' : 'text-green-700']}>
+      Gracias por contactarnos. Te responderemos en menos de 2 horas con tu diagnóstico personalizado.
+    </p>
+  </div>
+</div>
+
+<script>
+  async function handleSubmit(e: Event) {
+    const form = document.getElementById('contact-form');
+    const successDiv = document.getElementById('form-success');
+    if (!form) return;
+    if (!(form as HTMLFormElement).checkValidity()) {
+      (form as HTMLFormElement).reportValidity();
+      e.preventDefault();
+      return false;
+    }
+    e.preventDefault();
+    const formData = new FormData(form as HTMLFormElement);
+    // Enviar a Web3Forms
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+      const json = await res.json();
+      if (json.success) {
+        successDiv?.classList.remove('hidden');
+        (form as HTMLFormElement).reset();
+        successDiv?.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        alert('No se pudo enviar. Intenta nuevamente.');
+        console.warn('Web3Forms error:', json);
+      }
+    } catch (err) {
+      alert('Error de conexión. Intenta más tarde.');
+      console.error(err);
+    }
+    return false;
+  }
+  (window as any).handleSubmit = handleSubmit;
+</script>

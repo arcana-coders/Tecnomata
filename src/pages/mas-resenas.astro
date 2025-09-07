@@ -1,0 +1,86 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Banner from '../components/ui/Banner.astro';
+import ReviewsAppHero from '../components/sections/ReviewsAppHero.astro';
+import WhyReviewsAreCritical from '../components/sections/WhyReviewsAreCritical.astro';
+import HowSystemWorks from '../components/sections/HowSystemWorks.astro';
+import SystemBenefits from '../components/sections/SystemBenefits.astro';
+import TrustBar from '../components/ui/TrustBar.astro';
+import QRReviewDemo from '../components/sections/QRReviewDemo.astro';
+import CTA from '../components/ui/CTA.astro';
+---
+
+<Layout 
+  title="Más Reseñas en Google | Tecnomata - Sistema Automático"
+  description="Sistema para conseguir más reseñas en Google My Business. Aumenta tu reputación online y atrae más clientes. Resultados garantizados."
+>
+
+<!-- Banner Superior -->
+<Banner 
+  text="⭐ Sistema de reseñas • Más confianza • Más clientes • Resultados reales"
+  variant="accent"
+  speed="fast"
+/>
+
+<!-- Hero Principal -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+<ReviewsAppHero 
+  subtitle="Sistema Generador de Reseñas"
+  title="Más <span class='text-blue-600'>Reseñas</span> en <span class='text-google-blue'>G</span><span class='text-google-red'>o</span><span class='text-google-yellow'>o</span><span class='text-google-blue'>g</span><span class='text-google-green'>l</span><span class='text-google-red'>e</span> en automático"
+  description="El 92% de los consumidores confían más en un negocio con buenas reseñas. Nuestro sistema comprobado te ayuda a conseguir más reseñas positivas en Google."
+  ctaText="Quiero Más Reseñas"
+  ctaHref="https://masreseñas.tecnomata.com"
+  stats={[
+    { number: "92", label: "Confían en reseñas", suffix: "%" },
+    { number: "300", label: "Más probabilidad de visita", suffix: "%" },
+    { number: "15", label: "Días para ver resultados", suffix: "" }
+  ]}
+>
+  <img slot="image" src="/images/icon-reviews.svg" alt="App de Reseñas" class="w-full h-auto rounded-lg shadow-xl" />
+</ReviewsAppHero>
+</section>
+
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <TrustBar />
+</section>
+
+<!-- Por qué necesitas más reseñas -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <WhyReviewsAreCritical />
+</section>
+
+<!-- Cómo funciona nuestro sistema -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <HowSystemWorks />
+</section>
+
+<!-- Demo QR real Tecnomata -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <QRReviewDemo />
+</section>
+
+<!-- Beneficios del sistema -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+  <SystemBenefits />
+</section>
+
+
+<!-- CTA Final -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+<CTA 
+  title="¿Listo para Tener Más clientes?"
+  subtitle="Deja que nuestro sistema generador haga el trabajo por ti. Más reseñas positivas significa más clientes y más ingresos."
+  ctaText="Quiero crear mi QR!!"
+  ctaLink="https://masreseñas.tecnomata.com"
+  variant="strong"
+/>
+</section>
+
+<!-- Banner Inferior -->
+<Banner 
+  text="⭐ Sistema probado • 30 días para ver resultados • Configuración incluida • Soporte completo"
+  variant="default"
+  speed="fast"
+/>
+
+</Layout>

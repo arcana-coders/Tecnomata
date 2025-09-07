@@ -1,0 +1,44 @@
+---
+// src/components/ui/CaseStudyCard.astro
+import MaterialSymbol from './MaterialSymbol.astro';
+
+interface Props {
+  percentage: string;
+  title: string;
+  description: string;
+  features: string[];
+  theme?: 'light' | 'dark'; // Added theme prop
+}
+
+const { percentage, title, description, features, theme = 'light' } = Astro.props as Props;
+
+const cardClasses = {
+  light: 'bg-white border-2 border-gray-100 text-gray-900',
+  dark: 'bg-white border-2 border-gray-100 text-gray-900' // Cards are always light for this section
+}
+
+const textColors = {
+  title: 'text-gray-900',
+  description: 'text-gray-600',
+  features: 'text-gray-700' // Adjusted for better contrast
+}
+---
+
+<div class:list={[
+  "rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 font-dmsans flex flex-col",
+  cardClasses[theme]
+]}>
+  <div class="flex-grow space-y-4">
+    <div class="text-3xl font-black text-blue-600">{percentage}</div>
+    <h3 class="text-xl font-bold text-gray-900">{title}</h3>
+    <p class:list={[textColors.description]}>{description}</p>
+    <ul class="text-sm space-y-2">
+      {features.map(feature => (
+        <li class="flex items-center gap-2">
+          <MaterialSymbol icon="fiber_manual_record" size="sm" class="text-orange-500" /> {/* Orange dot */} 
+          <span class:list={[textColors.features]}>{feature}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

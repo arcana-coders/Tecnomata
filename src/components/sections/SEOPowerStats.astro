@@ -1,0 +1,54 @@
+---
+// src/components/sections/SEOPowerStats.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import StatsCard from '../ui/StatsCard.astro';
+---
+
+<section class="py-24 bg-gray-900">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Datos Clave"
+      title="El Poder del <span class='text-blue-500'>SEO </span>Local"
+      subtitle="Negocios reales con resultados reales en Morelos."
+      color="blue"
+      theme="dark"
+    />
+    
+    <div class="grid md:grid-cols-3 gap-8">
+      <StatsCard 
+        number="76"
+        suffix="%"
+        label="Visitan el negocio"
+        description="De personas que buscan un negocio local en Google lo visitan en 24h"
+        variant="default"
+        animated={true}
+        delay={200}
+        color="orange"
+        theme="dark"
+      />
+      
+      <StatsCard 
+        number="28"
+        suffix="%"
+        label="Realizan compra"
+        description="De búsquedas locales resultan en una compra inmediata"
+        variant="accent"
+        animated={true}
+        delay={400}
+        theme="dark"
+      />
+      
+      <StatsCard 
+        number="88"
+        suffix="%"
+        label="Confían en reseñas"
+        description="De consumidores confían en reseñas online como recomendaciones personales"
+        variant="default"
+        animated={true}
+        delay={600}
+        theme="dark"
+      />
+    </div>
+  </div>
+</section>

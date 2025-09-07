@@ -1,0 +1,43 @@
+---
+// src/components/sections/Testimonials.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import TestimonialCard from '../ui/TestimonialCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
+---
+
+<section class="py-24 bg-white scroll-animate" data-animate="fade-up">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Testimonios"
+      title="Lo que dicen nuestros<br/><span class='text-blue-600'>clientes satisfechos</span>"
+      subtitle="Resultados reales de negocios de Morelos que han transformado su presencia digital con Tecnomata."
+      color="blue"
+    />
+
+  <div class="grid lg:grid-cols-3 gap-8 scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="150">
+      
+      <TestimonialCard author="Dr. Miguel Hernández" company="Clínica Dental" color="red">
+        <div slot="avatar" class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold"><MaterialSymbol icon="person" size="lg" /></div>
+        <Fragment slot="default">
+          Antes no aparecíamos ni en la página 5 de Google. Ahora somos el primer resultado cuando buscan 'dentista en Cuernavaca'. Las citas se triplicaron en 3 meses.
+        </Fragment>
+      </TestimonialCard>
+
+      <TestimonialCard author="Restaurante" company="Cuernavaca Centro" color="green">
+        <div slot="avatar" class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold"><MaterialSymbol icon="person" size="lg" /></div>
+        <Fragment slot="default">
+          El SEO local cambió nuestro negocio. De 2 clientes por semana a 20. La inversión se pagó sola en el primer mes.
+        </Fragment>
+      </TestimonialCard>
+
+      <TestimonialCard author="Ana López" company="Restaurante Tradicional" color="red">
+                <div slot="avatar" class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white font-bold"><MaterialSymbol icon="person" size="lg" /></div>
+        <Fragment slot="default">
+          Tecnomata nos posicionó #1 en Google Maps en Jiutepec. Nuestras ventas aumentaron 400% en 6 meses.
+        </Fragment>
+      </TestimonialCard>
+
+    </div>
+  </div>
+</section>

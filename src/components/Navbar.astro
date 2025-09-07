@@ -1,0 +1,241 @@
+---
+import SocialIcons from './ui/SocialIcons.astro';
+// Normalize path to avoid trailing slash /index.html issues on static hosting
+let currentPath = Astro.url.pathname || '/';
+if (currentPath.endsWith('index.html')) {
+  currentPath = currentPath.slice(0, -'index.html'.length);
+}
+if (currentPath !== '/' && currentPath.endsWith('/')) {
+  currentPath = currentPath.slice(0, -1);
+}
+---
+<nav class="w-full bg-white/80 backdrop-blur-md shadow-lg border-b border-white/40 py-4 px-6 flex justify-between items-center fixed top-0 z-50">
+  <a href="/" class="flex items-center gap-2 group" aria-label="Tecnómata">
+    <span id="brand-scramble" class="text-2xl md:text-3xl font-black tracking-tight text-gray-900 select-none">Tecnómata</span>
+  </a>
+  
+  <!-- Desktop Menu: only from xl and up -->
+  <ul class="hidden xl:flex gap-8 text-base font-medium items-center font-dmsans">
+    <li><a href="/" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">Inicio</a></li>
+    <li><a href="/seo-local-morelos" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">SEO Local</a></li>
+    <li><a href="/diseno-web-seo" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">Diseño Web</a></li>
+    <li><a href="/mas-resenas" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">App de Reseñas</a></li>
+    <li><a href="/test-seo" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">Test SEO</a></li>
+    <li><a href="/faq" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">FAQ</a></li>
+    <li><a href="/contacto" class="text-gray-700 relative after:absolute after:w-full after:h-0.5 after:bg-blue-600 after:left-0 after:-bottom-1">Contacto</a></li>
+  </ul>
+
+  <!-- Mobile Menu Button (visible until xl) -->
+  <button class="xl:hidden w-8 h-8 flex flex-col justify-center items-center gap-y-2 z-50" id="mobile-menu-btn" aria-label="Toggle Menu">
+    <span class="w-6 h-1 bg-gray-800 transition-transform duration-500 ease-in-out"></span>
+    <span class="w-6 h-1 bg-gray-800 transition-transform duration-500 ease-in-out"></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu Overlay (Visinex Style) -->
+<div id="mobile-menu" class="fixed inset-0 bg-black z-40 transform -translate-y-full transition-transform duration-500 ease-in-out flex flex-col">
+  <div class="flex-grow flex flex-col justify-center items-start px-8 sm:px-16">
+    <ul class="font-dmsans flex flex-col gap-y-6 lg:gap-y-4">
+  <li><a href="/" class:list={["font-bold text-4xl lg:text-3xl transition-colors", (currentPath === '/' || currentPath === '') ? 'text-blue-500' : 'text-white hover:text-orange-500']}>Inicio</a></li>
+  <li><a href="/seo-local-morelos" class:list={["font-bold text-4xl lg:text-3xl transition-colors", currentPath === '/seo-local-morelos' ? 'text-blue-500' : 'text-white hover:text-orange-500']}>SEO Local</a></li>
+  <li><a href="/diseno-web-seo" class:list={["font-bold text-4xl lg:text-3xl transition-colors", currentPath === '/diseno-web-seo' ? 'text-blue-500' : 'text-white hover:text-orange-500']}>Diseño Web</a></li>
+  <li><a href="/mas-resenas" class:list={["font-bold text-4xl lg:text-3xl transition-colors", currentPath === '/mas-resenas' ? 'text-blue-500' : 'text-white hover:text-orange-500']}>App de Reseñas</a></li>
+  <li><a href="/test-seo" class:list={["font-bold text-4xl lg:text-3xl transition-colors", currentPath === '/test-seo' ? 'text-blue-500' : 'text-white hover:text-pink-500']}>Test SEO</a></li>
+  <li><a href="/faq" class:list={["font-bold text-4xl lg:text-3xl transition-colors", currentPath === '/faq' ? 'text-blue-500' : 'text-white hover:text-orange-500']}>FAQ</a></li>
+  <li class="pt-6"><a href="/contacto" class="font-bold text-xl lg:text-lg bg-blue-600 text-white px-8 lg:px-6 py-4 lg:py-3 rounded-full hover:bg-blue-700 transition-colors">Contacto</a></li>
+    </ul>
+  </div>
+  <!-- Social Icons (original inline style) -->
+  <div class="px-8 sm:px-16 pb-8">
+      <div class="flex justify-center gap-6">
+        <a href="https://www.facebook.com/tecnomatas/" class="text-white hover:text-blue-600 transition-colors" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 3.667h-3.533v7.98H9.101z"/></svg></a>
+        <a href="https://twitter.com/tecnomataD" class="text-white hover:text-gray-400 transition-colors" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
+        <a href="https://www.youtube.com/@tecn%C3%B3mata" class="text-white hover:text-red-600 transition-colors" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://www.instagram.com/tecnomatadigital" class="text-white hover:text-pink-500 transition-colors" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+        <a href="https://wa.me/5217774094647" class="text-white hover:text-green-500 transition-colors" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.905 3.488"/></svg></a>
+      </div>
+  </div>
+</div>
+
+<!-- Spacer for the fixed navbar -->
+<div class="h-20"></div>
+
+<style>
+  /* Clase para el estado abierto del menú */
+  :global(body.menu-open) #mobile-menu {
+  /* Override Tailwind's -translate-y-full */
+  --tw-translate-y: 0 !important;
+  transform: translate3d(0, 0, 0) !important;
+  opacity: 1;
+  will-change: transform;
+  }
+  :global(body.menu-open) #mobile-menu-btn span:first-child {
+    transform: rotate(45deg) translate(4px, 4px);
+  }
+  :global(body.menu-open) #mobile-menu-btn span:last-child {
+    transform: rotate(-45deg) translate(4px, -4px);
+  }
+  :global(body.menu-open) #mobile-menu-btn span {
+  background-color: #2563eb; /* blue-600 */
+  }
+
+  /* Mobile menu links slide-down + fade with stagger */
+  #mobile-menu ul li {
+    opacity: 0;
+    transform: translateY(-18px);
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 700ms ease;
+    will-change: transform, opacity;
+  }
+  :global(body.menu-open) #mobile-menu ul li {
+    opacity: 1;
+    transform: translateY(0);
+    /* Start a little after the curtain (curtain is 500ms) */
+    transition-delay: 600ms;
+  }
+  /* Stagger per item, absolute delays after base delay */
+  :global(body.menu-open) #mobile-menu ul li:nth-child(1) { transition-delay: 650ms; }
+  :global(body.menu-open) #mobile-menu ul li:nth-child(2) { transition-delay: 725ms; }
+  :global(body.menu-open) #mobile-menu ul li:nth-child(3) { transition-delay: 800ms; }
+  :global(body.menu-open) #mobile-menu ul li:nth-child(4) { transition-delay: 875ms; }
+  :global(body.menu-open) #mobile-menu ul li:nth-child(5) { transition-delay: 950ms; }
+  :global(body.menu-open) #mobile-menu ul li:nth-child(6) { transition-delay: 1025ms; }
+  :global(body.menu-open) #mobile-menu ul li:nth-child(7) { transition-delay: 1100ms; }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const body = document.body;
+  // Hooks to control brand scramble from menu toggle
+  let pauseScramble: null | (() => void) = null;
+  let resumeScramble: null | (() => void) = null;
+
+    function toggleMenu() {
+      body.classList.toggle('menu-open');
+      if (!mobileMenu) return;
+      const isOpen = body.classList.contains('menu-open');
+      // Explicitly toggle Tailwind translate classes for reliability
+      if (isOpen) {
+        mobileMenu.classList.add('translate-y-0');
+        mobileMenu.classList.remove('-translate-y-full');
+        // Force reflow so staggered transitions start cleanly
+        void mobileMenu.offsetHeight;
+      } else {
+        mobileMenu.classList.add('-translate-y-full');
+        mobileMenu.classList.remove('translate-y-0');
+        // Reset list items for next open
+        mobileMenu.querySelectorAll('ul li').forEach((li) => {
+          (li as HTMLElement).style.transitionDelay = '';
+        });
+      }
+      if (body.classList.contains('menu-open')) {
+        body.style.overflow = 'hidden';
+  // Pause scramble when menu opens (show final word)
+  pauseScramble?.();
+      } else {
+        body.style.overflow = '';
+  // Resume scramble when menu closes
+  resumeScramble?.();
+      }
+    }
+
+    mobileMenuBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+  // The same hamburger button closes the menu after opening
+
+    // Opcional: cerrar menú al hacer clic en un enlace
+    mobileMenu?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (body.classList.contains('menu-open')) {
+          toggleMenu();
+        }
+      });
+    });
+
+    // Brand scramble effect: "Tecnómata" every 3s in a loop (color + case-aware)
+  const brandEl = document.getElementById('brand-scramble');
+  if (brandEl) {
+      const target = 'Tecnómata';
+      const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
+      const upperChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const duration = 2200; // faster formation
+  const pause = 1200; // longer pause between cycles
+
+      // Detect if a character is alphabetic (supports accents)
+  const isAlpha = (ch: string) => ch.toLocaleUpperCase() !== ch.toLocaleLowerCase();
+  const isUpper = (ch: string) => isAlpha(ch) && ch === ch.toLocaleUpperCase();
+  const isLower = (ch: string) => isAlpha(ch) && ch === ch.toLocaleLowerCase();
+
+  function randCharFor(ch: string) {
+        if (isUpper(ch)) return upperChars[Math.floor(Math.random() * upperChars.length)];
+        if (isLower(ch)) return lowerChars[Math.floor(Math.random() * lowerChars.length)];
+        // Fallback for non-letters: use lower set
+        return lowerChars[Math.floor(Math.random() * lowerChars.length)];
+      }
+
+  const escapeHTML = (s: string) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+      let rafId: number | null = null;
+      let nextTimeout: number | null = null;
+      let paused = false;
+
+      const renderLocked = () => Array.from(target).map(ch => `<span class=\"text-blue-600\">${escapeHTML(ch)}</span>`).join('');
+
+      function runScramble() {
+        const len = target.length;
+        // Assign a lock time for each index across the duration with slight jitter
+        const baseStep = duration / (len + 1);
+        const locks = Array.from({ length: len }, (_, i) => Math.min(duration - 50, Math.max(200, Math.round((i + 1) * baseStep + (Math.random() * baseStep * 0.4 - baseStep * 0.2)))));
+        const start = performance.now();
+
+  function frame(now: number) {
+          const t = now - start;
+          if (paused) {
+            (brandEl as HTMLElement).innerHTML = renderLocked();
+            return; // stop updating until resumed
+          }
+          if (t >= duration) {
+            // Final state: all letters locked and blue
+            (brandEl as HTMLElement).innerHTML = renderLocked();
+            nextTimeout = window.setTimeout(() => {
+              if (!paused) runScramble();
+            }, pause);
+            return;
+          }
+          let out = '';
+          for (let i = 0; i < len; i++) {
+            if (t >= locks[i]) {
+              out += `<span class=\"text-blue-600\">${escapeHTML(target[i])}</span>`;
+            } else {
+              const r = randCharFor(target[i]);
+              out += `<span class=\"text-gray-500\">${escapeHTML(r)}</span>`;
+            }
+          }
+          (brandEl as HTMLElement).innerHTML = out;
+          rafId = requestAnimationFrame(frame);
+        }
+        rafId = requestAnimationFrame(frame);
+      }
+
+      // Kick off the loop
+      runScramble();
+
+      // Expose pause/resume controls to menu toggle
+      pauseScramble = () => {
+        paused = true;
+        if (rafId !== null) cancelAnimationFrame(rafId);
+        if (nextTimeout !== null) clearTimeout(nextTimeout);
+        (brandEl as HTMLElement).innerHTML = renderLocked();
+      };
+      resumeScramble = () => {
+        if (!paused) return;
+        paused = false;
+        runScramble();
+      };
+    }
+  });
+</script>

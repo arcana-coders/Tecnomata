@@ -1,0 +1,48 @@
+---
+// src/components/sections/WebDesign.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import FeatureCard from '../ui/FeatureCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
+---
+
+<section class="py-24 bg-white scroll-animate" data-animate="fade-up">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Diseño Web"
+      title="Páginas web que no solo se ven bien,<br/><span class='text-blue-600'>sino que venden</span>"
+      subtitle="Diseñamos pensando en conversiones, no solo en apariencia."
+      color="blue"
+    />
+
+  <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="150">
+      
+      <FeatureCard
+        title="Diseño personalizado y a medida"
+        badge="Entrega rápida"
+        color="purple"
+      >
+        <div slot="icon" class="w-14 h-14 bg-white-500 rounded-2xl flex items-center justify-center text-blue text-2xl font-bold flex-shrink-0">
+          <MaterialSymbol icon="bolt" size="2xl" />
+        </div>
+        <p slot="description">
+          ¿Wordpress, React, Astro, Html, Django? Te entregamos una página rápida, atractiva y ha medida.
+        </p>
+      </FeatureCard>
+      
+      <FeatureCard
+        title="SEO on-page desde el primer clic"
+        badge="100% optimizado"
+        color="blue"
+      >
+        <div slot="icon" class="w-14 h-14 bg-white-500 rounded-2xl flex items-center justify-center text-blue text-2xl font-bold flex-shrink-0">
+          <MaterialSymbol icon="build" size="2xl" />
+        </div>
+        <p slot="description">
+          Estructura técnica, velocidad, palabras clave y diseño responsive. Nada queda al azar.
+        </p>
+      </FeatureCard>
+
+    </div>
+  </div>
+</section>

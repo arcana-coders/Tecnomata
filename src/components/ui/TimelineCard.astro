@@ -1,0 +1,145 @@
+---
+import MaterialSymbol from './MaterialSymbol.astro'; // Added import
+interface Props {
+  step: number;
+  title: string;
+  description: string;
+  icon?: string;
+  isEven?: boolean;
+  animated?: boolean;
+  delay?: number;
+  theme?: 'light' | 'dark';
+}
+
+const {
+  step,
+  title,
+  description,
+  icon,
+  isEven = false,
+  animated = true,
+  delay = 0,
+  theme = 'light'
+} = Astro.props;
+
+const isDark = theme === 'dark';
+
+const cardClasses = {
+  light: 'bg-white border-2 border-gray-100 text-gray-900',
+  dark: 'bg-gray-800 border-2 border-gray-700 text-white'
+}
+
+const descriptionClasses = {
+  light: 'text-gray-600',
+  dark: 'text-gray-300'
+}
+---
+
+<!-- Desktop: Layout alternado con línea central -->
+<div class:list={[
+  "hidden md:grid grid-cols-12 gap-8 items-center mb-16 relative font-dmsans",
+  animated ? 'scroll-animate animate-fade-in-up' : ''
+]}
+style={animated && delay ? `animation-delay: ${delay}ms` : ''}>
+
+  <!-- Línea central para desktop -->
+  <div class="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-blue-600 z-0"></div>
+
+  {isEven ? (
+    <!-- Layout par: Contenido a la izquierda, círculo en el centro -->
+    <>
+      <!-- Contenido -->
+      <div class="col-span-5 text-right pr-8">
+        <div class:list={["p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105", cardClasses[theme]]}>
+          <h3 class="text-2xl font-black mb-4" set:html={title}>
+          </h3>
+          <p class:list={["leading-relaxed", descriptionClasses[theme]]}>
+            {description}
+          </p>
+        </div>
+      </div>
+      
+      <!-- Círculo central -->
+      <div class="col-span-2 flex flex-col items-center relative z-10 gap-2">
+        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-blue-600 text-blue-600 font-bold text-xl shadow-lg">
+          {icon ? (
+            <MaterialSymbol icon={icon} size="3xl" class="text-blue-600" />
+          ) : (
+            step
+          )}
+        </div>
+        <div class="hidden md:flex gap-1.5">
+          <span class="w-2 h-2 bg-[#4285F4] rounded-full"></span>
+          <span class="w-2 h-2 bg-[#EA4335] rounded-full"></span>
+          <span class="w-2 h-2 bg-[#FBBC05] rounded-full"></span>
+          <span class="w-2 h-2 bg-[#34A853] rounded-full"></span>
+        </div>
+      </div>
+      
+      <!-- Espacio vacío -->
+      <div class="col-span-5"></div>
+    </>
+  ) : (
+    <!-- Layout impar: Círculo en el centro, contenido a la derecha -->
+    <>
+      <!-- Espacio vacío -->
+      <div class="col-span-5"></div>
+      
+      <!-- Círculo central -->
+      <div class="col-span-2 flex flex-col items-center relative z-10 gap-2">
+        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-blue-600 text-blue-600 font-bold text-xl shadow-lg">
+          {icon ? (
+            <MaterialSymbol icon={icon} size="3xl" class="text-blue-600" />
+          ) : (
+            step
+          )}
+        </div>
+        <div class="hidden md:flex gap-1.5">
+          <span class="w-2 h-2 bg-[#4285F4] rounded-full"></span>
+          <span class="w-2 h-2 bg-[#EA4335] rounded-full"></span>
+          <span class="w-2 h-2 bg-[#FBBC05] rounded-full"></span>
+          <span class="w-2 h-2 bg-[#34A853] rounded-full"></span>
+        </div>
+      </div>
+      
+      <!-- Contenido -->
+      <div class="col-span-5 text-left pl-8">
+        <div class:list={["p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105", cardClasses[theme]]}>
+          <h3 class="text-2xl font-black mb-4" set:html={title}>
+          </h3>
+          <p class:list={["leading-relaxed", descriptionClasses[theme]]}>
+            {description}
+          </p>
+        </div>
+      </div>
+    </>
+  )}
+</div>
+
+<!-- Mobile: Layout vertical simple -->
+<div class:list={[
+  "md:hidden p-6 rounded-xl shadow-lg border-2 mb-6 font-dmsans",
+  animated ? 'scroll-animate animate-fade-in-up' : '',
+  cardClasses[theme]
+]}
+style={animated && delay ? `animation-delay: ${delay}ms` : ''}>
+  
+  <div class="flex items-center gap-4"> 
+    <!-- Círculo con paso (igual a desktop) -->
+    <div class="shrink-0 flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-blue-600 text-blue-600 font-bold text-xl mr-4"> 
+      {icon ? (
+        <span class="material-symbols-outlined text-3xl">{icon}</span>
+      ) : (
+        step
+      )}
+    </div>
+    
+    <div class="flex-grow"> 
+      <h3 class="text-xl font-black mb-2" set:html={title}> 
+      </h3>
+      <p class:list={["leading-relaxed text-sm", descriptionClasses[theme]]}> 
+        {description}
+      </p>
+    </div>
+  </div>
+</div>

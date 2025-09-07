@@ -1,0 +1,63 @@
+---
+// src/components/sections/OurProcess.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import TimelineCard from '../ui/TimelineCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
+---
+
+<section class="py-24 bg-gray-50">
+  <div class="max-w-5xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Metodología"
+      title="Nuestro <span class='text-blue-600'>Proceso</span>"
+      subtitle="Un sistema probado que ha posicionado más de 200 negocios locales en Morelos."
+      color="blue"
+      theme="light"
+    />
+
+    <!-- Timeline con diseño alternado para desktop -->
+    <div class="relative">
+      <!-- Línea central para desktop -->
+      <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-blue-600 transform -translate-x-1/2"></div>
+      
+      <div class="space-y-16">
+        <TimelineCard 
+          step={1}
+          icon="search"
+          title="Auditoría <span class='text-blue-600'>SEO</span> Completa"
+          description="Analizamos tu presencia online actual, competencia local y oportunidades de mejora. Identificamos exactamente qué necesita tu negocio."
+          isEven={false}
+          theme="dark"
+        />
+        
+        <TimelineCard 
+          step={2}
+          icon="location_on"
+          title="Optimización <span class='sr-only'>Google</span><span aria-hidden='true'><span class='text-[#4285F4]'>G</span><span class='text-[#EA4335]'>o</span><span class='text-[#FBBC05]'>o</span><span class='text-[#4285F4]'>g</span><span class='text-[#34A853]'>l</span><span class='text-[#EA4335]'>e</span></span> My Business"
+          description="Configuramos y optimizamos tu perfil de negocio para que aparezca en Google Maps. Gestión de reseñas y fotos profesionales."
+          isEven={true}
+          theme="dark"
+        />
+        
+  <TimelineCard 
+          step={3}
+          icon="public"
+        title="<span class='text-blue-600'>SEO</span> On-Page Local" 
+          description="Optimizamos tu sitio web con palabras clave locales específicas de Morelos. Contenido geolocalizado que Google adora."
+          isEven={false}
+          theme="dark"
+        />
+        
+  <TimelineCard 
+          step={4}
+          icon="construction"
+        title="<span class='text-blue-600'>Link</span> Building Local" 
+          description="Construimos autoridad con enlaces de calidad desde directorios locales, cámaras de comercio y sitios relevantes de Morelos."
+          isEven={true}
+          theme="dark"
+        />
+      </div>
+    </div>
+  </div>
+</section>

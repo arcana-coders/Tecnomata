@@ -1,0 +1,119 @@
+---
+// src/components/sections/SimulatedResults.astro
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+
+interface Props {
+  seoScore: string;
+  scoreDescription: string;
+  ctaTitle: string;
+  ctaDescription: string;
+  ctaLink: string;
+  ctaText: string;
+}
+
+const { seoScore, scoreDescription, ctaTitle, ctaDescription, ctaLink, ctaText } = Astro.props;
+---
+
+<div id="seo-results" class="hidden py-20 bg-gray-50 font-dmsans">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-black text-gray-900 mb-4">
+        Resultados del análisis SEO
+      </h2>
+      <p class="text-xl text-gray-600">
+        Aquí está el reporte de tu página web:
+      </p>
+    </div>
+
+    <!-- Score general -->
+    <div class="max-w-2xl mx-auto mb-16">
+      <div class="bg-white p-8 text-center shadow-lg border rounded-xl">
+        <div class="text-6xl font-black text-orange-500 mb-4">{seoScore}</div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Puntuación SEO</h3>
+        <p class="text-gray-600">{scoreDescription}</p>
+      </div>
+    </div>
+
+    <!-- Detalles del análisis -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- SEO Técnico -->
+      <div class="bg-white p-6 border rounded-xl">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-gray-900">SEO Técnico</h3>
+          <div class="text-2xl font-bold text-red-500">30%</div>
+        </div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2">
+            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <span>Velocidad muy lenta (7.2s)</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <MaterialSymbol icon="check_circle" size="sm" class="text-green-500" />
+            <span>HTTPS configurado</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <span>No es responsive</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- SEO On-Page -->
+      <div class="bg-white p-6 border rounded-xl">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-gray-900">SEO On-Page</h3>
+          <div class="text-2xl font-bold text-orange-500">45%</div>
+        </div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2">
+            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <span>Título muy largo</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <span>Sin meta descripción</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <MaterialSymbol icon="check_circle" size="sm" class="text-green-500" />
+            <span>Headings bien estructurados</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- SEO Local -->
+      <div class="bg-white p-6 border rounded-xl">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-gray-900">SEO Local</h3>
+          <div class="text-2xl font-bold text-red-500">20%</div>
+        </div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2">
+            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <span>Sin Google My Business</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <span>Datos de contacto incompletos</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <span>No aparece en Maps</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CTA después de resultados -->
+    <div class="text-center mt-16">
+      <h3 class="text-2xl font-black text-gray-900 mb-4">
+        {ctaTitle}
+      </h3>
+      <p class="text-gray-600 mb-8">
+        {ctaDescription}
+      </p>
+      <a href={ctaLink} class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 transition-all duration-300 rounded-lg">
+        <MaterialSymbol icon="contact_support" size="lg" class="mr-2" />{ctaText}
+      </a>
+    </div>
+  </div>
+</div>

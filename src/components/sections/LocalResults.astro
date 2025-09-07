@@ -1,0 +1,50 @@
+---
+// src/components/sections/LocalResults.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import TestSEOCard from '../ui/TestSEOCard.astro';
+---
+<section class="py-24 bg-white font-dmsans scroll-animate" data-animate="fade-up">
+  <div class="max-w-6xl mx-auto px-6">
+  <SectionHeader
+      pill="Estadísticas"
+      title="Impacto típico del <span class='text-blue-600'>SEO Local</span>"
+      subtitle="Cifras basadas en estudios de la industria y experiencias comunes para negocios locales."
+      color="blue"
+    />
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="150">
+    <TestSEOCard
+  title="Salud"
+  percentage="40% en llamadas"
+        percentageColor="text-green-600"
+        features={[
+          { text: 'Top 3 en Google Maps', status: 'ok' },
+          { text: '20 nuevas reseñas', status: 'ok' },
+          { text: 'Velocidad móvil optimizada', status: 'ok' },
+        ]}
+      />
+    <TestSEOCard
+  title="Restaurantes"
+  percentage="+70 reseñas nuevas"
+        percentageColor="text-green-600"
+        variant="dark"
+        features={[
+          { text: 'QR en mesas + WhatsApp', status: 'ok' },
+          { text: '4.6★ en 2 meses', status: 'ok' },
+          { text: 'Aumento 28% en visitas', status: 'ok' },
+        ]}
+      />
+    <TestSEOCard
+  title="Servicios"
+  percentage="+30% en tráfico orgánico"
+        percentageColor="text-green-600"
+        features={[
+          { text: 'Ficha GMB completa', status: 'ok' },
+          { text: 'Contenido local optimizado', status: 'ok' },
+          { text: 'Backlinks locales', status: 'ok' },
+        ]}
+      />
+  </div>
+  <p class="text-xs text-gray-500 mt-4">Nota: Resultados estimados. Pueden variar según sector, competencia y estado actual del negocio.</p>
+  </div>
+</section>

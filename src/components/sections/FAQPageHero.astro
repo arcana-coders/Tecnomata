@@ -1,0 +1,47 @@
+---
+// src/components/sections/FAQPageHero.astro
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+
+interface Props {
+  badgeText: string;
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaHref: string;
+}
+
+const { badgeText, title, subtitle, ctaText, ctaHref } = Astro.props;
+---
+
+<section class="relative bg-white overflow-hidden font-dmsans">
+  <!-- Pattern decorativo sutil -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute inset-0" style="background-image: radial-gradient(circle, #6b7280 1px, transparent 1px); background-size: 30px 30px;"></div>
+  </div>
+  
+  <!-- Hero Content minimalista -->
+  <div class="max-w-6xl mx-auto px-6 py-12 sm:py-16 lg:py-20 relative z-10">
+    <div class="max-w-4xl mx-auto text-center space-y-10 sm:space-y-12">
+      
+      <!-- Badge superior discreto -->
+      <div class="inline-flex items-center gap-3 bg-gray-100 text-gray-700 px-6 py-3 text-sm font-medium rounded-full">
+        <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+        {badgeText}
+      </div>
+
+      <!-- Título ultra limpio estilo Visinex -->
+  <div class="space-y-6 sm:space-y-8">
+  <h1 class="text-5xl lg:text-7xl font-black leading-none text-gray-900" set:html={title} data-typewriter data-type-speed="46" data-type-delay="200" data-type-loop="true" data-type-loop-pause="4000" />
+        <p class="text-xl lg:text-2xl font-light text-gray-600 leading-tight max-w-3xl mx-auto" set:html={subtitle} />
+      </div>
+
+      <!-- CTA minimalista -->
+  <div class="pt-6 sm:pt-8">
+        <a href={ctaHref} class="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-blue-500/30">
+          <span>{ctaText}</span>
+          <MaterialSymbol icon="arrow_right_alt" size="lg" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,148 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  description: string;
+  ctaText?: string;
+  ctaHref?: string;
+  stats?: Array<{
+    number: string;
+    label: string;
+    suffix?: string;
+    prefix?: string;
+  }>;
+  variant?: 'default' | 'center' | 'left';
+  showStats?: boolean;
+  backgroundImage?: string;
+}
+
+const { 
+  title,
+  subtitle,
+  description,
+  ctaText = "Cotizar proyecto",
+  ctaHref = "/contacto",
+  stats = [],
+  variant = 'default',
+  showStats = false,
+  backgroundImage
+} = Astro.props;
+
+const variantClasses = {
+  default: 'text-left',
+  center: 'text-center',
+  left: 'text-left'
+};
+---
+
+<section class="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+  <!-- Background -->
+  {backgroundImage && (
+    <div 
+      class="absolute inset-0 parallax-hero"
+      style={`background-image: url(${backgroundImage}); background-size: cover; background-position: center; background-attachment: fixed;`}
+    >
+      <div class="absolute inset-0 bg-black/30"></div>
+    </div>
+  )}
+
+  <!-- Content -->
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class={`
+      max-w-4xl 
+      ${variant === 'center' ? 'mx-auto' : ''} 
+      ${variantClasses[variant]}
+    `}>
+      
+      <!-- Subtitle -->
+      {subtitle && (
+        <p class="
+          scroll-animate animate-fade-in-up delay-200
+          text-orange-500 font-semibold text-sm sm:text-base mb-4 tracking-wide uppercase
+        ">
+          {subtitle}
+        </p>
+      )}
+
+      <!-- Main Title -->
+      <h1 class="
+        scroll-animate animate-fade-in-up delay-400
+        text-4xl sm:text-5xl lg:text-7xl xl:text-8xl 
+        font-black leading-[0.9] mb-6 text-gray-900
+        tracking-tight
+      ">
+        {title}
+      </h1>
+
+      <!-- Description -->
+      <p class="
+        scroll-animate animate-fade-in-up delay-600
+        text-lg sm:text-xl lg:text-2xl text-gray-600 mb-8 leading-relaxed
+        max-w-3xl
+        ${variant === 'center' ? 'mx-auto' : ''}
+      ">
+        {description}
+      </p>
+
+      <!-- CTA Button -->
+      <div class={`
+        scroll-animate animate-fade-in-up delay-800 mb-12
+        ${variant === 'center' ? 'flex justify-center' : ''}
+      `}>
+        <a 
+          href={ctaHref}
+          class="
+            inline-flex items-center px-8 py-4 bg-orange-500 text-white 
+            font-bold text-lg rounded-lg hover:bg-orange-600 
+            transition-all duration-300 transform hover:scale-105
+            shadow-lg hover:shadow-xl
+          "
+        >
+          {ctaText}
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Stats Grid -->
+      {showStats && stats.length > 0 && (
+        <div class={`
+          grid grid-cols-2 md:grid-cols-${Math.min(stats.length, 4)} gap-8
+          ${variant === 'center' ? 'justify-center' : ''}
+        `}>
+          {stats.map((stat, index) => (
+            <div class={`
+              scroll-animate animate-fade-in-up 
+              delay-${1000 + (index * 200)}
+            `}>
+              <div class="text-center">
+                <div 
+                  class="counter text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-2"
+                  data-target={stat.number}
+                  data-prefix={stat.prefix || ''}
+                  data-suffix={stat.suffix || ''}
+                  data-duration="2500"
+                >
+                  {stat.prefix || ''}0{stat.suffix || ''}
+                </div>
+                <div class="text-sm sm:text-base text-gray-600 font-medium">
+                  {stat.label}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+    <div class="animate-bounce">
+      <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+  </div>
+</section>

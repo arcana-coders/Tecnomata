@@ -1,0 +1,59 @@
+---
+// src/components/sections/ContactMethods.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import ContactMethodCard from '../ui/ContactMethodCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
+---
+
+<section class="py-24 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Contacto"
+      title="Múltiples Formas de <span class='text-blue-600'>Contactarnos</span>"
+      subtitle="Elige la que más te convenga para empezar tu proyecto."
+      color="blue"
+    />
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <ContactMethodCard
+        icon="whatsapp"
+        title="WhatsApp"
+        description="Respuesta inmediata de 8:00 AM a 8:00 PM"
+        ctaText="777 409 4647"
+        ctaHref="https://wa.me/527774094647"
+        badgeText="Recomendado"
+        color="green"
+      />
+
+      <ContactMethodCard
+        icon="phone"
+        title="Teléfono"
+        description="Lunes a Viernes de 9:00 AM a 6:00 PM"
+        ctaText="(777) 409-4647"
+        ctaHref="tel:7774094647"
+        color="blue"
+      />
+
+      <ContactMethodCard
+        icon="mail"
+        title="Email"
+        description="Para presupuestos detallados y propuestas"
+        ctaText="hola@tecnomata.com"
+        ctaHref="mailto:hola@tecnomata.com"
+        color="purple"
+      />
+
+      <ContactMethodCard
+        icon="location_on"
+        title="Ubicación"
+        description="Atendemos todo Morelos (presencial y remoto)"
+        color="orange"
+      >
+        <Fragment slot="staticContent">
+          Cuernavaca, Morelos, México
+        </Fragment>
+      </ContactMethodCard>
+    </div>
+  </div>
+</section>

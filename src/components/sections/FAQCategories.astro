@@ -1,0 +1,109 @@
+---
+// src/components/sections/FAQCategories.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import FAQCategoryCard from '../ui/FAQCategoryCard.astro';
+---
+
+<section id="faq-categories" class="py-24 bg-white font-dmsans">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Categorías"
+      title="Categorías de <span class='text-blue-600'>Preguntas</span>"
+      subtitle="Organizadas para encontrar rápidamente lo que necesitas."
+      color="blue"
+    />
+
+    <!-- Buscador -->
+    <div class="max-w-2xl mx-auto mt-10 mb-8">
+      <div class="flex items-center gap-3 p-3 border-2 border-gray-100 rounded-xl focus-within:border-blue-300 transition-colors">
+        <div class="w-10 h-10 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined">search</span>
+        </div>
+        <input type="text" id="faq-search" placeholder="Busca por pregunta o tema..." class="w-full outline-none text-gray-800 placeholder-gray-400" />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <FAQCategoryCard
+        categoryNumber="01"
+        title="SEO Local"
+        description="Todo sobre posicionamiento en Google Maps, Google My Business y búsquedas locales en Morelos."
+        color="blue"
+        faqs={[
+          { question: "¿Qué es el SEO Local?", answer: "El SEO Local es la optimización de tu negocio para aparecer en búsquedas geográficas específicas. Es fundamental para negocios con ubicación física." },
+          { question: "¿Cuánto tiempo tarda en funcionar?", answer: "Los primeros resultados se ven entre 2-4 semanas. Resultados consolidados en 3-6 meses dependiendo de la competencia." },
+          { question: "¿Por qué no aparezco en Maps?", answer: "Las causas principales: no tener Google My Business, perfil sin verificar, información inconsistente o falta de reseñas." },
+        ]}
+      />
+
+      <FAQCategoryCard
+        categoryNumber="02"
+        title="Diseño Web"
+        description="Páginas web modernas, responsive y optimizadas para convertir visitantes en clientes."
+        color="purple"
+        faqs={[
+          { question: "¿Qué incluye el diseño web?", answer: "Diseño responsive, optimización SEO, integración con herramientas de marketing, panel de administración y 3 meses de soporte." },
+          { question: "¿Cuánto tiempo toma?", answer: "Entre 2-4 semanas dependiendo de la complejidad. E-commerce puede tomar 4-6 semanas con todas las integraciones." },
+          { question: "¿Podré editarla yo mismo?", answer: "Sí, incluimos capacitación y panel de administración intuitivo. También ofrecemos soporte para cambios más complejos." },
+        ]}
+      />
+
+      <FAQCategoryCard
+        categoryNumber="03"
+        title="Marketing Digital"
+        description="Estrategias integrales para hacer crecer tu negocio en el mundo digital."
+        color="green"
+        faqs={[
+          { question: "¿Qué servicios incluyen?", answer: "SEO local, diseño web, gestión de reseñas, Google Ads, redes sociales y análisis de resultados mensual." },
+          { question: "¿Cómo miden los resultados?", answer: "Reportes mensuales con métricas clave: posicionamiento en Google, tráfico web, llamadas generadas y conversiones." },
+          { question: "¿Hay contratos largos?", answer: "No. Trabajamos mes a mes. Recomendamos mínimo 6 meses para ver resultados óptimos, pero no hay permanencia forzosa." },
+        ]}
+      />
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.getElementById('faq-categories');
+  const input = root?.querySelector('#faq-search') as HTMLInputElement | null;
+  if (input) {
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      const cards = root!.querySelectorAll('[data-faq-card]');
+      const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const highlight = (text: string, term: string) => {
+        if (!term) return text;
+        const re = new RegExp(escapeRegExp(term), 'gi');
+        return text.replace(re, (m) => `<mark class="bg-yellow-200 text-gray-900 rounded px-0.5">${m}</mark>`);
+      };
+      cards.forEach((card) => {
+        const details = card.querySelectorAll('details');
+        let anyVisible = false;
+        details.forEach((d) => {
+          // Elements
+          const qEl = d.querySelector('summary span:first-child') as HTMLElement | null;
+          const aEl = d.querySelector('.faq-content') as HTMLElement | null;
+          // Preserve originals once
+          if (qEl && !qEl.dataset.original) qEl.dataset.original = qEl.innerHTML;
+          if (aEl && !aEl.dataset.original) aEl.dataset.original = aEl.innerHTML;
+
+          const text = (qEl?.innerText + ' ' + aEl?.innerText)?.toLowerCase() || '';
+          const match = q === '' || text.includes(q);
+          (d as HTMLElement).style.display = match ? '' : 'none';
+          // Apply or reset highlight
+          if (qEl && qEl.dataset.original) {
+            qEl.innerHTML = q ? highlight(qEl.dataset.original, q) : qEl.dataset.original;
+          }
+          if (aEl && aEl.dataset.original) {
+            aEl.innerHTML = q ? highlight(aEl.dataset.original, q) : aEl.dataset.original;
+          }
+          if (match) anyVisible = true;
+        });
+        (card as HTMLElement).style.display = anyVisible ? '' : 'none';
+      });
+    });
+  }
+</script>

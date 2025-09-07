@@ -1,0 +1,58 @@
+---
+// src/components/ui/FAQCategoryCard.astro
+import MaterialSymbol from './MaterialSymbol.astro';
+import FAQItem from './FAQItem.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  categoryNumber: string;
+  color?: 'blue' | 'purple' | 'green';
+  faqs: { question: string; answer: string }[];
+}
+
+const { title, description, categoryNumber, color = 'blue', faqs } = Astro.props;
+
+const colorClasses = {
+  cardHoverBorder: {
+    blue: 'hover:border-blue-200',
+    purple: 'hover:border-purple-200',
+    green: 'hover:border-green-200',
+  },
+  numberBg: {
+    blue: 'bg-blue-600',
+    purple: 'bg-purple-600',
+    green: 'bg-green-600',
+  },
+  titleHover: {
+    blue: 'group-hover:text-blue-600',
+    purple: 'group-hover:text-purple-600',
+    green: 'group-hover:text-green-600',
+  }
+}
+---
+
+<div data-faq-card class:list={["group bg-white border-2 border-gray-100 p-8 rounded-xl transition-all duration-300 hover:shadow-md", colorClasses.cardHoverBorder[color]]}>
+  <div class="space-y-6">
+    <div class:list={["w-16 h-16 rounded-full text-white text-2xl font-bold flex items-center justify-center", colorClasses.numberBg[color]]}>
+      {categoryNumber}
+    </div>
+    <div class="flex gap-1.5">
+      <span class="w-2 h-2 bg-[#4285F4] rounded-full"></span>
+      <span class="w-2 h-2 bg-[#EA4335] rounded-full"></span>
+      <span class="w-2 h-2 bg-[#FBBC05] rounded-full"></span>
+      <span class="w-2 h-2 bg-[#34A853] rounded-full"></span>
+    </div>
+    <h3 class:list={["text-2xl font-black text-gray-900 transition-colors", colorClasses.titleHover[color]]}>
+      {title}
+    </h3>
+    <p class="text-gray-600 leading-relaxed">
+      {description}
+    </p>
+    <div class="space-y-3 pt-4">
+      {faqs.map(faq => (
+        <FAQItem question={faq.question} answer={faq.answer} />
+      ))}
+    </div>
+  </div>
+</div>
