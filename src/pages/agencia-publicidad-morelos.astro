@@ -1,0 +1,166 @@
+---
+// src/pages/agencia-publicidad-morelos.astro
+import Layout from '../layouts/Layout.astro';
+import Banner from '../components/ui/Banner.astro';
+import ServiceHero from '../components/sections/ServiceHero.astro';
+import AgenciaPublicidadContent from '../components/sections/AgenciaPublicidadContent.astro';
+import ServiceFeatures from '../components/sections/ServiceFeatures.astro';
+import UnifiedTestimonials from '../components/sections/UnifiedTestimonials.astro';
+import LocalResults from '../components/sections/LocalResults.astro';
+import FAQCategories from '../components/sections/FAQCategories.astro';
+import FAQContactCTA from '../components/sections/FAQContactCTA.astro';
+import LocalBusinessSchema from '../components/seo/LocalBusinessSchema.astro';
+import ServiceSchema from '../components/seo/ServiceSchema.astro';
+import OrganizationSchema from '../components/seo/OrganizationSchema.astro';
+
+const pageTitle = 'Agencia de Publicidad en Morelos | Campañas Publicitarias Efectivas - SECTRY';
+const pageDescription = 'Agencia de publicidad profesional en Morelos. Creamos campañas publicitarias efectivas en Google Ads, Facebook Ads y medios digitales. Servicios en Cuernavaca, Temixco, Jiutepec.';
+---
+
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+>
+
+<!-- Schema Markup para SEO -->
+<LocalBusinessSchema 
+  businessName="Tecnomata - Agencia de Publicidad Morelos"
+  serviceType="Publicidad Digital"
+  description="Agencia de publicidad profesional en Morelos. Campañas efectivas de Google Ads, Facebook Ads y publicidad digital para empresas en Cuernavaca y todo el estado."
+  address={{
+    streetAddress: "Av. Plan de Ayala 123",
+    addressLocality: "Cuernavaca",
+    addressRegion: "Morelos",
+    postalCode: "62000",
+    addressCountry: "MX"
+  }}
+  contactPoint={{
+    telephone: "+52 777 123 4567",
+    email: "hola@tecnomata.com"
+  }}
+  areaServed={["Cuernavaca", "Temixco", "Jiutepec", "Cuautla", "Yautepec", "Xochitepec"]}
+  services={[
+    "Google Ads",
+    "Facebook Ads",
+    "Instagram Ads",
+    "Creatividades Publicitarias",
+    "Estrategia de Campañas"
+  ]}
+/>
+
+<ServiceSchema 
+  serviceName="Agencia de Publicidad en Morelos"
+  serviceType="Servicios de Publicidad Digital"
+  description="Campañas publicitarias efectivas para empresas en Morelos. Google Ads, redes sociales y publicidad digital con ROI garantizado."
+  provider="Tecnomata"
+  areaServed={["Morelos"]}
+  offers={[
+    {
+      name: "Campaña Google Ads",
+      description: "Publicidad en buscadores con targeting local"
+    },
+    {
+      name: "Publicidad en Redes Sociales",
+      description: "Campañas en Facebook, Instagram y LinkedIn"
+    },
+    {
+      name: "Creatividades Publicitarias",
+      description: "Diseño gráfico y copywriting profesional"
+    }
+  ]}
+/>
+
+<OrganizationSchema />
+
+<!-- Banner superior temático -->
+<Banner 
+  items={[
+    { icon: 'campaign', label: 'CAMPAÑAS DE ALTO IMPACTO' },
+    { icon: 'trending_up', label: 'ROI GARANTIZADO' },
+    { icon: 'palette', label: 'CREATIVIDAD + DATOS' },
+    { icon: 'flash_on', label: 'RESULTADOS DESDE EL DÍA 1' },
+    { icon: 'ads_click', label: 'GOOGLE ADS CERTIFICADO' },
+    { icon: 'groups', label: 'AUDIENCIAS SEGMENTADAS' },
+  ]}
+  variant="accent"
+  speed="normal"
+/>
+
+  <!-- Hero Section -->
+  <div class="relative overflow-hidden">
+    <!-- Patrón de fondo único para publicidad -->
+    <div class="absolute inset-0 bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 opacity-80"></div>
+    <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, #fee2e2 0%, transparent 50%), radial-gradient(circle at 75% 75%, #fef3c7 0%, transparent 50%);"></div>
+    
+    <ServiceHero 
+      serviceType="publicidad"
+      badgeText="Agencia de Publicidad Digital"
+      title="<span class='zoom-effect'>Agencia de <span class='text-red-600'>Publicidad</span> Profesional</span><br/><span class='text-gray-600 font-light'>en Morelos</span>"
+      subtitle="Creamos campañas publicitarias efectivas que generan resultados medibles. Google Ads, Facebook Ads y estrategias publicitarias integrales para tu empresa en Morelos."
+      location="Morelos"
+      ctaText="Ver Campañas"
+      ctaHref="/contacto"
+      customBg="bg-transparent"
+    />
+  </div>
+
+  <!-- Contenido SEO optimizado -->
+  <AgenciaPublicidadContent />
+
+  <!-- Service Features -->
+  <ServiceFeatures 
+    serviceType="publicidad"
+    title="¿Por Qué Elegir Nuestra <span class='text-red-600'>Agencia de Publicidad</span>?"
+    subtitle="Combinamos creatividad con datos para crear campañas publicitarias que maximizan tu inversión y generan resultados reales"
+  />
+
+  <!-- Carrusel de Testimonios Post-its -->
+  <UnifiedTestimonials 
+    title="Lo Que Dicen Nuestros <span class='text-red-600'>Clientes</span>"
+    testimonials={[
+      {
+        author: "Carlos Mendoza",
+        company: "",
+        location: "Cuernavaca",
+        avatar: "CM",
+        content: "La campaña de Google Ads aumentó nuestras ventas un 300%. El ROI fue impresionante desde el primer mes.",
+        color: "red"
+      },
+      {
+        author: "Ana García",
+        company: "",
+        location: "Temixco", 
+        avatar: "AG",
+        content: "Las creatividades de Facebook Ads conectaron perfectamente con nuestro público objetivo. Increíble trabajo.",
+        color: "orange"
+      }
+    ]}
+    layout="carousel"
+  />
+
+  <!-- Local Results -->
+  <LocalResults 
+    serviceType="publicidad"
+    title="Campañas Exitosas en Morelos"
+    subtitle="Nuestras estrategias publicitarias han generado crecimiento comprobado para empresas locales"
+    location="Morelos"
+  />
+
+  <!-- FAQ Categories -->
+  <FAQCategories 
+    serviceType="publicidad"
+    title="Preguntas Frecuentes - Publicidad Digital"
+    subtitle="Todo lo que necesitas saber sobre nuestros servicios de publicidad en Morelos"
+    location="Morelos"
+  />
+
+  <!-- Contact CTA -->
+  <FAQContactCTA 
+    title="¿Listo para Hacer Crecer Tu Negocio?"
+    subtitle="Contacta con nuestra agencia de publicidad y comencemos a generar resultados para tu empresa en Morelos"
+    ctaText="Solicitar Estrategia"
+    ctaLink="/contacto"
+    phone="+52 777 123 4567"
+  />
+
+</Layout>

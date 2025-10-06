@@ -1,0 +1,17 @@
+{
+  "name": "url-validation-script",
+  "version": "1.0.0",
+  "description": "Script para validar URLs antes del envío a Google Search Console",
+  "scripts": {
+    "validate-urls": "node scripts/validate-urls.js",
+    "test-sitemap": "curl -I http://localhost:4322/sitemap-index.xml || echo 'Servidor no disponible'",
+    "test-schema": "node scripts/test-schema.js"
+  },
+  "urls": [
+    "https://tecnomata.com/marketing-internet-morelos",
+    "https://tecnomata.com/disenador-web-morelos", 
+    "https://tecnomata.com/agencia-publicidad-morelos",
+    "https://tecnomata.com/asesor-marketing-morelos",
+    "https://tecnomata.com/sitemap-index.xml"
+  ]
+}

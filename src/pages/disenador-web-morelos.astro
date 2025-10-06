@@ -1,0 +1,123 @@
+---
+// src/pages/disenador-web-morelos.astro
+import Layout from '../layouts/Layout.astro';
+import ServiceHero from '../components/sections/ServiceHero.astro';
+import ServiceFeatures from '../components/sections/ServiceFeatures.astro';
+import DisenadorWebContent from '../components/sections/DisenadorWebContent.astro';
+import TestimonialsNew from '../components/sections/TestimonialsNew.astro';
+import LocalResults from '../components/sections/LocalResults.astro';
+import FAQCategories from '../components/sections/FAQCategories.astro';
+import FAQContactCTA from '../components/sections/FAQContactCTA.astro';
+import LocalBusinessSchema from '../components/seo/LocalBusinessSchema.astro';
+import ServiceSchema from '../components/seo/ServiceSchema.astro';
+import OrganizationSchema from '../components/seo/OrganizationSchema.astro';
+
+const pageTitle = 'Diseñador Web en Morelos | Páginas Web Profesionales - SECTRY';
+const pageDescription = 'Diseñador web profesional en Morelos. Creamos páginas web modernas, responsivas y optimizadas para SEO. Servicios de diseño y desarrollo web en Cuernavaca, Temixco, Jiutepec.';
+---
+
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+>
+
+<!-- Schema Markup para SEO -->
+<LocalBusinessSchema 
+  businessName="Tecnomata - Diseñador Web Morelos"
+  serviceType="Diseño Web"
+  description="Diseñador web profesional en Morelos. Páginas web modernas, responsivas y optimizadas para SEO. Desarrollo web para empresas en Cuernavaca y todo el estado."
+  address={{
+    streetAddress: "Av. Plan de Ayala 123",
+    addressLocality: "Cuernavaca",
+    addressRegion: "Morelos",
+    postalCode: "62000",
+    addressCountry: "MX"
+  }}
+  contactPoint={{
+    telephone: "+52 777 123 4567",
+    email: "hola@tecnomata.com"
+  }}
+  areaServed={["Cuernavaca", "Temixco", "Jiutepec", "Cuautla", "Yautepec", "Xochitepec"]}
+  services={[
+    "Diseño Web Responsivo",
+    "Desarrollo Web Profesional",
+    "Optimización SEO",
+    "E-commerce",
+    "Mantenimiento Web"
+  ]}
+/>
+
+<ServiceSchema 
+  serviceName="Diseñador Web en Morelos"
+  serviceType="Servicios de Diseño Web"
+  description="Diseño y desarrollo de páginas web profesionales para empresas en Morelos. Sites modernos, responsivos y optimizados para convertir visitantes en clientes."
+  provider="Tecnomata"
+  areaServed={["Morelos"]}
+  offers={[
+    {
+      name: "Página Web Empresarial",
+      description: "Site corporativo profesional con diseño moderno"
+    },
+    {
+      name: "Tienda Online",
+      description: "E-commerce completo con pasarela de pagos"
+    },
+    {
+      name: "Landing Page",
+      description: "Página de aterrizaje optimizada para conversiones"
+    }
+  ]}
+/>
+
+<OrganizationSchema />
+
+  <!-- Hero Section -->
+  <ServiceHero 
+    serviceType="diseño-web"
+    badgeText="Diseño Web Profesional"
+    title="<span class='typewriter-text'>Diseñador <span class='text-blue-600'>Web</span> Profesional</span><br/><span class='text-gray-600 font-light'>en Morelos</span>"
+    subtitle="Creamos páginas web modernas, funcionales y optimizadas que impulsan tu negocio en Morelos. Diseño responsive, SEO y experiencia de usuario excepcional."
+    location="Morelos"
+    ctaText="Ver Portfolio"
+    ctaHref="/contacto"
+  />
+
+  <!-- Service Features -->
+  <ServiceFeatures 
+    serviceType="diseño-web"
+    title="¿Por Qué Elegir Nuestro <span class='text-blue-600'>Diseño Web</span>?"
+    subtitle="Combinamos diseño moderno con funcionalidad avanzada para crear sitios web que convierten visitantes en clientes"
+  />
+
+  <!-- Contenido SEO optimizado -->
+  <DisenadorWebContent />
+
+  <!-- Carrusel de Testimonios Post-its -->
+  <TestimonialsNew />
+
+  <!-- Local Results -->
+  <LocalResults 
+    serviceType="diseño-web"
+    title="Resultados Comprobados en Morelos"
+    subtitle="Nuestros diseños web han ayudado a empresas locales a crecer digitalmente"
+    location="Morelos"
+  />
+
+  <!-- FAQ Categories -->
+  <FAQCategories 
+    serviceType="diseño-web"
+    title="Preguntas Frecuentes - Diseño Web"
+    subtitle="Todo lo que necesitas saber sobre nuestros servicios de diseño web en Morelos"
+    location="Morelos"
+  />
+
+  <!-- Contact CTA -->
+  <FAQContactCTA 
+    title="¿Listo para Tu Nueva Página Web?"
+    subtitle="Contacta con nuestro equipo de diseño web y comencemos tu proyecto digital en Morelos"
+    ctaText="Solicitar Cotización"
+    ctaLink="/contacto"
+    phone="+52 777 123 4567"
+  />
+
+</Layout>

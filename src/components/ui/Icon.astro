@@ -1,0 +1,49 @@
+---
+// src/components/ui/Icon.astro
+import fs from 'fs';
+import path from 'path';
+
+interface Props {
+  name: string; // The name of the icon file (without .svg extension)
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'; // Tailwind text sizes
+  class?: string; // Optional class to pass to the svg
+}
+
+const { name, size = 'md', class: className = '' } = Astro.props as Props;
+
+// Fallback for whatsapp icon if using 'chat' name
+const resolvedName = name === 'chat' ? 'whatsapp' : name;
+
+const sizeClasses = {
+  sm: 'w-4 h-4',
+  md: 'w-5 h-5', 
+  lg: 'w-6 h-6',
+  xl: 'w-8 h-8',
+  '2xl': 'w-10 h-10',
+  '3xl': 'w-12 h-12',
+  '4xl': 'w-16 h-16',
+};
+
+// Try to read the SVG file content
+let svgContent = '';
+try {
+  const iconPath = path.join(process.cwd(), 'public', 'icons', `${resolvedName}.svg`);
+  svgContent = fs.readFileSync(iconPath, 'utf-8');
+  
+  // Replace any existing fill with currentColor to make it styleable
+  svgContent = svgContent.replace(/fill="[^"]*"/g, 'fill="currentColor"');
+  svgContent = svgContent.replace(/stroke="[^"]*"/g, 'stroke="currentColor"');
+  
+  // Add classes to the SVG element
+  svgContent = svgContent.replace(
+    /<svg([^>]*)>/,
+    `<svg$1 class="${sizeClasses[size]} ${className} inline-block">`
+  );
+} catch (error) {
+  console.warn(`Icon ${resolvedName} not found, falling back to placeholder`);
+  // Fallback SVG if file not found
+  svgContent = `<svg class="${sizeClasses[size]} ${className} inline-block" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>`;
+}
+---
+
+<Fragment set:html={svgContent} />

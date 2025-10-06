@@ -5,7 +5,7 @@ import ServiceCard from '../ui/ServiceCard.astro';
 import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
 ---
 
-<section class="py-24 bg-white scroll-animate" data-animate="fade-up">
+<section class="py-24 bg-white scroll-animate" data-animate="slide-right">
   <div class="max-w-7xl mx-auto px-6">
     
     <SectionHeader
@@ -15,7 +15,7 @@ import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
       color="blue"
     />
 
-  <div class="grid lg:grid-cols-3 gap-8 scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="150">
+  <div class="grid lg:grid-cols-3 gap-8 scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="180">
       
       <ServiceCard
         title="Auditoría técnica y contenido relevante"
@@ -35,7 +35,7 @@ import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
         color="green"
         theme="dark"
       >
-        <MaterialSymbol slot="icon" icon="business" size="3xl" />
+        <MaterialSymbol slot="icon" icon="storefront" size="3xl" />
         <pn slot="description">
           Completamos, corregimos y potenciamos tu perfil de empresa para que gane visibilidad y clics.
         </pn>

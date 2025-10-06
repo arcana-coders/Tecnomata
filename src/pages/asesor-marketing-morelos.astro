@@ -1,0 +1,169 @@
+---
+// src/pages/asesor-marketing-morelos.astro
+import Layout from '../layouts/Layout.astro';
+import Banner from '../components/ui/Banner.astro';
+import ServiceHero from '../components/sections/ServiceHero.astro';
+import AsesorMarketingContent from '../components/sections/AsesorMarketingContent.astro';
+import ServiceFeatures from '../components/sections/ServiceFeatures.astro';
+import UnifiedTestimonials from '../components/sections/UnifiedTestimonials.astro';
+import LocalResults from '../components/sections/LocalResults.astro';
+import FAQCategories from '../components/sections/FAQCategories.astro';
+import FAQContactCTA from '../components/sections/FAQContactCTA.astro';
+import LocalBusinessSchema from '../components/seo/LocalBusinessSchema.astro';
+import ServiceSchema from '../components/seo/ServiceSchema.astro';
+import OrganizationSchema from '../components/seo/OrganizationSchema.astro';
+
+const pageTitle = 'Asesor de Marketing en Morelos | Consultoría Marketing Empresarial - SECTRY';
+const pageDescription = 'Asesor de marketing profesional en Morelos. Consultoría especializada en estrategias de marketing digital y tradicional. Servicios de asesoría en Cuernavaca, Temixco, Jiutepec.';
+---
+
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+>
+
+<!-- Schema Markup para SEO -->
+<LocalBusinessSchema 
+  businessName="Tecnomata - Asesor de Marketing Morelos"
+  serviceType="Consultoría de Marketing"
+  description="Asesor de marketing profesional en Morelos. Consultoría especializada en estrategias de marketing digital y tradicional para empresas en Cuernavaca y todo el estado."
+  address={{
+    streetAddress: "Av. Plan de Ayala 123",
+    addressLocality: "Cuernavaca",
+    addressRegion: "Morelos",
+    postalCode: "62000",
+    addressCountry: "MX"
+  }}
+  contactPoint={{
+    telephone: "+52 777 123 4567",
+    email: "hola@tecnomata.com"
+  }}
+  areaServed={["Cuernavaca", "Temixco", "Jiutepec", "Cuautla", "Yautepec", "Xochitepec"]}
+  services={[
+    "Estrategia de Marketing",
+    "Análisis de Mercado",
+    "Consultoría Digital",
+    "Capacitación Empresarial",
+    "Plan de Marketing"
+  ]}
+/>
+
+<ServiceSchema 
+  serviceName="Asesor de Marketing en Morelos"
+  serviceType="Servicios de Consultoría en Marketing"
+  description="Consultoría especializada en marketing para empresas de Morelos que buscan crecer y posicionarse en su mercado local."
+  provider="Tecnomata"
+  areaServed={["Morelos"]}
+  offers={[
+    {
+      name: "Diagnóstico Empresarial",
+      description: "Análisis completo de la situación actual del negocio"
+    },
+    {
+      name: "Plan Estratégico",
+      description: "Desarrollo de estrategia de marketing personalizada"
+    },
+    {
+      name: "Capacitación de Equipos",
+      description: "Entrenamiento en herramientas de marketing digital"
+    }
+  ]}
+/>
+
+<OrganizationSchema />
+
+<!-- Banner superior temático -->
+<Banner 
+  items={[
+    { icon: 'lightbulb', label: 'CONSULTORÍA ESTRATÉGICA' },
+    { icon: 'person', label: 'PLANES PERSONALIZADOS' },
+    { icon: 'trending_up', label: 'CRECIMIENTO SOSTENIBLE' },
+    { icon: 'analytics', label: 'ANÁLISIS PROFUNDO' },
+    { icon: 'school', label: 'CAPACITACIÓN INCLUIDA' },
+    { icon: 'support', label: 'SEGUIMIENTO CONTINUO' },
+  ]}
+  variant="default"
+  speed="normal"
+/>
+
+  <!-- Hero Section -->
+  <div class="relative overflow-hidden">
+    <!-- Formas geométricas para asesoría -->
+    <div class="absolute inset-0 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50"></div>
+    <div class="absolute top-20 left-10 w-32 h-32 bg-green-200/30 rounded-full"></div>
+    <div class="absolute top-40 right-20 w-24 h-24 bg-emerald-200/30 transform rotate-45"></div>
+    <div class="absolute bottom-20 left-1/4 w-40 h-20 bg-teal-200/20 rounded-full transform -rotate-12"></div>
+    <div class="absolute bottom-40 right-10 w-16 h-16 bg-green-300/25 rounded-full"></div>
+    
+    <ServiceHero 
+      serviceType="asesor-marketing"
+      badgeText="Consultoría en Marketing"
+      title="<span class='slide-effect'>Asesor de <span class='text-green-600'>Marketing</span> Profesional</span><br/><span class='text-gray-600 font-light'>en Morelos</span>"
+      subtitle="Ofrecemos asesoría especializada en marketing para hacer crecer tu negocio. Estrategias personalizadas, análisis de mercado y planes de acción efectivos para empresas en Morelos."
+      location="Morelos"
+      ctaText="Solicitar Asesoría"
+      ctaHref="/contacto"
+      customBg="bg-transparent"
+    />
+  </div>
+
+  <!-- Contenido SEO optimizado -->
+  <AsesorMarketingContent />
+
+  <!-- Service Features -->
+  <ServiceFeatures 
+    serviceType="asesor-marketing"
+    title="¿Por Qué Elegir Nuestra <span class='text-purple-600'>Asesoría en Marketing</span>?"
+    subtitle="Combinamos experiencia y conocimiento del mercado local para crear estrategias de marketing que impulsan el crecimiento real de tu negocio"
+  />
+
+  <!-- Carrusel de Testimonios Post-its -->
+  <UnifiedTestimonials 
+    title="Lo Que Dicen Nuestros <span class='text-purple-600'>Clientes</span>"
+    testimonials={[
+      {
+        author: "Roberto Sánchez",
+        company: "",
+        location: "Jiutepec",
+        avatar: "RS",
+        content: "La asesoría transformó nuestro enfoque de marketing. Aumentamos las ventas 250% en 6 meses.",
+        color: "purple"
+      },
+      {
+        author: "María Elena Torres",
+        company: "",
+        location: "Cuernavaca", 
+        avatar: "MT",
+        content: "El diagnóstico y plan estratégico nos ayudó a posicionarnos como líderes en la zona. Excelente trabajo.",
+        color: "green"
+      }
+    ]}
+    layout="carousel"
+  />
+
+  <!-- Local Results -->
+  <LocalResults 
+    serviceType="asesor-marketing"
+    title="Resultados de Asesoría en Morelos"
+    subtitle="Nuestras estrategias de marketing han generado crecimiento sostenible para empresas de la región"
+    location="Morelos"
+  />
+
+  <!-- FAQ Categories -->
+  <FAQCategories 
+    serviceType="asesor-marketing"
+    title="Preguntas Frecuentes - Asesoría de Marketing"
+    subtitle="Todo lo que necesitas saber sobre nuestros servicios de consultoría en marketing para Morelos"
+    location="Morelos"
+  />
+
+  <!-- Contact CTA -->
+  <FAQContactCTA 
+    title="¿Listo para Transformar tu Estrategia de Marketing?"
+    subtitle="Contacta con nuestros asesores de marketing y desarrollemos juntos la estrategia que tu empresa en Morelos necesita"
+    ctaText="Agendar Consulta"
+    ctaLink="/contacto"
+    phone="+52 777 123 4567"
+  />
+
+</Layout>

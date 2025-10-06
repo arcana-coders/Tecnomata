@@ -5,7 +5,7 @@ import MainServiceCard from '../ui/MainServiceCard.astro';
 import MaterialSymbol from '../ui/MaterialSymbol.astro';
 ---
 
-<section class="py-24 bg-gray-900 scroll-animate" data-animate="fade-up">
+<section class="py-24 bg-gray-900 scroll-animate" data-animate="slide-right" data-delay="150">
   <div class="max-w-7xl mx-auto px-6">
     
     <SectionHeader
@@ -16,7 +16,7 @@ import MaterialSymbol from '../ui/MaterialSymbol.astro';
       theme="dark"
     />
 
-  <div class="grid lg:grid-cols-3 gap-8 scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="150">
+  <div class="grid lg:grid-cols-3 gap-8 scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="190">
       
       <MainServiceCard
         title="SEO Local Morelos"
@@ -61,7 +61,7 @@ import MaterialSymbol from '../ui/MaterialSymbol.astro';
         color="red"
         theme="dark"
       >
-        <MaterialSymbol slot="icon" icon="star" size="3xl" />
+        <MaterialSymbol slot="icon" icon="verified" size="3xl" />
         <p slot="description">
           Ayudamos a generar más reseñas positivas de manera ética y natural. Las reseñas son fundamentales para la confianza y el SEO local.
         </p>

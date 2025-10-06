@@ -1,6 +1,6 @@
 ---
 // src/components/ui/ContactForm.astro
-import MaterialSymbol from './MaterialSymbol.astro';
+import IconWithColor from './IconWithColor.astro';
 
 interface Props {
   title: string;
@@ -36,8 +36,8 @@ const inputDark = 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 f
     <!-- <input type="hidden" name="redirect" value="https://tecnomata.com/gracias" /> -->
     <div class="grid md:grid-cols-2 gap-6">
       <div class="flex gap-4 items-start">
-        <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
-          <MaterialSymbol icon="person" size="xl" />
+        <div class="w-12 h-12 rounded-full border-2 border-primary bg-white text-primary flex items-center justify-center shrink-0">
+          <IconWithColor name="person" context="form" size="xl" />
         </div>
         <div class="flex-1">
           <label for="name" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>Nombre completo *</label>
@@ -50,8 +50,8 @@ const inputDark = 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 f
       </div>
 
       <div class="flex gap-4 items-start">
-        <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
-          <MaterialSymbol icon="storefront" size="xl" />
+        <div class="w-12 h-12 rounded-full border-2 border-primary bg-white text-primary flex items-center justify-center shrink-0">
+          <IconWithColor name="storefront" context="form" size="xl" />
         </div>
         <div class="flex-1">
           <label for="business" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>Nombre del negocio *</label>
@@ -66,8 +66,8 @@ const inputDark = 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 f
 
     <div class="grid md:grid-cols-2 gap-6">
       <div class="flex gap-4 items-start">
-        <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
-          <MaterialSymbol icon="call" size="xl" />
+        <div class="w-12 h-12 rounded-full border-2 border-primary bg-white text-primary flex items-center justify-center shrink-0">
+          <IconWithColor name="call" context="form" size="xl" />
         </div>
         <div class="flex-1">
           <label for="phone" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>WhatsApp / Teléfono *</label>
@@ -80,8 +80,8 @@ const inputDark = 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 f
       </div>
 
       <div class="flex gap-4 items-start">
-        <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
-          <MaterialSymbol icon="mail" size="xl" />
+        <div class="w-12 h-12 rounded-full border-2 border-primary bg-white text-primary flex items-center justify-center shrink-0">
+          <IconWithColor name="mail" context="form" size="xl" />
         </div>
         <div class="flex-1">
           <label for="email" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>Email</label>
@@ -95,8 +95,8 @@ const inputDark = 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 f
     </div>
 
     <div class="flex gap-4 items-start">
-      <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
-        <MaterialSymbol icon="language" size="xl" />
+      <div class="w-12 h-12 rounded-full border-2 border-primary bg-white text-primary flex items-center justify-center shrink-0">
+        <IconWithColor name="language" context="form" size="xl" />
       </div>
       <div class="flex-1">
         <label for="website" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>Sitio web actual (si tienes)</label>
@@ -109,8 +109,8 @@ const inputDark = 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 f
     </div>
 
     <div class="flex gap-4 items-start">
-      <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
-        <MaterialSymbol icon="category" size="xl" />
+      <div class="w-12 h-12 rounded-full border-2 border-primary bg-white text-primary flex items-center justify-center shrink-0">
+        <IconWithColor name="category" context="form" size="xl" />
       </div>
       <div class="flex-1">
         <label for="service" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>¿Qué servicio te interesa? *</label>
@@ -130,8 +130,8 @@ const inputDark = 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 f
     </div>
 
     <div class="flex gap-4 items-start">
-      <div class="w-12 h-12 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center shrink-0">
-        <MaterialSymbol icon="edit_note" size="xl" />
+      <div class="w-12 h-12 rounded-full border-2 border-primary bg-white text-primary flex items-center justify-center shrink-0">
+        <IconWithColor name="edit_note" context="form" size="xl" />
       </div>
       <div class="flex-1">
         <label for="message" class:list={["block text-sm font-bold mb-2", variant === 'dark' ? 'text-gray-200' : 'text-gray-800']}>Cuéntanos sobre tu proyecto</label>
@@ -146,12 +146,12 @@ const inputDark = 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 f
     <div class="pt-2">
       <button 
         type="submit"
-        class="w-full inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 md:hover:scale-105 shadow-lg hover:shadow-blue-500/30"
+        class="w-full inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 md:hover:scale-105 shadow-lg hover:shadow-blue-500/30"
       >
-        <MaterialSymbol icon="ads_click" size="lg" class="mr-1" /> Solicitar Diagnóstico Gratuito
+        <IconWithColor name="ads_click" color="white" size="lg" /> Solicitar Diagnóstico Gratuito
       </button>
   <div class:list={["flex items-center justify-center gap-2 text-sm mt-4", variant === 'dark' ? 'text-gray-400' : 'text-gray-500']}>
-        <MaterialSymbol icon="lock" size="sm" />
+        <IconWithColor name="lock" color="success" size="sm" />
         <span>Datos seguros. No compartimos tu información.</span>
       </div>
       <p class="text-xs text-gray-400 mt-2 text-center">* Respuesta garantizada en menos de 2 horas (horario laboral)</p>

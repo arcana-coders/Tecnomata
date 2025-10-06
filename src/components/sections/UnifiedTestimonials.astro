@@ -1,0 +1,464 @@
+---
+// src/components/sections/UnifiedTestimonials.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import TestimonialCard from '../ui/TestimonialCard.astro';
+
+interface Props {
+  pill?: string;
+  title: string;
+  subtitle?: string;
+  color?: 'blue' | 'green' | 'purple' | 'orange' | 'red';
+  layout?: 'carousel' | 'grid';
+  testimonials: Array<{
+    author: string;
+    company?: string;
+    location?: string;
+    avatar: string;
+    content: string;
+    color: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'yellow' | 'pink';
+  }>;
+}
+
+const { 
+  pill = "Testimonios",
+  title,
+  subtitle,
+  color = 'blue',
+  layout = 'carousel',
+  testimonials
+} = Astro.props;
+---
+
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill={pill}
+      title={title}
+      subtitle={subtitle || ""}
+      color={color}
+    />
+
+    {layout === 'carousel' ? (
+      <!-- Carrusel de Post-its (para Home) -->
+      <div class="testimonials-featured-carousel relative">
+        <div class="testimonial-track flex items-center justify-center gap-4 md:gap-6 lg:gap-8">
+          {testimonials.map((testimonial, index) => (
+            <div class="testimonial-item" data-index={index}>
+              <TestimonialCard author={testimonial.author} company={testimonial.company || ""} color={testimonial.color}>
+                <div slot="avatar" class={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+                  testimonial.color === 'blue' ? 'bg-blue-600' :
+                  testimonial.color === 'green' ? 'bg-green-600' :
+                  testimonial.color === 'purple' ? 'bg-purple-600' :
+                  testimonial.color === 'orange' ? 'bg-orange-600' :
+                  testimonial.color === 'red' ? 'bg-red-600' :
+                  testimonial.color === 'yellow' ? 'bg-yellow-600' :
+                  testimonial.color === 'pink' ? 'bg-pink-600' : 'bg-gray-600'
+                }`}>
+                  {testimonial.avatar}
+                </div>
+                <span slot="default">
+                  {testimonial.content}
+                </span>
+                {testimonial.location && (
+                  <div slot="location" class="text-xs opacity-70 mt-1">
+                    📍 {testimonial.location}
+                  </div>
+                )}
+              </TestimonialCard>
+            </div>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <!-- Grid de Post-its (para páginas de servicios) -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {testimonials.map((testimonial, index) => (
+          <div class="testimonial-static-item" data-index={index}>
+            <TestimonialCard author={testimonial.author} company={testimonial.company || ""} color={testimonial.color}>
+              <div slot="avatar" class={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+                testimonial.color === 'blue' ? 'bg-blue-600' :
+                testimonial.color === 'green' ? 'bg-green-600' :
+                testimonial.color === 'purple' ? 'bg-purple-600' :
+                testimonial.color === 'orange' ? 'bg-orange-600' :
+                testimonial.color === 'red' ? 'bg-red-600' :
+                testimonial.color === 'yellow' ? 'bg-yellow-600' :
+                testimonial.color === 'pink' ? 'bg-pink-600' : 'bg-gray-600'
+              }`}>
+                {testimonial.avatar}
+              </div>
+              <span slot="default">
+                {testimonial.content}
+              </span>
+              {testimonial.location && (
+                <div slot="location" class="text-xs opacity-70 mt-1">
+                  📍 {testimonial.location}
+                </div>
+              )}
+            </TestimonialCard>
+          </div>
+        ))}
+      </div>
+    )}
+
+  </div>
+</section>
+
+<style>
+  /* Importar estilos del carrusel */
+  .testimonials-featured-carousel {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+  }
+
+  .testimonial-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+
+  .testimonial-item {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: center center;
+    transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backface-visibility: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Tamaños para iPad Pro y Desktop grandes - POST-ITS VERTICALES */
+  @media (min-width: 1024px) {
+    .testimonials-featured-carousel {
+      height: 600px;
+    }
+    
+    .testimonial-item {
+      width: 280px;
+      max-width: 280px;
+      height: 380px;
+    }
+  }
+
+  /* Tamaños para iPad y tablets - POST-ITS VERTICALES */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .testimonials-featured-carousel {
+      height: 550px;
+    }
+    
+    .testimonial-item {
+      width: 260px;
+      max-width: 260px;
+      height: 360px;
+    }
+  }
+
+  /* Tamaños para móviles grandes - POST-ITS VERTICALES (+15% más grandes) */
+  @media (min-width: 480px) and (max-width: 767px) {
+    .testimonials-featured-carousel {
+      height: 520px;
+    }
+
+    .testimonial-item {
+      width: 275px;
+      max-width: 275px;
+      height: 390px;
+    }
+  }
+
+  /* Tamaños para móviles pequeños - POST-ITS VERTICALES (+12% más grandes) */
+  @media (max-width: 479px) {
+    .testimonials-featured-carousel {
+      height: 480px;
+    }
+
+    .testimonial-item {
+      width: 245px;
+      max-width: 245px;
+      height: 360px;
+    }
+  }
+
+  /* Estados base del carrusel circular */
+  .testimonial-item {
+    opacity: 0.2;
+    scale: 0.6;
+    z-index: 1;
+  }
+
+  /* Posición principal (frente del carrusel) - TODOS LOS TAMAÑOS */
+  .testimonial-item[data-position="0"] {
+    transform: translate(-50%, -50%) translateZ(0px);
+    opacity: 1;
+    z-index: 5;
+  }
+
+  /* Escalas específicas por tamaño de pantalla para tarjeta principal */
+  @media (min-width: 1024px) {
+    .testimonial-item[data-position="0"] {
+      scale: 1.3;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .testimonial-item[data-position="0"] {
+      scale: 1.25;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .testimonial-item[data-position="0"] {
+      scale: 1.1;
+    }
+  }
+
+  /* Posiciones laterales visibles SOLO en tablet y desktop - Ajustado para post-its verticales */
+  @media (min-width: 768px) {
+    /* Derecha cercana */
+    .testimonial-item[data-position="1"] {
+      transform: translate(-50%, -50%) translateX(280px) translateZ(-100px) rotateY(-25deg) scale(0.85);
+      opacity: 0.6;
+      z-index: 4;
+    }
+
+    /* Izquierda cercana */
+    .testimonial-item[data-position="5"] {
+      transform: translate(-50%, -50%) translateX(-280px) translateZ(-100px) rotateY(25deg) scale(0.85);
+      opacity: 0.6;
+      z-index: 4;
+    }
+
+    /* Derecha lejana */
+    .testimonial-item[data-position="2"] {
+      transform: translate(-50%, -50%) translateX(420px) translateZ(-200px) rotateY(-45deg) scale(0.7);
+      opacity: 0.3;
+      z-index: 2;
+    }
+
+    /* Izquierda lejana */
+    .testimonial-item[data-position="4"] {
+      transform: translate(-50%, -50%) translateX(-420px) translateZ(-200px) rotateY(45deg) scale(0.7);
+      opacity: 0.3;
+      z-index: 2;
+    }
+
+    /* Trasera (completamente oculta) */
+    .testimonial-item[data-position="3"] {
+      transform: translate(-50%, -50%) translateZ(-350px) rotateY(180deg) scale(0.5);
+      opacity: 0;
+      z-index: 1;
+    }
+  }
+
+  /* En móviles SOLO mostrar la principal, perfectamente centrada */
+  @media (max-width: 767px) {
+    .testimonial-item:not([data-position="0"]) {
+      transform: translate(-50%, -50%) scale(0.7);
+      opacity: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* Asegurar centrado perfecto eliminando cualquier offset */
+  .testimonials-featured-carousel * {
+    box-sizing: border-box;
+  }
+
+  .testimonial-item[data-position="0"] {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Efecto de pausa en hover (desktop) */
+  @media (min-width: 768px) {
+    .testimonial-track:hover .testimonial-item {
+      animation-play-state: paused;
+    }
+  }
+
+  /* Para grid estático (páginas de servicios) */
+  .testimonial-static-item {
+    height: auto;
+    min-height: 300px;
+  }
+
+  /* Aplicar rotaciones también a items estáticos */
+  .testimonial-static-item[data-index="0"] .postit-card {
+    --rotation: -2deg;
+    transform: rotate(var(--rotation));
+  }
+  
+  .testimonial-static-item[data-index="1"] .postit-card {
+    --rotation: 1.5deg;
+    transform: rotate(var(--rotation));
+  }
+  
+  .testimonial-static-item[data-index="2"] .postit-card {
+    --rotation: -0.8deg;
+    transform: rotate(var(--rotation));
+  }
+  
+  .testimonial-static-item[data-index="3"] .postit-card {
+    --rotation: 2.2deg;
+    transform: rotate(var(--rotation));
+  }
+  
+  .testimonial-static-item[data-index="4"] .postit-card {
+    --rotation: -1.3deg;
+    transform: rotate(var(--rotation));
+  }
+  
+  .testimonial-static-item[data-index="5"] .postit-card {
+    --rotation: 0.7deg;
+    transform: rotate(var(--rotation));
+  }
+
+  /* Hover effects para items estáticos también */
+  .testimonial-static-item .postit-card:hover {
+    transform: rotate(calc(var(--rotation, 0deg) * 0.3)) scale(1.02);
+  }
+</style>
+
+<script>
+  // Solo aplicar JavaScript del carrusel si el layout es 'carousel'
+  if (document.querySelector('.testimonials-featured-carousel')) {
+    class CircularTestimonialsCarousel {
+      currentRotation: number;
+      testimonials: NodeListOf<Element>;
+      totalTestimonials: number;
+      interval: ReturnType<typeof setInterval> | null;
+      isAnimating: boolean;
+
+      constructor() {
+        this.currentRotation = 0;
+        this.testimonials = document.querySelectorAll('.testimonial-item');
+        this.totalTestimonials = this.testimonials.length;
+        this.interval = null;
+        this.isAnimating = false;
+        
+        if (this.testimonials.length > 0) {
+          this.init();
+        }
+      }
+
+      init() {
+        // Configurar posiciones iniciales del carrusel circular
+        this.updateCarouselPositions();
+        
+        // Iniciar rotación automática
+        this.startAutoRotation();
+        
+        // Pausar al hacer hover en desktop
+        const carousel = document.querySelector('.testimonials-featured-carousel');
+        if (carousel) {
+          carousel.addEventListener('mouseenter', () => {
+            if (window.innerWidth >= 768) {
+              this.pauseAutoRotation();
+            }
+          });
+          carousel.addEventListener('mouseleave', () => {
+            if (window.innerWidth >= 768) {
+              this.startAutoRotation();
+            }
+          });
+        }
+      }
+
+      updateCarouselPositions() {
+        this.testimonials.forEach((testimonial, index) => {
+          // Calcular la posición en el carrusel circular (0-5)
+          const position = (index - this.currentRotation + this.totalTestimonials) % this.totalTestimonials;
+          
+          // Aplicar la posición como atributo data
+          (testimonial as HTMLElement).setAttribute('data-position', position.toString());
+        });
+      }
+
+      rotateCarousel() {
+        if (this.isAnimating) return;
+        
+        this.isAnimating = true;
+        
+        // Incrementar rotación (mover al siguiente elemento)
+        this.currentRotation = (this.currentRotation + 1) % this.totalTestimonials;
+        
+        // Actualizar posiciones
+        this.updateCarouselPositions();
+        
+        // Esperar a que termine la transición antes de permitir la siguiente
+        setTimeout(() => {
+          this.isAnimating = false;
+        }, 1500); // Duración de la transición CSS (1.5s)
+      }
+
+      startAutoRotation() {
+        this.pauseAutoRotation(); // Limpiar interval existente
+        
+        // Primera rotación después de tiempo inicial de lectura
+        setTimeout(() => {
+          this.rotateCarousel();
+        }, 4000); // 4 segundos para leer la primera
+        
+        // Rotación constante cada 7 segundos - tiempo cómodo para leer
+        this.interval = setInterval(() => {
+          this.rotateCarousel();
+        }, 7000); // 7 segundos para leer cada testimonio cómodamente
+      }
+
+      pauseAutoRotation() {
+        if (this.interval) {
+          clearInterval(this.interval);
+          this.interval = null;
+        }
+      }
+
+      // Método para rotación manual (futuro uso)
+      next() {
+        this.rotateCarousel();
+      }
+
+      previous() {
+        if (this.isAnimating) return;
+        
+        this.isAnimating = true;
+        
+        // Decrementar rotación (mover al elemento anterior)
+        this.currentRotation = (this.currentRotation - 1 + this.totalTestimonials) % this.totalTestimonials;
+        
+        // Actualizar posiciones
+        this.updateCarouselPositions();
+        
+        // Esperar a que termine la transición
+        setTimeout(() => {
+          this.isAnimating = false;
+        }, 1500);
+      }
+    }
+
+    // Inicializar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', () => {
+      new CircularTestimonialsCarousel();
+    });
+
+    // Reinicializar en cambios de tamaño de pantalla
+    let resizeTimeout: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const carousel = document.querySelector('.testimonials-featured-carousel');
+        if (carousel) {
+          new CircularTestimonialsCarousel();
+        }
+      }, 250);
+    });
+  }
+</script>

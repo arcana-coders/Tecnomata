@@ -1,0 +1,108 @@
+---
+// src/components/sections/AgenciaPublicidadContent.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+---
+
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Campañas de Alto Impacto"
+      title="Publicidad Digital que <span class='text-red-600'>Genera Resultados</span> en Morelos"
+      subtitle="Creamos campañas publicitarias estratégicas para empresas de Cuernavaca, Temixco, Jiutepec y todo el estado"
+      color="red"
+    />
+
+    <!-- Grid de servicios -->
+    <div class="grid lg:grid-cols-3 gap-8 mb-16">
+      
+      <div class="bg-red-50 rounded-2xl p-8 text-center">
+        <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <MaterialSymbol icon="ads_click" size="2xl" class="text-white" />
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Google Ads</h3>
+        <p class="text-gray-600">Campañas de búsqueda optimizadas para Morelos con targeting geográfico preciso</p>
+      </div>
+
+      <div class="bg-red-50 rounded-2xl p-8 text-center">
+        <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <MaterialSymbol icon="person" size="2xl" class="text-white" />
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Facebook & Instagram</h3>
+        <p class="text-gray-600">Creatividades impactantes con segmentación avanzada para audiencias locales</p>
+      </div>
+
+      <div class="bg-red-50 rounded-2xl p-8 text-center">
+        <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <MaterialSymbol icon="palette" size="2xl" class="text-white" />
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Creatividades</h3>
+        <p class="text-gray-600">Diseño gráfico profesional y copywriting que conecta con tu audiencia</p>
+      </div>
+
+    </div>
+
+    <!-- Estadísticas de publicidad -->
+    <div class="bg-red-50 rounded-3xl p-12 mb-16">
+      <div class="grid md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-4xl font-bold text-red-600 mb-2">400%</div>
+          <p class="text-gray-700">ROI promedio en campañas bien ejecutadas</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-red-600 mb-2">24h</div>
+          <p class="text-gray-700">para ver primeros resultados</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-red-600 mb-2">70%</div>
+          <p class="text-gray-700">más económico vs publicidad tradicional</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-red-600 mb-2">100%</div>
+          <p class="text-gray-700">medición exacta de inversión</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proceso publicitario -->
+    <div class="text-center">
+      <h3 class="text-3xl font-bold text-gray-900 mb-12">Proceso de Campañas <span class="text-red-600">Publicitarias</span></h3>
+      
+      <div class="grid lg:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-xl font-bold text-white">1</span>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Briefing Estratégico</h4>
+          <p class="text-sm text-gray-600">Análisis del negocio y definición de objetivos</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-xl font-bold text-white">2</span>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Estrategia Creativa</h4>
+          <p class="text-sm text-gray-600">Concepto publicitario y selección de canales</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-xl font-bold text-white">3</span>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Producción</h4>
+          <p class="text-sm text-gray-600">Diseño gráfico y copywriting persuasivo</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-xl font-bold text-white">4</span>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Optimización</h4>
+          <p class="text-sm text-gray-600">Monitoreo y mejora continua de resultados</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

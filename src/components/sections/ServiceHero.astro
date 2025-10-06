@@ -1,0 +1,234 @@
+---
+// src/components/sections/ServiceHero.astro
+import IconWithColor from '../ui/IconWithColor.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+
+interface Props {
+  badgeText: string;
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaHref: string;
+  serviceType: 'marketing-internet' | 'diseño-web' | 'publicidad' | 'asesor-marketing';
+  location: string;
+  customBg?: string;
+}
+
+const { badgeText, title, subtitle, ctaText, ctaHref, serviceType, location, customBg } = Astro.props;
+
+// Configuración por tipo de servicio
+const serviceConfig = {
+  'marketing-internet': {
+    icon: 'trending_up',
+    color: 'text-blue-600',
+    bgGradient: 'from-blue-50 to-indigo-50'
+  },
+  'diseño-web': {
+    icon: 'language',
+    color: 'text-purple-600', 
+    bgGradient: 'from-purple-50 to-pink-50'
+  },
+  'publicidad': {
+    icon: 'ads_click',
+    color: 'text-red-600',
+    bgGradient: 'from-red-50 to-orange-50'
+  },
+  'asesor-marketing': {
+    icon: 'contact_support',
+    color: 'text-green-600',
+    bgGradient: 'from-green-50 to-emerald-50'
+  }
+};
+
+const config = serviceConfig[serviceType];
+---
+
+<section class:list={["py-24 bg-gradient-to-br", customBg || config.bgGradient, "font-dmsans scroll-animate"]} data-animate="fade-up">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center">
+      
+      <!-- Badge de servicio -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border-2 border-gray-100 shadow-sm mb-8">
+        <MaterialSymbol icon={config.icon} size="lg" />
+        <span class="font-semibold text-gray-700">{badgeText}</span>
+      </div>
+
+      <!-- Título principal -->
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-gray-900 leading-tight tracking-tighter mb-6 scroll-animate" data-animate="fade-up" data-delay="100" set:html={title} />
+      
+      <!-- Cursor parpadeante para efecto typewriter -->
+      <style>
+        .typewriter-text::after {
+          content: '|';
+          animation: blink 1s infinite;
+          color: #2563eb;
+          margin-left: 2px;
+        }
+        
+        @keyframes blink {
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0; }
+        }
+
+        .typewriter-text {
+          display: inline-block;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+          .typewriter-text::after {
+            display: none;
+          }
+        }
+
+        /* Efecto ZOOM EXPLOSIVO para Publicidad */
+        .zoom-effect {
+          display: inline-block;
+          animation: explosive-zoom 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes explosive-zoom {
+          0% {
+            transform: scale(0.1) rotate(-10deg);
+            opacity: 0;
+          }
+          30% {
+            transform: scale(1.3) rotate(5deg);
+            opacity: 0.8;
+          }
+          50% {
+            transform: scale(0.9) rotate(-2deg);
+            opacity: 1;
+          }
+          70% {
+            transform: scale(1.1) rotate(1deg);
+          }
+          100% {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+          }
+        }
+
+        /* Efecto SLIDE DESDE ARRIBA para Asesor Marketing */
+        .slide-effect {
+          display: inline-block;
+          animation: slide-from-top 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes slide-from-top {
+          0% {
+            transform: translateY(-100px) skewY(-5deg);
+            opacity: 0;
+          }
+          30% {
+            transform: translateY(10px) skewY(2deg);
+            opacity: 0.7;
+          }
+          60% {
+            transform: translateY(-5px) skewY(-1deg);
+            opacity: 0.9;
+          }
+          100% {
+            transform: translateY(0) skewY(0deg);
+            opacity: 1;
+          }
+        }
+
+        /* Responsive para efectos especiales */
+        @media (max-width: 640px) {
+          .zoom-effect, .slide-effect {
+            animation: none;
+          }
+        }
+      </style>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const typewriterElement = document.querySelector('.typewriter-text');
+          if (typewriterElement) {
+            // Obtener el texto original pero preservar HTML
+            const originalHTML = typewriterElement.innerHTML;
+            
+            // Detectar si es móvil
+            const isMobile = window.innerWidth <= 640;
+            
+            if (!isMobile) {
+              // Crear un div temporal para extraer solo el texto plano
+              const tempDiv = document.createElement('div');
+              tempDiv.innerHTML = originalHTML;
+              const textContent = tempDiv.textContent || tempDiv.innerText || '';
+              
+              // Limpiar el elemento
+              typewriterElement.innerHTML = '';
+              
+              let charIndex = 0;
+              
+              function typeChar() {
+                if (charIndex < textContent.length && typewriterElement) {
+                  const currentChar = textContent[charIndex];
+                  
+                  // Construir el HTML progresivamente manteniendo los estilos
+                  let htmlToShow = '';
+                  let plainTextSoFar = textContent.substring(0, charIndex + 1);
+                  
+                  // Reconstruir el HTML con los estilos aplicando solo al texto que ya se "escribió"
+                  if (plainTextSoFar.includes('Web')) {
+                    const beforeWeb = plainTextSoFar.substring(0, plainTextSoFar.indexOf('Web'));
+                    const webPart = plainTextSoFar.substring(plainTextSoFar.indexOf('Web'), plainTextSoFar.indexOf('Web') + 3);
+                    const afterWeb = plainTextSoFar.substring(plainTextSoFar.indexOf('Web') + 3);
+                    
+                    htmlToShow = beforeWeb + '<span class="text-blue-600">' + webPart + '</span>' + afterWeb;
+                  } else {
+                    htmlToShow = plainTextSoFar;
+                  }
+                  
+                  typewriterElement.innerHTML = htmlToShow;
+                  charIndex++;
+                  setTimeout(typeChar, 100); // 100ms entre caracteres
+                } else if (typewriterElement) {
+                  // Al final, mostrar el HTML original completo
+                  typewriterElement.innerHTML = originalHTML;
+                }
+              }
+
+              // Comenzar la animación después de un breve retraso
+              setTimeout(typeChar, 800);
+            }
+          }
+        });
+      </script>
+      
+      <!-- Subtítulo -->
+      <p class="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-10 scroll-animate" data-animate="fade-up" data-delay="200" set:html={subtitle} />
+
+      <!-- Botones de acción -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center scroll-animate" data-animate="fade-up" data-delay="300">
+        <a href={ctaHref} class="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-blue-500/30 inline-flex items-center gap-2">
+          <MaterialSymbol icon={config.icon} size="lg" />
+          {ctaText}
+        </a>
+        <a href="/test-seo" class="px-8 py-4 border-2 border-gray-300 hover:border-primary text-gray-700 hover:text-primary font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105 inline-flex items-center gap-2">
+          <MaterialSymbol icon="insights" size="lg" />
+          Análisis gratuito
+        </a>
+      </div>
+
+      <!-- Indicadores de confianza -->
+      <div class="mt-12 flex flex-wrap justify-center items-center gap-6 text-sm text-gray-500 scroll-animate" data-animate="fade-up" data-delay="400">
+        <div class="flex items-center gap-2">
+          <IconWithColor name="verified" color="success" size="sm" />
+          <span>Especialistas en {location}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <MaterialSymbol icon="schedule" size="sm" />
+          <span>Respuesta en 2 horas</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <MaterialSymbol icon="lock_open" size="sm" />
+          <span>Sin contratos forzosos</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

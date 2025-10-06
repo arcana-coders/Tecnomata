@@ -1,0 +1,120 @@
+---
+// src/components/seo/OrganizationSchema.astro
+interface Props {
+  organizationName?: string;
+  description?: string;
+  url?: string;
+  logo?: string;
+  contactPoints?: {
+    telephone: string;
+    email: string;
+    contactType: string;
+    areaServed: string;
+  }[];
+}
+
+const {
+  organizationName = "Tecnomata - SEO y Marketing Digital",
+  description = "Agencia especializada en SEO local y marketing digital para empresas de Morelos. Posicionamiento en Google, diseño web y publicidad digital.",
+  url = "https://tecnomata.com",
+  logo = "https://tecnomata.com/images/logo300x80.svg",
+  contactPoints = [
+    {
+      telephone: "+52 777 123 4567",
+      email: "hola@tecnomata.com", 
+      contactType: "customer service",
+      areaServed: "Morelos, México"
+    }
+  ]
+} = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${url}#organization`,
+  name: organizationName,
+  description: description,
+  url: url,
+  logo: {
+    "@type": "ImageObject",
+    url: logo,
+    width: "300",
+    height: "80"
+  },
+  contactPoint: contactPoints.map(contact => ({
+    "@type": "ContactPoint",
+    telephone: contact.telephone,
+    email: contact.email,
+    contactType: contact.contactType,
+    areaServed: contact.areaServed,
+    availableLanguage: ["Spanish", "English"]
+  })),
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Cuernavaca",
+    addressRegion: "Morelos", 
+    addressCountry: "MX"
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "18.9261",
+    longitude: "-99.2319"
+  },
+  foundingDate: "2020",
+  numberOfEmployees: {
+    "@type": "QuantitativeValue",
+    minValue: "5",
+    maxValue: "20"
+  },
+  sameAs: [
+    "https://www.facebook.com/tecnomata",
+    "https://www.instagram.com/tecnomata", 
+    "https://www.linkedin.com/company/tecnomata",
+    "https://twitter.com/tecnomata"
+  ],
+  serviceArea: {
+    "@type": "State",
+    name: "Morelos"
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Servicios de Marketing Digital",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "SEO Local",
+          description: "Posicionamiento en Google para negocios locales"
+        }
+      },
+      {
+        "@type": "Offer", 
+        itemOffered: {
+          "@type": "Service",
+          name: "Diseño Web",
+          description: "Páginas web profesionales y optimizadas"
+        }
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service", 
+          name: "Publicidad Digital",
+          description: "Campañas de Google Ads y redes sociales"
+        }
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Marketing Internet",
+          description: "Estrategias integrales de marketing online"
+        }
+      }
+    ]
+  }
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

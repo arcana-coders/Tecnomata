@@ -1,5 +1,5 @@
 ---
-import MaterialSymbol from './MaterialSymbol.astro';
+import IconWithColor from './IconWithColor.astro';
 import CTATab from './CTATab.astro'; // 👈 1. Importamos el nuevo componente
 ---
 <div class="fixed right-0 bottom-4 z-40 xl:hidden" style="right: max(0px, env(safe-area-inset-right))">
@@ -13,7 +13,7 @@ import CTATab from './CTATab.astro'; // 👈 1. Importamos el nuevo componente
       dataAction="call"
       dataUrl="tel:7774094647"
     >
-      <MaterialSymbol icon="call" size="xl" />
+      <IconWithColor name="call" color="white" size="xl" />
     </CTATab>
 
     <CTATab
@@ -35,7 +35,7 @@ import CTATab from './CTATab.astro'; // 👈 1. Importamos el nuevo componente
   bgColorClasses="bg-gradient-to-b from-slate-500 to-slate-700 hover:from-slate-600 hover:to-slate-800"
   dataAction="top"
     >
-      <MaterialSymbol icon="arrow_upward" size="xl" />
+      <IconWithColor name="arrow_upward" color="white" size="xl" />
     </CTATab>
 
   </div>

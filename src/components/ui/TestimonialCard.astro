@@ -9,34 +9,131 @@ interface Props {
 const { author, company, color = 'blue' } = Astro.props;
 
 const colorClasses = {
-  border: {
-    blue: 'hover:border-blue-200',
-    green: 'hover:border-green-200',
-    purple: 'hover:border-purple-200',
-    orange: 'hover:border-orange-200',
-    red: 'hover:border-red-200',
-    yellow: 'hover:border-yellow-200',
-    pink: 'hover:border-pink-200',
+  postit: {
+    blue: 'bg-blue-200 border-blue-300 shadow-blue-300/50',
+    green: 'bg-green-200 border-green-300 shadow-green-300/50',
+    purple: 'bg-purple-200 border-purple-300 shadow-purple-300/50',
+    orange: 'bg-orange-200 border-orange-300 shadow-orange-300/50',
+    red: 'bg-red-200 border-red-300 shadow-red-300/50',
+    yellow: 'bg-yellow-200 border-yellow-300 shadow-yellow-300/50',
+    pink: 'bg-pink-200 border-pink-300 shadow-pink-300/50',
+  },
+  text: {
+    blue: 'text-blue-900',
+    green: 'text-green-900',
+    purple: 'text-purple-900',
+    orange: 'text-orange-900',
+    red: 'text-red-900',
+    yellow: 'text-yellow-900',
+    pink: 'text-pink-900',
   }
 }
 ---
 
-<div class:list={["group bg-white border-2 border-gray-100 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full flex flex-col font-dmsans", colorClasses.border[color]]}>
-  <div class="flex-grow">
-    <div class="flex text-yellow-400 text-xl mb-4">
+<div class:list={["postit-card relative p-5 h-full flex flex-col justify-between font-dmsans transition-all duration-300", colorClasses.postit[color]]}>
+  <!-- Esquina doblada del post-it -->
+  <div class="postit-corner absolute top-0 right-0 w-6 h-6 bg-white/20 border-l border-b border-gray-400/30"></div>
+  
+  <!-- Parte superior: Estrellas -->
+  <div class="relative z-10">
+    <div class="flex justify-center text-yellow-600 text-base mb-3">
       ⭐⭐⭐⭐⭐
     </div>
-    <p class="text-gray-700 leading-relaxed italic">
+  </div>
+  
+  <!-- Parte central: Testimonio -->
+  <div class="flex-grow flex items-center justify-center relative z-10 py-2">
+    <p class:list={["leading-snug font-medium text-xs sm:text-sm text-center", colorClasses.text[color]]}>
       "<slot />"
     </p>
   </div>
-  <div class="flex items-center gap-4 mt-6 pt-6 border-t border-gray-100">
-    <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
-      <slot name="avatar" />
+  
+  <!-- Parte inferior: Autor -->
+  <div class="relative z-10 text-center">
+    <div class="flex justify-center mb-2">
+      <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-white/40">
+        <slot name="avatar" />
+      </div>
     </div>
-    <div>
-      <div class="font-bold text-gray-900">{author}</div>
-      <div class="text-gray-600 text-sm">{company}</div>
-    </div>
+    <div class:list={["font-bold text-xs sm:text-sm", colorClasses.text[color]]}>{author}</div>
+    <div class:list={["text-xs opacity-80", colorClasses.text[color]]}>{company}</div>
+    <slot name="location" />
   </div>
 </div>
+
+<style>
+  .postit-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    position: relative;
+    border-radius: 4px 8px 4px 4px;
+    aspect-ratio: 3/4; /* Proporción vertical clásica de post-it */
+  }
+
+  .postit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(0, 0, 0, 0.05) 100%
+    );
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .postit-corner {
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    border-radius: 0 0 0 4px;
+  }
+
+  .postit-card:hover {
+    transform: rotate(0deg) scale(1.02);
+    box-shadow: 
+      0 8px 16px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  /* Rotaciones diferentes y naturales para cada post-it */
+  .testimonial-item[data-index="0"] .postit-card {
+    --rotation: -2deg;
+    transform: rotate(var(--rotation));
+  }
+  
+  .testimonial-item[data-index="1"] .postit-card {
+    --rotation: 1.5deg;
+    transform: rotate(var(--rotation));
+  }
+  
+  .testimonial-item[data-index="2"] .postit-card {
+    --rotation: -0.8deg;
+    transform: rotate(var(--rotation));
+  }
+  
+  .testimonial-item[data-index="3"] .postit-card {
+    --rotation: 2.2deg;
+    transform: rotate(var(--rotation));
+  }
+  
+  .testimonial-item[data-index="4"] .postit-card {
+    --rotation: -1.3deg;
+    transform: rotate(var(--rotation));
+  }
+  
+  .testimonial-item[data-index="5"] .postit-card {
+    --rotation: 0.7deg;
+    transform: rotate(var(--rotation));
+  }
+
+  /* Hover mantiene la rotación pero añade escala y reduce la inclinación */
+  .postit-card:hover {
+    transform: rotate(calc(var(--rotation, 0deg) * 0.3)) scale(1.02);
+  }
+</style>

@@ -1,8 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Design Tokens - Sistema modular de colores INLINE */
+:root {
+  /* Colores principales */
+  --color-primary-main: #2563eb; /* blue-600 - AZUL */
+  --color-primary-light: #60a5fa; /* blue-400 */
+  --color-primary-dark: #1d4ed8; /* blue-700 */
+  --color-primary-contrast: #ffffff;
+  
+  /* Colores secundarios */
+  --color-secondary-main: #6b7280; /* gray-500 */
+  --color-secondary-light: #9ca3af; /* gray-400 */
+  --color-secondary-dark: #374151; /* gray-700 */
+  
+  /* Colores semánticos */
+  --color-success-main: #059669; /* green-600 */
+  --color-success-light: #10b981; /* green-500 */
+  --color-success-dark: #047857; /* green-700 */
+  
+  --color-warning-main: #d97706; /* orange-600 */
+  --color-warning-light: #f59e0b; /* orange-500 */
+  --color-warning-dark: #b45309; /* orange-700 */
+  
+  --color-error-main: #dc2626; /* red-600 */
+  --color-error-light: #ef4444; /* red-500 */
+  --color-error-dark: #b91c1c; /* red-700 */
+}
+
+
 
 /* Tipografía Visinex - Aplicación global */
 @layer base {
@@ -17,6 +44,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   /* Títulos principales con el peso específico de Visinex */
@@ -76,6 +105,20 @@
     font-weight: 400;
     line-height: 1.6;
     color: #6B7280;
+  }
+
+  /* Prevenir overflow en títulos y contenido */
+  h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  
+  /* Asegurar que ningún elemento cause overflow horizontal */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   @media (max-width: 768px) {
@@ -274,3 +317,59 @@ html {
 .text-google-red { color: #EA4335; }
 .text-google-yellow { color: #FBBC05; }
 .text-google-green { color: #34A853; }
+
+/* Animaciones personalizadas para barras de colores */
+@keyframes fillLeftRight {
+  0% {
+    width: 0%;
+    transform-origin: left;
+  }
+  100% {
+    width: 100%;
+    transform-origin: left;
+  }
+}
+
+@keyframes fillRightLeft {
+  0% {
+    width: 0%;
+    transform-origin: right;
+  }
+  100% {
+    width: 100%;
+    transform-origin: right;
+  }
+}
+
+@keyframes fillRandom {
+  0% {
+    width: 0%;
+    transform-origin: center;
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  50% {
+    width: 50%;
+    transform: scale(0.95);
+  }
+  100% {
+    width: 100%;
+    transform: scale(1);
+    transform-origin: center;
+  }
+}
+
+.animate-fill-left-right {
+  animation: fillLeftRight 1.2s ease-out forwards;
+}
+
+.animate-fill-right-left {
+  animation: fillRightLeft 1.2s ease-out forwards;
+}
+
+.animate-fill-random {
+  animation: fillRandom 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}

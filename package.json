@@ -6,9 +6,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "validate-urls": "node scripts/validate-urls.js",
+    "check-sitemap": "echo 'Testing sitemap...' && curl -I http://localhost:4322/sitemap-index.xml",
+    "seo-check": "npm run build && npm run validate-urls"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.13.4"
   },
   "devDependencies": {

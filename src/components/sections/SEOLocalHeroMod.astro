@@ -18,11 +18,11 @@ const { subtitle, title, description, ctaText, ctaHref } = Astro.props;
     <div class="grid gap-16 items-center two-col-590">
       <!-- Left: content -->
       <div class="space-y-8">
-        <p class="text-lg font-semibold text-blue-600">{subtitle}</p>
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 leading-tight tracking-tighter" set:html={title} />
+        <p class="text-lg font-semibold text-primary">{subtitle}</p>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 leading-tight tracking-tighter scroll-animate" data-animate="scale-in" data-delay="300" set:html={title} />
         <p class="text-xl text-gray-600 leading-relaxed" set:html={description} />
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href={ctaHref} class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 font-bold text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/30">
+          <a href={ctaHref} class="bg-primary hover:bg-primary-dark text-white px-8 py-4 font-bold text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/30">
             <MaterialSymbol icon="ads_click" size="lg" class="mr-2" />{ctaText}
           </a>
         </div>

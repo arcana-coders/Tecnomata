@@ -1,6 +1,6 @@
 ---
 // src/components/ui/FAQItem.astro
-import MaterialSymbol from './MaterialSymbol.astro';
+import IconWithColor from './IconWithColor.astro';
 
 interface Props {
   question: string;
@@ -10,20 +10,137 @@ interface Props {
 const { question, answer } = Astro.props;
 ---
 
-<details class="group bg-white border-2 border-gray-100 rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-md open:shadow-lg open:border-blue-200 font-dmsans">
-  <summary class="flex justify-between items-center font-bold text-gray-900 text-lg leading-relaxed">
+<details class="group bg-white border-2 border-gray-100 rounded-xl p-6 cursor-pointer hover:shadow-md hover:border-blue-200/50 open:shadow-xl open:border-gray-700/50 open:bg-gray-900 font-dmsans faq-container">
+  <summary class="flex justify-between items-center font-bold text-gray-900 group-open:text-white text-lg leading-relaxed transition-colors duration-[4000ms] ease-linear">
     <span>{question}</span>
-    <span class="w-8 h-8 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center transition-transform duration-300 group-open:rotate-180">
-      <MaterialSymbol icon="expand_more" size="md" class="text-blue-600" />
-    </span>
+    <div class="relative flex-shrink-0 ml-4">
+      <!-- Círculo exterior con gradiente suave -->
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200/60 shadow-sm flex items-center justify-center faq-icon-circle group-hover:from-blue-100 group-hover:to-blue-200 group-hover:shadow-md group-open:from-gray-700 group-open:to-gray-600 group-open:border-gray-500 group-open:shadow-lg">
+        <!-- Icono más elegante -->
+        <div class="faq-arrow group-open:rotate-180 group-open:text-white text-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Indicador de estado activo -->
+      <div class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full opacity-0 faq-indicator group-open:opacity-100 group-open:scale-100 scale-75 shadow-sm"></div>
+        <div class="w-full h-full bg-white rounded-full scale-50"></div>
+      </div>
+    </div>
   </summary>
-  <div class="faq-content pt-4 text-gray-600 leading-relaxed text-base border-t border-gray-100 mt-4">
-    {answer}
+  <div class="faq-content">
+        <div class="pt-5 text-gray-700 group-open:text-gray-300 leading-relaxed text-base border-t border-blue-100/50 group-open:border-gray-600/50 mt-4 faq-answer">
+      <div class="pl-1">
+        {answer}
+      </div>
+    </div>
   </div>
 </details>
 
 <style>
   details > summary::-webkit-details-marker {
     display: none;
+  }
+
+  /* Animación de apertura lenta usando max-height */
+  .faq-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding-top: 0;
+    margin-top: 0;
+    transition: max-height 3.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 3.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                padding-top 3.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                margin-top 3.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  details[open] .faq-content {
+    max-height: 400px;
+    opacity: 1;
+    padding-top: 0;
+    margin-top: 0;
+    transition: max-height 4.0s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 4.0s cubic-bezier(0.2, 0.8, 0.2, 1),
+                padding-top 4.0s cubic-bezier(0.2, 0.8, 0.2, 1),
+                margin-top 4.0s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  /* Transición del contenido de respuesta */
+  .faq-answer {
+    transition: color 4.0s ease-linear,
+                border-color 4.0s ease-linear;
+  }
+
+  /* Transiciones específicas para cada elemento */
+  .faq-icon-circle {
+    transition: background-image 4.0s ease-linear,
+                border-color 4.0s ease-linear,
+                box-shadow 0.3s ease-out;
+  }
+
+  .faq-arrow {
+    transition: transform 4.0s ease-linear,
+                color 4.0s ease-linear;
+  }
+
+  .faq-indicator {
+    transition: opacity 4.0s ease-linear,
+                transform 4.0s ease-linear;
+  }
+
+  /* Sin animaciones adicionales - solo la apertura lenta de la tarjeta */
+
+  /* Efecto de pulso sutil en hover (solo cuando cerrado) */
+  details.group:not([open]):hover .relative > div {
+    animation: gentlePulse 2s infinite;
+  }
+
+  @keyframes gentlePulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    }
+    50% {
+      transform: scale(1.03);
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+  }
+
+  /* Transiciones específicas para evitar conflictos */
+  .faq-container {
+    transition: background-color 4.0s ease-linear,
+                border-color 4.0s ease-linear,
+                box-shadow 0.3s ease-out;
+  }
+
+  /* Evitar que otros elementos interfieran con las transiciones */
+  .faq-container * {
+    transition-delay: 0s !important;
+  }
+
+  /* Efecto de brillo sutil cuando está abierto */
+  details[open] {
+    box-shadow: 
+      0 20px 25px -5px rgb(0 0 0 / 0.1),
+      0 10px 10px -5px rgb(0 0 0 / 0.04),
+      inset 0 1px 0 rgb(255 255 255 / 0.1);
+  }
+
+  /* Animación de entrada suave para todo el componente */
+  details.group {
+    animation: fadeInUp 0.6s ease-out both;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>

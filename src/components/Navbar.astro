@@ -16,13 +16,71 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
   
   <!-- Desktop Menu: only from xl and up -->
   <ul class="hidden xl:flex gap-8 text-base font-medium items-center font-dmsans">
-    <li><a href="/" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">Inicio</a></li>
-    <li><a href="/seo-local-morelos" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">SEO Local</a></li>
-    <li><a href="/diseno-web-seo" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">Diseño Web</a></li>
-    <li><a href="/mas-resenas" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">App de Reseñas</a></li>
-    <li><a href="/test-seo" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">Test SEO</a></li>
-    <li><a href="/faq" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">FAQ</a></li>
-    <li><a href="/contacto" class="text-gray-700 relative after:absolute after:w-full after:h-0.5 after:bg-blue-600 after:left-0 after:-bottom-1">Contacto</a></li>
+    <li><a href="/" class:list={["transition-colors duration-300", (currentPath === '/' || currentPath === '') ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600']}>Inicio</a></li>
+    
+    <!-- Servicios Dropdown -->
+    <li class="relative desktop-dropdown-container">
+      <button class:list={["transition-colors duration-300 flex items-center gap-1 desktop-dropdown-toggle", (currentPath === '/marketing-internet-morelos' || currentPath === '/disenador-web-morelos' || currentPath === '/agencia-publicidad-morelos' || currentPath === '/asesor-marketing-morelos' || currentPath === '/diseno-web-seo') ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600']} data-desktop-dropdown="servicios">
+        Servicios
+        <svg class="w-4 h-4 desktop-dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <!-- Cortina de fondo -->
+      <div class="desktop-dropdown-curtain fixed top-20 right-0 h-96 bg-white/95 backdrop-blur-sm shadow-2xl border-l border-gray-200 opacity-0 invisible transition-all duration-300 transform translate-x-full z-40" data-desktop-dropdown-curtain="servicios">
+        <!-- Contenido del dropdown -->
+        <div class="desktop-dropdown-menu absolute top-0 left-0 w-80 bg-white rounded-l-lg shadow-xl border border-gray-100 opacity-0 invisible transition-all duration-300 transform translate-y-2 z-50" data-desktop-dropdown-menu="servicios">
+          <div class="py-4 px-2">
+            <a href="/marketing-internet-morelos" class:list={["block px-4 py-3 transition-colors rounded-lg mx-2", currentPath === '/marketing-internet-morelos' ? 'bg-blue-50 text-blue-600 font-semibold' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600']}>
+              <div class="font-medium text-base">Marketing por Internet</div>
+            </a>
+            <a href="/disenador-web-morelos" class:list={["block px-4 py-3 transition-colors rounded-lg mx-2", currentPath === '/disenador-web-morelos' ? 'bg-purple-50 text-purple-600 font-semibold' : 'text-gray-700 hover:bg-purple-50 hover:text-purple-600']}>
+              <div class="font-medium text-base">Diseño Web</div>
+            </a>
+            <a href="/agencia-publicidad-morelos" class:list={["block px-4 py-3 transition-colors rounded-lg mx-2", currentPath === '/agencia-publicidad-morelos' ? 'bg-red-50 text-red-600 font-semibold' : 'text-gray-700 hover:bg-red-50 hover:text-red-600']}>
+              <div class="font-medium text-base">Agencia de Publicidad</div>
+            </a>
+            <a href="/asesor-marketing-morelos" class:list={["block px-4 py-3 transition-colors rounded-lg mx-2", currentPath === '/asesor-marketing-morelos' ? 'bg-green-50 text-green-600 font-semibold' : 'text-gray-700 hover:bg-green-50 hover:text-green-600']}>
+              <div class="font-medium text-base">Asesor de Marketing</div>
+            </a>
+            <hr class="my-3 mx-4">
+            <a href="/diseno-web-seo" class:list={["block px-4 py-3 transition-colors rounded-lg mx-2", currentPath === '/diseno-web-seo' ? 'bg-gray-50 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900']}>
+              <div class="font-medium text-base">Diseño Web + SEO</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <!-- SEO y Herramientas Dropdown -->
+    <li class="relative desktop-dropdown-container">
+      <button class:list={["transition-colors duration-300 flex items-center gap-1 desktop-dropdown-toggle", (currentPath === '/seo-local-morelos' || currentPath === '/test-seo' || currentPath === '/mas-resenas') ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600']} data-desktop-dropdown="seo-herramientas">
+        SEO y Herramientas
+        <svg class="w-4 h-4 desktop-dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <!-- Cortina de fondo -->
+      <div class="desktop-dropdown-curtain fixed top-20 right-0 h-64 bg-white/95 backdrop-blur-sm shadow-2xl border-l border-gray-200 opacity-0 invisible transition-all duration-300 transform translate-x-full z-40" data-desktop-dropdown-curtain="seo-herramientas">
+        <!-- Contenido del dropdown -->
+        <div class="desktop-dropdown-menu absolute top-0 left-0 w-80 bg-white rounded-l-lg shadow-xl border border-gray-100 opacity-0 invisible transition-all duration-300 transform translate-y-2 z-50" data-desktop-dropdown-menu="seo-herramientas">
+          <div class="py-4 px-2">
+            <a href="/seo-local-morelos" class:list={["block px-4 py-3 transition-colors rounded-lg mx-2", currentPath === '/seo-local-morelos' ? 'bg-blue-50 text-blue-600 font-semibold' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600']}>
+              <div class="font-medium text-base">SEO Local Morelos</div>
+            </a>
+            <a href="/test-seo" class:list={["block px-4 py-3 transition-colors rounded-lg mx-2", currentPath === '/test-seo' ? 'bg-pink-50 text-pink-600 font-semibold' : 'text-gray-700 hover:bg-pink-50 hover:text-pink-600']}>
+              <div class="font-medium text-base">Test SEO Gratuito</div>
+            </a>
+            <a href="/mas-resenas" class:list={["block px-4 py-3 transition-colors rounded-lg mx-2", currentPath === '/mas-resenas' ? 'bg-orange-50 text-orange-600 font-semibold' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600']}>
+              <div class="font-medium text-base">App de Reseñas</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li><a href="/faq" class:list={["transition-colors duration-300", currentPath === '/faq' ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600']}>FAQ</a></li>
+    <li><a href="/contacto" class:list={["transition-colors duration-300", currentPath === '/contacto' ? 'text-blue-600 font-semibold relative after:absolute after:w-full after:h-0.5 after:bg-blue-600 after:left-0 after:-bottom-1' : 'text-gray-700 hover:text-blue-600']}>Contacto</a></li>
   </ul>
 
   <!-- Mobile Menu Button (visible until xl) -->
@@ -36,13 +94,46 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
 <div id="mobile-menu" class="fixed inset-0 bg-black z-40 transform -translate-y-full transition-transform duration-500 ease-in-out flex flex-col">
   <div class="flex-grow flex flex-col justify-center items-start px-8 sm:px-16">
     <ul class="font-dmsans flex flex-col gap-y-6 lg:gap-y-4">
-  <li><a href="/" class:list={["font-bold text-4xl lg:text-3xl transition-colors", (currentPath === '/' || currentPath === '') ? 'text-blue-500' : 'text-white hover:text-orange-500']}>Inicio</a></li>
-  <li><a href="/seo-local-morelos" class:list={["font-bold text-4xl lg:text-3xl transition-colors", currentPath === '/seo-local-morelos' ? 'text-blue-500' : 'text-white hover:text-orange-500']}>SEO Local</a></li>
-  <li><a href="/diseno-web-seo" class:list={["font-bold text-4xl lg:text-3xl transition-colors", currentPath === '/diseno-web-seo' ? 'text-blue-500' : 'text-white hover:text-orange-500']}>Diseño Web</a></li>
-  <li><a href="/mas-resenas" class:list={["font-bold text-4xl lg:text-3xl transition-colors", currentPath === '/mas-resenas' ? 'text-blue-500' : 'text-white hover:text-orange-500']}>App de Reseñas</a></li>
-  <li><a href="/test-seo" class:list={["font-bold text-4xl lg:text-3xl transition-colors", currentPath === '/test-seo' ? 'text-blue-500' : 'text-white hover:text-pink-500']}>Test SEO</a></li>
-  <li><a href="/faq" class:list={["font-bold text-4xl lg:text-3xl transition-colors", currentPath === '/faq' ? 'text-blue-500' : 'text-white hover:text-orange-500']}>FAQ</a></li>
-  <li class="pt-6"><a href="/contacto" class="font-bold text-xl lg:text-lg bg-blue-600 text-white px-8 lg:px-6 py-4 lg:py-3 rounded-full hover:bg-blue-700 transition-colors">Contacto</a></li>
+      <li><a href="/" class:list={["font-bold text-2xl sm:text-3xl lg:text-3xl transition-colors", (currentPath === '/' || currentPath === '') ? 'text-blue-500' : 'text-white hover:text-orange-500']}>INICIO</a></li>
+      
+      <!-- Servicios Mobile Dropdown -->
+      <li class="mt-4">
+        <button class="mobile-dropdown-toggle font-bold text-2xl sm:text-3xl lg:text-3xl text-white hover:text-blue-400 transition-colors flex items-center gap-2 w-full text-left" data-mobile-dropdown="servicios-mobile">
+          SERVICIOS
+          <svg class="w-6 h-6 mobile-dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="mobile-dropdown-content ml-4 mt-3 overflow-hidden transition-all duration-500 max-h-0 opacity-0" data-mobile-dropdown-content="servicios-mobile">
+          <div class="flex flex-col gap-y-3">
+            <a href="/marketing-internet-morelos" class:list={["font-medium text-lg sm:text-xl lg:text-lg transition-colors", currentPath === '/marketing-internet-morelos' ? 'text-blue-500' : 'text-white hover:text-blue-400']}>Marketing Internet</a>
+            <a href="/disenador-web-morelos" class:list={["font-medium text-lg sm:text-xl lg:text-lg transition-colors", currentPath === '/disenador-web-morelos' ? 'text-blue-500' : 'text-white hover:text-purple-400']}>Diseño Web</a>
+            <a href="/agencia-publicidad-morelos" class:list={["font-medium text-lg sm:text-xl lg:text-lg transition-colors", currentPath === '/agencia-publicidad-morelos' ? 'text-blue-500' : 'text-white hover:text-red-400']}>Agencia Publicidad</a>
+            <a href="/asesor-marketing-morelos" class:list={["font-medium text-lg sm:text-xl lg:text-lg transition-colors", currentPath === '/asesor-marketing-morelos' ? 'text-blue-500' : 'text-white hover:text-green-400']}>Asesor Marketing</a>
+            <a href="/diseno-web-seo" class:list={["font-medium text-lg sm:text-xl lg:text-lg transition-colors", currentPath === '/diseno-web-seo' ? 'text-blue-500' : 'text-white hover:text-orange-400']}>Diseño Web + SEO</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- SEO y Herramientas Mobile Dropdown -->
+      <li class="mt-4">
+        <button class="mobile-dropdown-toggle font-bold text-2xl sm:text-3xl lg:text-3xl text-white hover:text-blue-400 transition-colors flex items-center gap-2 w-full text-left" data-mobile-dropdown="seo-mobile">
+          SEO Y HERRAMIENTAS
+          <svg class="w-6 h-6 mobile-dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="mobile-dropdown-content ml-4 mt-3 overflow-hidden transition-all duration-500 max-h-0 opacity-0" data-mobile-dropdown-content="seo-mobile">
+          <div class="flex flex-col gap-y-3">
+            <a href="/seo-local-morelos" class:list={["font-medium text-lg sm:text-xl lg:text-lg transition-colors", currentPath === '/seo-local-morelos' ? 'text-blue-500' : 'text-white hover:text-blue-400']}>SEO Local Morelos</a>
+            <a href="/test-seo" class:list={["font-medium text-lg sm:text-xl lg:text-lg transition-colors", currentPath === '/test-seo' ? 'text-blue-500' : 'text-white hover:text-pink-400']}>Test SEO Gratuito</a>
+            <a href="/mas-resenas" class:list={["font-medium text-lg sm:text-xl lg:text-lg transition-colors", currentPath === '/mas-resenas' ? 'text-blue-500' : 'text-white hover:text-orange-400']}>App de Reseñas</a>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="/faq" class:list={["font-bold text-2xl sm:text-3xl lg:text-3xl transition-colors", currentPath === '/faq' ? 'text-blue-500' : 'text-white hover:text-orange-500']}>FAQ</a></li>
+      <li class="pt-6"><a href="/contacto" class="font-bold text-lg sm:text-xl lg:text-lg bg-blue-600 text-white px-6 sm:px-8 lg:px-6 py-3 sm:py-4 lg:py-3 rounded-full hover:bg-blue-700 transition-colors">Contacto</a></li>
     </ul>
   </div>
   <!-- Social Icons (original inline style) -->
@@ -98,8 +189,49 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
   :global(body.menu-open) #mobile-menu ul li:nth-child(3) { transition-delay: 800ms; }
   :global(body.menu-open) #mobile-menu ul li:nth-child(4) { transition-delay: 875ms; }
   :global(body.menu-open) #mobile-menu ul li:nth-child(5) { transition-delay: 950ms; }
-  :global(body.menu-open) #mobile-menu ul li:nth-child(6) { transition-delay: 1025ms; }
-  :global(body.menu-open) #mobile-menu ul li:nth-child(7) { transition-delay: 1100ms; }
+
+  /* Desktop dropdown effects */
+  .desktop-dropdown-curtain {
+    width: calc(100vw - var(--dropdown-start-position, 0px));
+  }
+  
+  .desktop-dropdown-container.active .desktop-dropdown-curtain {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
+  
+  .desktop-dropdown-container.active .desktop-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .desktop-dropdown-container.active .desktop-dropdown-arrow {
+    transform: rotate(180deg);
+  }
+  
+  .desktop-dropdown-curtain {
+    pointer-events: none;
+  }
+  
+  .desktop-dropdown-container.active .desktop-dropdown-curtain {
+    pointer-events: auto;
+  }
+  
+  .desktop-dropdown-container.active .desktop-dropdown-menu {
+    pointer-events: auto;
+  }
+
+  /* Mobile dropdown effects */
+  .mobile-dropdown-content.open {
+    max-height: 500px;
+    opacity: 1;
+  }
+  
+  .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+    transform: rotate(180deg);
+  }
 </style>
 
 <script>
@@ -146,6 +278,74 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
     });
 
   // The same hamburger button closes the menu after opening
+
+    // Desktop dropdown functionality
+    document.querySelectorAll('.desktop-dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const dropdownId = toggle.getAttribute('data-desktop-dropdown');
+        const container = toggle.closest('.desktop-dropdown-container');
+        const curtain = document.querySelector(`[data-desktop-dropdown-curtain="${dropdownId}"]`);
+        
+        if (container && curtain) {
+          const isOpen = container.classList.contains('active');
+          
+          // Close all other desktop dropdowns
+          document.querySelectorAll('.desktop-dropdown-container.active').forEach(otherContainer => {
+            if (otherContainer !== container) {
+              otherContainer.classList.remove('active');
+            }
+          });
+          
+          // Toggle current dropdown
+          container.classList.toggle('active');
+          
+          // Calculate position for curtain width
+          if (container.classList.contains('active')) {
+            const rect = toggle.getBoundingClientRect();
+            (curtain as HTMLElement).style.setProperty('--dropdown-start-position', `${rect.left}px`);
+          }
+        }
+      });
+    });
+
+    // Close desktop dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target && !target.closest('.desktop-dropdown-container')) {
+        document.querySelectorAll('.desktop-dropdown-container.active').forEach(container => {
+          container.classList.remove('active');
+        });
+      }
+    });
+
+    // Mobile dropdown functionality
+    document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const dropdownId = toggle.getAttribute('data-mobile-dropdown');
+        const content = document.querySelector(`[data-mobile-dropdown-content="${dropdownId}"]`);
+        
+        if (content) {
+          const isOpen = content.classList.contains('open');
+          
+          // Close all other dropdowns
+          document.querySelectorAll('.mobile-dropdown-content.open').forEach(otherContent => {
+            if (otherContent !== content) {
+              otherContent.classList.remove('open');
+              const otherToggle = document.querySelector(`[data-mobile-dropdown="${otherContent.getAttribute('data-mobile-dropdown-content')}"]`);
+              if (otherToggle) {
+                otherToggle.classList.remove('active');
+              }
+            }
+          });
+          
+          // Toggle current dropdown
+          content.classList.toggle('open');
+          toggle.classList.toggle('active');
+        }
+      });
+    });
 
     // Opcional: cerrar menú al hacer clic en un enlace
     mobileMenu?.querySelectorAll('a').forEach(link => {

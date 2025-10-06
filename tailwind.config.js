@@ -11,6 +11,21 @@ export default {
         'google-red': '#EA4335',
         'google-yellow': '#FBBC05',
         'google-green': '#34A853',
+        'primary': {
+          DEFAULT: 'var(--color-primary-main)',
+          light: 'var(--color-primary-light)',
+          dark: 'var(--color-primary-dark)',
+        },
+        'secondary': {
+          DEFAULT: 'var(--color-secondary-main)',
+          light: 'var(--color-secondary-light)',
+          dark: 'var(--color-secondary-dark)',
+        },
+        'success': {
+          DEFAULT: 'var(--color-success-main)',
+          light: 'var(--color-success-light)',
+          dark: 'var(--color-success-dark)',
+        },
       },
       fontFamily: {
         'sans': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],

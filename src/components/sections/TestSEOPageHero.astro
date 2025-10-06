@@ -1,6 +1,6 @@
 ---
 // src/components/sections/TestSEOPageHero.astro
-import MaterialSymbol from '../ui/MaterialSymbol.astro';
+import IconWithColor from '../ui/IconWithColor.astro';
 
 interface Props {
   badgeText: string;
@@ -60,16 +60,19 @@ const { badgeText, title, subtitle } = Astro.props;
               />
               <button 
                 onclick="analyzeSEO()" 
-                class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 transition-all duration-300 hover:scale-105 whitespace-nowrap rounded-lg"
+                class="bg-primary hover:bg-primary-dark text-white font-bold px-8 py-3 transition-all duration-300 hover:scale-105 whitespace-nowrap rounded-lg"
               >
-                <MaterialSymbol icon="send" size="lg" class="mr-2" />Recibir análisis gratis
+                <span class="flex items-center gap-2">
+                  <IconWithColor name="send" color="white" size="lg" />
+                  Recibir análisis gratis
+                </span>
               </button>
             </div>
           </div>
           <p class="text-sm text-gray-500 mt-4 text-center flex justify-center flex-wrap gap-x-4">
-            <span><MaterialSymbol icon="fiber_manual_record" size="sm" class="text-orange-500 mr-1" />Análisis completo</span>
-            <span><MaterialSymbol icon="fiber_manual_record" size="sm" class="text-orange-500 mr-1" />Entrega por email</span>
-            <span><MaterialSymbol icon="fiber_manual_record" size="sm" class="text-orange-500 mr-1" />Resultados en minutos</span>
+            <span class="flex items-center"><IconWithColor name="expand_more" color="warning" size="sm" /><span class="ml-1">Análisis completo</span></span>
+            <span class="flex items-center"><IconWithColor name="expand_more" color="warning" size="sm" /><span class="ml-1">Entrega por email</span></span>
+            <span class="flex items-center"><IconWithColor name="expand_more" color="warning" size="sm" /><span class="ml-1">Resultados en minutos</span></span>
           </p>
         </div>
       </div>
@@ -77,14 +80,18 @@ const { badgeText, title, subtitle } = Astro.props;
       <div id="seo-status" class="hidden max-w-2xl mx-auto mt-4 space-y-2">
         <!-- Estado: trabajando -->
         <div id="seo-status-working" class="flex items-center gap-3 px-4 py-3 rounded-lg border border-blue-200 bg-blue-50 text-blue-700">
-          <MaterialSymbol icon="mark_email_unread" size="lg" class="shrink-0" />
+          <div class="shrink-0">
+            <IconWithColor name="mark_email_unread" color="primary" size="lg" />
+          </div>
           <p class="text-sm sm:text-base">
             Estamos trabajando en tu análisis SEO. Te llegará a tu correo en unos minutos.
           </p>
         </div>
         <!-- Estado: enviado -->
   <div id="seo-status-done" class="hidden items-center gap-3 px-4 py-3 rounded-lg border border-green-200 bg-green-50 text-green-700">
-          <MaterialSymbol icon="check_circle" size="lg" class="shrink-0" />
+          <div class="shrink-0">
+            <IconWithColor name="task_alt" color="success" size="lg" />
+          </div>
           <p class="text-sm sm:text-base">
             Análisis enviado. Revisa tu bandeja de entrada.
           </p>
@@ -121,7 +128,7 @@ const { badgeText, title, subtitle } = Astro.props;
       />
       <div class="flex justify-end gap-3 pt-2">
         <button onclick="closeLeadModal()" class="px-5 py-2 rounded-lg border-2 border-gray-200 text-gray-700 hover:bg-gray-50">Cancelar</button>
-        <button onclick="submitLeadAndShowResults()" class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold">
+        <button onclick="submitLeadAndShowResults()" class="px-5 py-2 rounded-lg bg-primary hover:bg-primary-dark text-white font-bold">
           Ver resultados
         </button>
       </div>

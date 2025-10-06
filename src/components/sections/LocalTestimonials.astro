@@ -1,0 +1,238 @@
+---
+// src/components/sections/LocalTestimonials.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import TestimonialCard from '../ui/TestimonialCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  location: string;
+  serviceType: 'marketing-internet' | 'diseño-web' | 'publicidad' | 'asesor-marketing';
+}
+
+const { title, subtitle, location, serviceType } = Astro.props;
+
+// Testimonios específicos por servicio y ubicación
+const serviceTestimonials = {
+  'marketing-internet': {
+    color: 'blue' as const,
+    testimonials: [
+      {
+        author: 'Carlos Mendoza',
+        location: 'Cuernavaca, Morelos',
+        avatar: 'person',
+        content: 'Desde que implementamos sus estrategias de marketing digital, hemos triplicado nuestras ventas online. Las campañas en redes sociales han sido increíbles.'
+      },
+      {
+        author: 'María González',
+        location: 'Guadalajara, Jalisco',
+        avatar: 'person',
+        content: 'El marketing por internet transformó completamente mi negocio. Ahora tengo clientes de todo el país gracias a su estrategia digital.'
+      },
+      {
+        author: 'Roberto Silva',
+        location: 'Puebla, Puebla',
+        avatar: 'person',
+        content: 'Increíble cómo el marketing digital posicionó mi empresa. Generamos leads de calidad constantemente y crecimos 200% este año.'
+      },
+      {
+        author: 'Ana Ramírez',
+        location: 'Tijuana, Baja California',
+        avatar: 'person',
+        content: 'Sus estrategias de contenido y publicidad digital nos ayudaron a expandirnos a nivel nacional. Resultados espectaculares en 6 meses.'
+      },
+      {
+        author: 'Luis Fernández',
+        location: 'Mérida, Yucatán',
+        avatar: 'person',
+        content: 'El ROI que obtuvimos con sus campañas superó todas nuestras expectativas. Ahora somos líderes digitales en nuestra región.'
+      },
+      {
+        author: 'Patricia Morales',
+        location: 'Monterrey, Nuevo León',
+        avatar: 'person',
+        content: 'Profesionales excepcionales en marketing digital. Nos ayudaron a duplicar nuestras ventas online en tiempo récord.'
+      }
+    ]
+  },
+  'diseño-web': {
+    color: 'purple' as const,
+    testimonials: [
+      {
+        author: 'Lic. Ana Ramírez',
+        company: 'Boutique Elegancia - Cuernavaca',
+        location: 'Cuernavaca, Morelos',
+        avatar: 'store',
+        content: 'Nuestra nueva página web es hermosa y funcional. Las ventas online han crecido 300% desde el lanzamiento. El diseño refleja perfectamente nuestra marca.'
+      },
+      {
+        author: 'Chef José Martín',
+        company: 'Catering Delicias - Xochitepec',
+        location: 'Xochitepec, Morelos',
+        avatar: 'restaurant_menu',
+        content: 'El sitio web que nos diseñaron es espectacular. Nuestros clientes pueden ver nuestros menús y hacer pedidos fácilmente. Ha revolutionado nuestro negocio.'
+      },
+      {
+        author: 'Arq. Laura Flores',
+        company: 'Estudio de Arquitectura LF - Temixco',
+        location: 'Temixco, Morelos',
+        avatar: 'architecture',
+        content: 'El diseño de nuestra página web comunica perfectamente nuestra propuesta de valor. Hemos conseguido proyectos importantes gracias a nuestra presencia online.'
+      }
+    ]
+  },
+  'publicidad': {
+    color: 'red' as const,
+    testimonials: [
+      {
+        author: 'Lic. Patricia Ruiz',
+        company: 'Spa Relajación Total - Cuernavaca',
+        location: 'Cuernavaca, Morelos',
+        avatar: 'spa',
+        content: 'Las campañas publicitarias han sido extraordinarias. Hemos llenado nuestra agenda y expandido a una segunda sucursal gracias a la publicidad digital.'
+      },
+      {
+        author: 'Dr. Miguel Hernández',
+        company: 'Clínica Oftalmológica - Jiutepec',
+        location: 'Jiutepec, Morelos',
+        avatar: 'visibility',
+        content: 'La publicidad dirigida nos ha traído exactamente el tipo de pacientes que buscamos. El retorno de inversión ha superado todas nuestras expectativas.'
+      },
+      {
+        author: 'Lic. Carmen López',
+        company: 'Despacho Jurídico López & Asociados - Cuautla',
+        location: 'Cuautla, Morelos',
+        avatar: 'gavel',
+        content: 'Sus campañas publicitarias han posicionado nuestro despacho como líder en la región. Recibimos consultas de calidad todos los días.'
+      }
+    ]
+  },
+  'asesor-marketing': {
+    color: 'green' as const,
+    testimonials: [
+      {
+        author: 'CEO Ricardo Vega',
+        company: 'Grupo Inmobiliario Vega - Cuernavaca',
+        location: 'Cuernavaca, Morelos',
+        avatar: 'home',
+        content: 'La asesoría en marketing transformó completamente nuestro enfoque comercial. Ahora tenemos una estrategia clara que nos ha dado resultados excepcionales.'
+      },
+      {
+        author: 'Lic. Sofía Martínez',
+        company: 'Academia de Idiomas Global - Temixco',
+        location: 'Temixco, Morelos',
+        avatar: 'school',
+        content: 'Como asesores de marketing, nos ayudaron a estructurar toda nuestra estrategia de crecimiento. Hemos duplicado nuestras inscripciones en 6 meses.'
+      },
+      {
+        author: 'Ing. Fernando Castro',
+        company: 'Servicios Automotrices Castro - Yautepec',
+        location: 'Yautepec, Morelos',
+        avatar: 'car_repair',
+        content: 'Su asesoría nos dio clarity sobre nuestro mercado. Implementamos sus recomendaciones y ahora somos el taller de confianza en toda la zona.'
+      }
+    ]
+  }
+};
+
+const config = serviceTestimonials[serviceType];
+---
+
+<section class="py-24 bg-white scroll-animate" data-animate="scale-in" data-delay="200">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill={`Testimonios ${location}`}
+      title={title}
+      subtitle={subtitle}
+      color={config.color}
+    />
+
+    <!-- Carrusel de testimonios -->
+    <div class="relative overflow-hidden">
+      <div class="testimonials-carousel flex gap-6 animate-scroll-testimonials">
+        {/* Primera serie */}
+        {config.testimonials.map((testimonial) => (
+          <div class="flex-shrink-0 w-80 max-w-sm">
+            <TestimonialCard 
+              author={testimonial.author} 
+              company=""
+              color={config.color}
+            >
+              <div slot="avatar" class="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center text-gray-600">
+                <MaterialSymbol icon={testimonial.avatar} size="lg" />
+              </div>
+              <Fragment slot="default">
+                {testimonial.content}
+              </Fragment>
+              <div slot="location" class="text-sm text-gray-500 mt-2">
+                📍 {testimonial.location}
+              </div>
+            </TestimonialCard>
+          </div>
+        ))}
+        
+        {/* Segunda serie para loop infinito */}
+        {config.testimonials.map((testimonial) => (
+          <div class="flex-shrink-0 w-80 max-w-sm">
+            <TestimonialCard 
+              author={testimonial.author} 
+              company=""
+              color={config.color}
+            >
+              <div slot="avatar" class="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center text-gray-600">
+                <MaterialSymbol icon={testimonial.avatar} size="lg" />
+              </div>
+              <Fragment slot="default">
+                {testimonial.content}
+              </Fragment>
+              <div slot="location" class="text-sm text-gray-500 mt-2">
+                📍 {testimonial.location}
+              </div>
+            </TestimonialCard>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Indicador de ubicación -->
+    <div class="text-center mt-12">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full border border-gray-200">
+        <MaterialSymbol icon="location_on" size="sm" />
+        <span class="text-sm font-medium text-gray-700">Testimonios reales de empresas en {location}</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  @keyframes scroll-testimonials {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll-testimonials {
+    animation: scroll-testimonials 30s linear infinite;
+  }
+
+  /* Pausar animación al hacer hover */
+  .animate-scroll-testimonials:hover {
+    animation-play-state: paused;
+  }
+
+  /* Ocultar scrollbar en el contenedor */
+  .overflow-x-hidden {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer y Edge */
+  }
+
+  .overflow-x-hidden::-webkit-scrollbar {
+    display: none; /* Chrome, Safari y Opera */
+  }
+</style>

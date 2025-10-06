@@ -1,6 +1,6 @@
 ---
 // src/components/sections/SimulatedResults.astro
-import MaterialSymbol from '../ui/MaterialSymbol.astro';
+import IconWithColor from '../ui/IconWithColor.astro';
 
 interface Props {
   seoScore: string;
@@ -44,15 +44,15 @@ const { seoScore, scoreDescription, ctaTitle, ctaDescription, ctaLink, ctaText }
         </div>
         <ul class="space-y-2 text-sm">
           <li class="flex items-center gap-2">
-            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <IconWithColor name="cancel" color="error" size="sm" />
             <span>Velocidad muy lenta (7.2s)</span>
           </li>
           <li class="flex items-center gap-2">
-            <MaterialSymbol icon="check_circle" size="sm" class="text-green-500" />
+            <IconWithColor name="task_alt" color="success" size="sm" />
             <span>HTTPS configurado</span>
           </li>
           <li class="flex items-center gap-2">
-            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <IconWithColor name="cancel" color="error" size="sm" />
             <span>No es responsive</span>
           </li>
         </ul>
@@ -66,15 +66,15 @@ const { seoScore, scoreDescription, ctaTitle, ctaDescription, ctaLink, ctaText }
         </div>
         <ul class="space-y-2 text-sm">
           <li class="flex items-center gap-2">
-            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <IconWithColor name="cancel" color="error" size="sm" />
             <span>Título muy largo</span>
           </li>
           <li class="flex items-center gap-2">
-            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <IconWithColor name="cancel" color="error" size="sm" />
             <span>Sin meta descripción</span>
           </li>
           <li class="flex items-center gap-2">
-            <MaterialSymbol icon="check_circle" size="sm" class="text-green-500" />
+            <IconWithColor name="task_alt" color="success" size="sm" />
             <span>Headings bien estructurados</span>
           </li>
         </ul>
@@ -88,15 +88,15 @@ const { seoScore, scoreDescription, ctaTitle, ctaDescription, ctaLink, ctaText }
         </div>
         <ul class="space-y-2 text-sm">
           <li class="flex items-center gap-2">
-            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <IconWithColor name="cancel" color="error" size="sm" />
             <span>Sin Google My Business</span>
           </li>
           <li class="flex items-center gap-2">
-            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <IconWithColor name="cancel" color="error" size="sm" />
             <span>Datos de contacto incompletos</span>
           </li>
           <li class="flex items-center gap-2">
-            <MaterialSymbol icon="cancel" size="sm" class="text-red-500" />
+            <IconWithColor name="cancel" color="error" size="sm" />
             <span>No aparece en Maps</span>
           </li>
         </ul>
@@ -112,7 +112,10 @@ const { seoScore, scoreDescription, ctaTitle, ctaDescription, ctaLink, ctaText }
         {ctaDescription}
       </p>
       <a href={ctaLink} class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 transition-all duration-300 rounded-lg">
-        <MaterialSymbol icon="contact_support" size="lg" class="mr-2" />{ctaText}
+        <span class="flex items-center gap-2">
+          <IconWithColor name="contact_support" color="white" size="lg" />
+          {ctaText}
+        </span>
       </a>
     </div>
   </div>

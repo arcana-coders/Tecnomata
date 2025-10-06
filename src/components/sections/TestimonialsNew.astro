@@ -1,0 +1,65 @@
+---
+// src/components/sections/Testimonials.astro - Usando el componente unificado
+import UnifiedTestimonials from './UnifiedTestimonials.astro';
+
+// Datos de testimonios para el carrusel del Home
+const homeTestimonials = [
+  {
+    author: "Dr. Miguel Hernández",
+    company: "",
+    location: "Cuernavaca, Morelos",
+    avatar: "MH",
+    content: "Antes no aparecíamos ni en la página 5 de Google. Ahora somos el primer resultado cuando buscan 'dentista en Cuernavaca'. Las citas se triplicaron en 3 meses.",
+    color: "yellow" as const
+  },
+  {
+    author: "Ana López", 
+    company: "",
+    location: "Jiutepec, Morelos",
+    avatar: "AL",
+    content: "El SEO local cambió nuestro negocio. De 2 clientes por semana a 20. La inversión se pagó sola en el primer mes.",
+    color: "green" as const
+  },
+  {
+    author: "Carlos Mendoza",
+    company: "",
+    location: "Temixco, Morelos", 
+    avatar: "CM",
+    content: "Tecnomata nos posicionó #1 en Google Maps. Nuestras ventas aumentaron 400% en 6 meses. ¡Increíble trabajo!",
+    color: "blue" as const
+  },
+  {
+    author: "María Rodríguez",
+    company: "",
+    location: "Yautepec, Morelos",
+    avatar: "MR", 
+    content: "Pasamos de ser invisibles a recibir 15 llamadas diarias. El ROI ha sido impresionante desde el primer mes.",
+    color: "pink" as const
+  },
+  {
+    author: "Roberto Silva",
+    company: "",
+    location: "Cuautla, Morelos",
+    avatar: "RS",
+    content: "Mi taller mecánico ahora aparece primero en todas las búsquedas locales. Los clientes nos encuentran fácilmente.", 
+    color: "orange" as const
+  },
+  {
+    author: "Lucia Morales",
+    company: "",
+    location: "Xochitepec, Morelos",
+    avatar: "LM",
+    content: "La estrategia de SEO local superó todas nuestras expectativas. Ahora tenemos lista de espera para citas.",
+    color: "purple" as const
+  }
+];
+---
+
+<UnifiedTestimonials
+  pill="Testimonios"
+  title="Lo que dicen nuestros<br/><span class='text-blue-600'>clientes satisfechos</span>"
+  subtitle="Resultados reales de negocios de Morelos que han transformado su presencia digital con Tecnomata."
+  color="blue"
+  layout="carousel"
+  testimonials={homeTestimonials}
+/>

@@ -1,6 +1,6 @@
 ---
 // src/components/ui/CaseStudyCard.astro
-import MaterialSymbol from './MaterialSymbol.astro';
+import IconWithColor from './IconWithColor.astro';
 
 interface Props {
   percentage: string;
@@ -35,7 +35,7 @@ const textColors = {
     <ul class="text-sm space-y-2">
       {features.map(feature => (
         <li class="flex items-center gap-2">
-          <MaterialSymbol icon="fiber_manual_record" size="sm" class="text-orange-500" /> {/* Orange dot */} 
+          <IconWithColor name="expand_more" color="warning" size="sm" /> {/* Orange arrow usando color warning */} 
           <span class:list={[textColors.features]}>{feature}</span>
         </li>
       ))}

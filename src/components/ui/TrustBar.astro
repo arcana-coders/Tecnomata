@@ -1,15 +1,15 @@
 ---
 // src/components/ui/TrustBar.astro
-import MaterialSymbol from './MaterialSymbol.astro';
+import IconWithColor from './IconWithColor.astro';
 ---
-<section class="font-dmsans">
+<section class="font-dmsans scroll-animate" data-animate="scale-in">
   <div class="max-w-7xl mx-auto px-6">
     <div class="tb-ribbon rounded-2xl py-4 sm:py-5 px-5 sm:px-7">
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm md:text-base">
         <!-- Item 1 -->
         <div class="tb-item inline-flex items-center gap-3 group">
           <span class="tb-icon text-white">
-            <MaterialSymbol icon="verified" size="sm" />
+            <IconWithColor name="verified" color="white" size="sm" />
           </span>
           <span class="tb-text">Transparencia y enfoque en resultados</span>
         </div>
@@ -19,7 +19,7 @@ import MaterialSymbol from './MaterialSymbol.astro';
         <!-- Item 2 -->
         <div class="tb-item inline-flex items-center gap-3 group">
           <span class="tb-icon text-white bg-green-500/90 ring-2 ring-green-300/50">
-            <MaterialSymbol icon="whatsapp" size="sm" />
+            <IconWithColor name="whatsapp" color="white" size="sm" />
           </span>
           <span class="tb-text">Atención directa por WhatsApp</span>
         </div>
@@ -29,7 +29,7 @@ import MaterialSymbol from './MaterialSymbol.astro';
         <!-- Item 3 -->
         <div class="tb-item inline-flex items-center gap-3 group">
           <span class="tb-icon text-white bg-gray-900/90 ring-2 ring-gray-300/40">
-            <MaterialSymbol icon="assignment_turned_in" size="sm" />
+            <IconWithColor name="assignment_turned_in" color="white" size="sm" />
           </span>
           <span class="tb-text">Sin contratos ni permanencias</span>
         </div>

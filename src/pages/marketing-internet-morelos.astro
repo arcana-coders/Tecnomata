@@ -1,0 +1,129 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Banner from '../components/ui/Banner.astro';
+import ServiceHero from '../components/sections/ServiceHero.astro';
+import LocalResults from '../components/sections/LocalResults.astro';
+import ServiceFeatures from '../components/sections/ServiceFeatures.astro';
+import MarketingInternetContent from '../components/sections/MarketingInternetContent.astro';
+import InteractiveMapTestimonials from '../components/sections/InteractiveMapTestimonials.astro';
+import FAQCategories from '../components/sections/FAQCategories.astro';
+import CTA from '../components/ui/CTA.astro';
+import LocalBusinessSchema from '../components/seo/LocalBusinessSchema.astro';
+import ServiceSchema from '../components/seo/ServiceSchema.astro';
+import OrganizationSchema from '../components/seo/OrganizationSchema.astro';
+---
+
+<Layout 
+  title="Marketing por Internet en Morelos | Agencia Digital Profesional - Tecnomata"
+  description="Especialistas en marketing por internet en Morelos. Estrategias digitales efectivas, campañas SEM, redes sociales y marketing online para empresas en Cuernavaca y todo el estado."
+>
+
+<!-- Schema Markup para SEO -->
+<LocalBusinessSchema 
+  businessName="Tecnomata - Marketing por Internet Morelos"
+  serviceType="Marketing Digital"
+  description="Agencia especializada en marketing por internet para empresas de Morelos. Estrategias digitales, SEM, redes sociales y posicionamiento web."
+  address={{
+    streetAddress: "Av. Plan de Ayala 123",
+    addressLocality: "Cuernavaca",
+    addressRegion: "Morelos",
+    postalCode: "62000",
+    addressCountry: "MX"
+  }}
+  contactPoint={{
+    telephone: "+52 777 123 4567",
+    email: "hola@tecnomata.com"
+  }}
+  areaServed={["Cuernavaca", "Temixco", "Jiutepec", "Cuautla", "Yautepec", "Xochitepec"]}
+  services={[
+    "Estrategia de Marketing Digital",
+    "Gestión de Redes Sociales", 
+    "Publicidad Online",
+    "Email Marketing",
+    "Analytics y Métricas"
+  ]}
+/>
+
+<ServiceSchema 
+  serviceName="Marketing por Internet en Morelos"
+  serviceType="Servicios de Marketing Digital"
+  description="Estrategias integrales de marketing online para empresas que buscan aumentar su presencia digital y generar más clientes en Morelos."
+  provider="Tecnomata"
+  areaServed={["Morelos"]}
+  offers={[
+    {
+      name: "Estrategia Digital Integral",
+      description: "Plan completo de marketing online personalizado"
+    },
+    {
+      name: "Gestión de Redes Sociales",
+      description: "Administración profesional de perfiles sociales"
+    },
+    {
+      name: "Publicidad Digital",
+      description: "Campañas pagadas en Google y redes sociales"
+    }
+  ]}
+/>
+
+<OrganizationSchema />
+
+<!-- Banner superior -->
+<Banner 
+  items={[
+    { icon: 'rocket_launch', label: 'MARKETING DIGITAL MORELOS' },
+    { icon: 'trending_up', label: 'ESTRATEGIAS EFECTIVAS' },
+    { icon: 'verified', label: 'RESULTADOS GARANTIZADOS' },
+    { icon: 'support_agent', label: 'CONSULTA GRATUITA' },
+    { icon: 'location_on', label: 'CUERNAVACA Y TODO EL ESTADO' },
+    { icon: 'analytics', label: 'MÉTRICAS REALES' },
+  ]}
+  variant="accent"
+  speed="normal"
+/>
+
+<!-- Hero Section -->
+<section class="scroll-animate" data-animate="fade-up" data-once="true">
+<ServiceHero
+  badgeText="Marketing Digital Morelos"
+  title="<span class='text-primary'>Marketing por Internet</span><br/>que genera resultados<br/><span class='font-light text-gray-600'>en Morelos</span>"
+  subtitle="Estrategias digitales probadas para empresas de Morelos que quieren <span class='text-gray-900 font-medium'>dominar su mercado online</span>"
+  ctaText="🎯 Solicitar estrategia personalizada"
+  ctaHref="/contacto"
+  serviceType="marketing-internet"
+  location="Morelos"
+/>
+</section>
+
+<!-- Estadísticas locales -->
+<LocalResults 
+  title="Impacto del <span class='text-blue-600'>Marketing Digital</span> en Morelos"
+  subtitle="Resultados reales de empresas morelenses que transformaron su presencia online"
+  locationFocus="morelos"
+/>
+
+<!-- Características del servicio -->
+<ServiceFeatures 
+  title="¿Por qué elegir nuestro <span class='text-blue-600'>Marketing</span> por Internet?"
+  subtitle="Estrategias digitales diseñadas específicamente para el mercado de Morelos"
+  serviceType="marketing-internet"
+/>
+
+<!-- Contenido SEO optimizado -->
+<MarketingInternetContent />
+
+<!-- Mapa Interactivo de Casos de Éxito -->
+<InteractiveMapTestimonials />
+
+<!-- FAQ específicas -->
+<FAQCategories />
+
+<!-- CTA final -->
+<CTA 
+  title="¿Listo para dominar el <span class='text-primary'>marketing digital</span> en Morelos?"
+  subtitle="Únete a las empresas morelenses que ya generan más clientes y ventas a través de internet cada día."
+  ctaText="🚀 Comenzar mi estrategia digital"
+  ctaLink="/contacto"
+/>
+
+</Layout>

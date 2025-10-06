@@ -1,0 +1,133 @@
+---
+// src/components/sections/LocalTestimonialsNew.astro - Usando el componente unificado
+import UnifiedTestimonials from './UnifiedTestimonials.astro';
+
+interface Props {
+  title?: string;
+  subtitle?: string; 
+  location: string;
+  serviceType: 'marketing-internet' | 'diseño-web' | 'publicidad' | 'asesor-marketing';
+}
+
+const { title, subtitle, location, serviceType } = Astro.props;
+
+// Testimonios específicos por servicio
+const serviceTestimonials = {
+  'marketing-internet': [
+    {
+      author: 'Carlos Mendoza',
+      company: 'Taller Automotriz',
+      location: 'Cuernavaca, Morelos',
+      avatar: 'CM',
+      content: 'Desde que implementamos sus estrategias de marketing digital, hemos triplicado nuestras ventas online. Las campañas en redes sociales han sido increíbles.',
+      color: 'blue' as const
+    },
+    {
+      author: 'María González',
+      company: 'Boutique Fashion',
+      location: 'Temixco, Morelos', 
+      avatar: 'MG',
+      content: 'El marketing por internet nos ayudó a llegar a clientes que nunca imaginamos. Ahora vendemos en toda la región.',
+      color: 'green' as const
+    },
+    {
+      author: 'Roberto Silva',
+      company: 'Consultorio Médico',
+      location: 'Jiutepec, Morelos',
+      avatar: 'RS', 
+      content: 'Las estrategias digitales aumentaron nuestras citas en un 250%. El retorno de inversión ha sido excepcional.',
+      color: 'purple' as const
+    }
+  ],
+  'diseño-web': [
+    {
+      author: 'Ana López',
+      company: 'Florería Bella',
+      location: 'Cuautla, Morelos',
+      avatar: 'AL',
+      content: 'Nuestro nuevo sitio web profesional nos ha traído más clientes que nunca. El diseño es hermoso y funcional.',
+      color: 'pink' as const
+    },
+    {
+      author: 'Luis Ramírez', 
+      company: 'Despacho Contable',
+      location: 'Yautepec, Morelos',
+      avatar: 'LR',
+      content: 'El diseño web moderno nos posicionó como líderes en nuestro sector. Los clientes confían más en nosotros.',
+      color: 'orange' as const
+    },
+    {
+      author: 'Patricia Moreno',
+      company: 'Academia de Idiomas', 
+      location: 'Xochitepec, Morelos',
+      avatar: 'PM',
+      content: 'La página web atrajo estudiantes de toda la región. Las inscripciones se duplicaron desde el lanzamiento.',
+      color: 'yellow' as const
+    }
+  ],
+  'publicidad': [
+    {
+      author: 'Miguel Hernández',
+      company: 'Gimnasio Fitness',
+      location: 'Cuernavaca, Morelos',
+      avatar: 'MH',
+      content: 'Las campañas publicitarias digitales llenaron nuestro gimnasio. Tuvimos que expandir por la demanda.',
+      color: 'red' as const
+    },
+    {
+      author: 'Elena Castro',
+      company: 'Salón de Belleza', 
+      location: 'Temixco, Morelos',
+      avatar: 'EC',
+      content: 'La publicidad en redes sociales nos trajo clientas de lugares que ni conocíamos. Un éxito rotundo.',
+      color: 'blue' as const
+    },
+    {
+      author: 'Arturo Vega',
+      company: 'Pizzería Italiana',
+      location: 'Jiutepec, Morelos',
+      avatar: 'AV',
+      content: 'Las campañas publicitarias aumentaron nuestras entregas a domicilio en un 300%. Superamos todas las metas.',
+      color: 'green' as const
+    }
+  ],
+  'asesor-marketing': [
+    {
+      author: 'Diana Ruiz',
+      company: 'Tienda de Ropa',
+      location: 'Cuautla, Morelos', 
+      avatar: 'DR',
+      content: 'El asesoramiento personalizado transformó completamente nuestra estrategia. Ahora sabemos exactamente qué hacer.',
+      color: 'purple' as const
+    },
+    {
+      author: 'Fernando López',
+      company: 'Ferretería Industrial',
+      location: 'Yautepec, Morelos',
+      avatar: 'FL',
+      content: 'La asesoría nos enseñó a optimizar cada peso invertido en marketing. Los resultados son medibles y constantes.',
+      color: 'orange' as const
+    },
+    {
+      author: 'Carla Mendez',
+      company: 'Spa & Wellness',
+      location: 'Xochitepec, Morelos',
+      avatar: 'CM',
+      content: 'Gracias a la consultoría estratégica, desarrollamos un plan de marketing que nos mantiene en crecimiento constante.',
+      color: 'pink' as const
+    }
+  ]
+};
+
+const finalTitle = title || `Testimonios ${location}`;
+const finalSubtitle = subtitle || `Lo que dicen nuestros clientes satisfechos en ${location}`;
+---
+
+<UnifiedTestimonials
+  pill="Testimonios Morelos"
+  title={finalTitle}
+  subtitle={finalSubtitle}
+  color="blue"
+  layout="grid"
+  testimonials={serviceTestimonials[serviceType]}
+/>

@@ -1,5 +1,5 @@
 ---
-import MaterialSymbol from './MaterialSymbol.astro'; // Added import
+import IconWithColor from './IconWithColor.astro'; // Added import
 interface Props {
   step: number;
   title: string;
@@ -63,7 +63,7 @@ style={animated && delay ? `animation-delay: ${delay}ms` : ''}>
       <div class="col-span-2 flex flex-col items-center relative z-10 gap-2">
         <div class="flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-blue-600 text-blue-600 font-bold text-xl shadow-lg">
           {icon ? (
-            <MaterialSymbol icon={icon} size="3xl" class="text-blue-600" />
+            <IconWithColor name={icon} context="feature" size="3xl" />
           ) : (
             step
           )}
@@ -89,7 +89,7 @@ style={animated && delay ? `animation-delay: ${delay}ms` : ''}>
       <div class="col-span-2 flex flex-col items-center relative z-10 gap-2">
         <div class="flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-blue-600 text-blue-600 font-bold text-xl shadow-lg">
           {icon ? (
-            <MaterialSymbol icon={icon} size="3xl" class="text-blue-600" />
+            <IconWithColor name={icon} context="feature" size="3xl" />
           ) : (
             step
           )}

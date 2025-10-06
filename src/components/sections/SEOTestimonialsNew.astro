@@ -1,0 +1,65 @@
+---
+// src/components/sections/SEOTestimonialsNew.astro - Usando el componente unificado
+import UnifiedTestimonials from './UnifiedTestimonials.astro';
+
+// Datos de testimonios para "Casos de Éxito" 
+const seoTestimonials = [
+  {
+    author: "María González",
+    company: "Clínica Dental",
+    location: "Cuernavaca, Morelos",
+    avatar: "MG",
+    content: "En 3 meses pasamos de 0 a ser el primer resultado en Google Maps. Ahora recibimos mas clientes.",
+    color: "blue" as const
+  },
+  {
+    author: "Roberto Martínez",
+    company: "Bufete Jurídico", 
+    location: "Temixco, Morelos",
+    avatar: "RM",
+    content: "El SEO local cambió nuestro negocio. De 2 clientes por semana a 20. La inversión se pagó sola en el primer mes.",
+    color: "green" as const
+  },
+  {
+    author: "Ana Soriano",
+    company: "Estética Canina",
+    location: "Jiutepec, Morelos",
+    avatar: "AS",
+    content: "Tecnomata nos posicionó #1 en Google Maps. Nuestras ventas aumentaron 300% en 4 meses.",
+    color: "purple" as const
+  },
+  {
+    author: "Carlos Medina",
+    company: "Taller Mecánico",
+    location: "Cuautla, Morelos", 
+    avatar: "CM",
+    content: "Mi taller ahora aparece primero en todas las búsquedas locales. Los clientes nos encuentran fácilmente.",
+    color: "orange" as const
+  },
+  {
+    author: "Laura Vázquez", 
+    company: "Restaurante",
+    location: "Yautepec, Morelos",
+    avatar: "LV",
+    content: "Pasamos de ser invisibles a recibir 15 llamadas diarias. El ROI ha sido impresionante desde el primer mes.",
+    color: "red" as const
+  },
+  {
+    author: "José Luis Pérez",
+    company: "Ferretería",
+    location: "Xochitepec, Morelos",
+    avatar: "JP", 
+    content: "La estrategia de SEO local superó nuestras expectativas. Ahora tenemos lista de espera para entregas.",
+    color: "yellow" as const
+  }
+];
+---
+
+<UnifiedTestimonials
+  pill="Casos de Éxito"
+  title="Negocios reales con <span class='text-blue-600'>resultados reales</span>"
+  subtitle="Descubre cómo hemos transformado la presencia digital de negocios como el tuyo en Morelos."
+  color="blue"
+  layout="grid"
+  testimonials={seoTestimonials}
+/>

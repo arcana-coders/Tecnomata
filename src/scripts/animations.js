@@ -11,11 +11,24 @@ class VisinexAnimations {
 
   init() {
     if (typeof window !== 'undefined') {
-      document.addEventListener('DOMContentLoaded', () => {
+      const initComponents = () => {
         this.setupScrollAnimations();
         this.setupCounters();
         this.setupParallax();
-      });
+        this.setupScrollBars();
+        
+        // Re-escanear después para contenido dinámico
+        setTimeout(() => {
+          this.setupScrollBars();
+        }, 1000);
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initComponents);
+      } else {
+        // DOM ya cargado, ejecutar inmediatamente
+        initComponents();
+      }
     }
   }
 
@@ -25,8 +38,10 @@ class VisinexAnimations {
   setupScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
+        const el = entry.target;
+        const once = el.dataset.once === 'true';
+        
         if (entry.isIntersecting) {
-          const el = entry.target;
           el.classList.add('in-view');
           
           // data-animate: aplica clase de animación cuando entra en vista
@@ -38,26 +53,33 @@ class VisinexAnimations {
               'slide-right': 'animate-slide-in-right',
               'scale-in': 'animate-scale-in',
               'bounce-in': 'animate-bounce-in',
+              'fill-left-right': 'animate-fill-left-right',
+              'fill-right-left': 'animate-fill-right-left',
+              'fill-random': 'animate-fill-random',
             };
             const cls = map[anim] || 'animate-fade-in-up';
-            el.classList.add(cls);
-
+            
             // delay opcional
             const delay = el.dataset.delay;
             if (delay) {
-              el.style.animationDelay = /ms$|s$/.test(delay) ? delay : `${parseInt(delay, 10)}ms`;
+              const delayMs = parseInt(delay, 10);
+              setTimeout(() => {
+                el.classList.add(cls);
+              }, delayMs);
+            } else {
+              el.classList.add(cls);
             }
           }
 
-      // data-typewriter: escribe el contenido HTML de forma progresiva
-    if (el.dataset.typewriter !== undefined) {
+          // data-typewriter: escribe el contenido HTML de forma progresiva
+          if (el.dataset.typewriter !== undefined) {
             const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             if (!prefersReduced) {
-        const speed = parseInt(el.dataset.typeSpeed || '34', 10);
-        const delay = parseInt(el.dataset.typeDelay || '0', 10);
-    const loop = el.dataset.typeLoop === 'true';
-    const loopPause = parseInt(el.dataset.typeLoopPause || '2400', 10);
-    this.typewriter(el, { speed, delay, loop, loopPause });
+              const speed = parseInt(el.dataset.typeSpeed || '34', 10);
+              const delay = parseInt(el.dataset.typeDelay || '0', 10);
+              const loop = el.dataset.typeLoop === 'true';
+              const loopPause = parseInt(el.dataset.typeLoopPause || '2400', 10);
+              this.typewriter(el, { speed, delay, loop, loopPause });
             }
           }
 
@@ -75,14 +97,32 @@ class VisinexAnimations {
             this.animateCounter(el);
           }
 
-          // Dejar de observar si es one-shot (por defecto true)
-          const once = el.dataset.once !== 'false';
+          // Dejar de observar si es one-shot
           if (once) observer.unobserve(el);
+          
+        } else if (!once && entry.boundingClientRect.top > 0) {
+          // Solo resetear si el elemento está arriba (no abajo) y no es one-shot
+          const anim = el.dataset.animate;
+          if (anim) {
+            const map = {
+              'fade-up': 'animate-fade-in-up',
+              'slide-left': 'animate-slide-in-left',
+              'slide-right': 'animate-slide-in-right',
+              'scale-in': 'animate-scale-in',
+              'bounce-in': 'animate-bounce-in',
+              'fill-left-right': 'animate-fill-left-right',
+              'fill-right-left': 'animate-fill-right-left',
+              'fill-random': 'animate-fill-random',
+            };
+            const cls = map[anim] || 'animate-fade-in-up';
+            el.classList.remove(cls);
+          }
+          el.classList.remove('in-view');
         }
       });
     }, {
       threshold: 0.1,
-      rootMargin: '50px 0px'  // Ajustado para mejor detección en mobile
+      rootMargin: '50px 0px'
     });
 
   // Candidatos: secciones, [data-animate], .scroll-animate, [data-observe], [data-typewriter]
@@ -142,8 +182,8 @@ class VisinexAnimations {
     const MARK_START = '[[TW:';
     const MARK_END = ']]';
     const placeholders = [];
-    // Detectar spans con clases de color: Tailwind blue, Google brand, o arbitrary color text-[#...]
-    const coloredSpanRegex = /<span\b[^>]*class=['"][^'"]*(?:text-blue-|text-google-|text-\[#)[^'"]*['"][^>]*>[\s\S]*?<\/span>/gi;
+    // Detectar spans con clases de color: Tailwind blue, Google brand, text-primary, o arbitrary color text-[#...]
+    const coloredSpanRegex = /<span\b[^>]*class=['"][^'"]*(?:text-blue-|text-google-|text-primary|text-\[#)[^'"]*['"][^>]*>[\s\S]*?<\/span>/gi;
   const processed = original.replace(coloredSpanRegex, (m) => {
       const id = placeholders.push(m) - 1;
       return `${MARK_START}${id}${MARK_END}`;
@@ -375,6 +415,122 @@ class VisinexAnimations {
         }
       });
     }, 3000);
+  }
+
+  /**
+   * Configura las barras que se llenan/vacían con el scroll
+   */
+  setupScrollBars() {
+    const scrollBars = document.querySelectorAll('[data-scroll-bar]');
+    
+    if (scrollBars.length === 0) return;
+
+    // Asignar direcciones random a cada barra si no las tienen
+    const randomDirections = ['left-right', 'right-left', 'center'];
+    scrollBars.forEach((bar, index) => {
+      if (!bar.dataset.scrollDirection || bar.dataset.scrollDirection === 'random') {
+        // Cada barra get una dirección random independiente
+        const randomDir = randomDirections[Math.floor(Math.random() * randomDirections.length)];
+        bar.dataset.scrollDirection = randomDir;
+        
+        // Agregar un offset random pequeño para que no se sincronicen
+        bar.dataset.scrollOffset = Math.random() * 0.15; // 0-15% offset (reducido)
+      }
+    });
+
+    // Función para calcular el progreso de scroll de un elemento
+    const getScrollProgress = (element) => {
+      const rect = element.getBoundingClientRect();
+      const elementTop = rect.top;
+      const windowHeight = window.innerHeight;
+      
+      // Rango ajustado para que se llenen antes de llegar al fondo
+      const fillStartZone = windowHeight * 0.8; // Empieza a llenarse cuando está al 80%
+      const fillEndZone = windowHeight * 0.3;   // Se llena completamente al 30%
+      
+      if (elementTop >= fillStartZone) {
+        return 0; // Aún no empieza a llenarse
+      } else if (elementTop <= fillEndZone) {
+        return 1; // Completamente llena
+      } else {
+        // Progreso proporcional entre las zonas - responsivo al scroll
+        const totalDistance = fillStartZone - fillEndZone;
+        const currentDistance = fillStartZone - elementTop;
+        return currentDistance / totalDistance;
+      }
+    };
+
+    // Función para actualizar las barras
+    const updateScrollBars = () => {
+  // Calcular progreso general del scroll para desktop
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const documentHeight = document.documentElement.scrollHeight;
+  const viewportHeight = window.innerHeight;
+  const maxScroll = documentHeight - viewportHeight;
+  const generalScrollProgress = scrollTop / maxScroll;
+  const isDesktop = window.innerWidth >= 1024;
+      
+  scrollBars.forEach((container, index) => {
+        const colorBar = container.querySelector('.scroll-color-fill');
+        if (!colorBar) return;
+
+        let progress = getScrollProgress(container);
+        const direction = container.dataset.scrollDirection || 'left-right';
+        
+        // Sin modificaciones adicionales - usar el progreso calculado directamente
+        
+        // Aplicar diferentes estilos según la dirección
+        switch (direction) {
+          case 'left-right':
+            colorBar.style.width = `${progress * 100}%`;
+            colorBar.style.transformOrigin = 'left';
+            colorBar.style.transform = 'scaleX(1)';
+            break;
+          case 'right-left':
+            colorBar.style.width = `${progress * 100}%`;
+            colorBar.style.transformOrigin = 'right';
+            colorBar.style.transform = 'scaleX(1)';
+            // Para right-left, posicionar desde la derecha
+            colorBar.style.marginLeft = `${(1 - progress) * 100}%`;
+            break;
+          case 'center':
+            colorBar.style.width = `${progress * 100}%`;
+            colorBar.style.transformOrigin = 'center';
+            colorBar.style.transform = 'scaleX(1)';
+            // Para center, centrar el crecimiento
+            colorBar.style.marginLeft = `${((1 - progress) / 2) * 100}%`;
+            break;
+          default:
+            colorBar.style.width = `${progress * 100}%`;
+        }
+        
+        // Suavizar la transición
+        colorBar.style.transition = 'all 0.2s ease-out';
+        
+        // Debug temporal para desktop (solo cada 30 frames para no saturar)
+        if (isDesktop && index === 0 && Math.random() < 0.03) {
+          console.log(`Barra ${index}: progress=${progress.toFixed(3)}, generalScroll=${generalScrollProgress.toFixed(3)}, elementTop=${container.getBoundingClientRect().top.toFixed(0)}`);
+        }
+      });
+    };
+
+    // Escuchar el scroll
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateScrollBars();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // Configurar listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Actualización inicial
+    updateScrollBars();
   }
 }
 

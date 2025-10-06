@@ -1,5 +1,5 @@
 ---
-import MaterialSymbol from './MaterialSymbol.astro'; // Added import
+import IconWithColor from './IconWithColor.astro'; // Added import
 interface Props {
   number: string;
   label: string;
@@ -87,7 +87,7 @@ const iconBgColors = {
         "inline-flex items-center justify-center w-12 h-12 rounded-lg",
         variant === 'accent' ? iconBgColors.accent : iconBgColors.default
       ]}>
-        <MaterialSymbol icon={icon} size="2xl" />
+        <IconWithColor name={icon} context="feature" size="2xl" />
       </div>
     </div>
   )}

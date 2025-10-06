@@ -1,0 +1,108 @@
+---
+// src/components/sections/AsesorMarketingContent.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+---
+
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Consultoría Estratégica"
+      title="Asesoría Marketing que <span class='text-purple-600'>Transforma Negocios</span> en Morelos"
+      subtitle="Consultoría especializada para empresarios de Cuernavaca, Temixco, Jiutepec y todo el estado"
+      color="purple"
+    />
+
+    <!-- Grid de servicios -->
+    <div class="grid lg:grid-cols-3 gap-8 mb-16">
+      
+      <div class="bg-purple-50 rounded-2xl p-8 text-center">
+        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <MaterialSymbol icon="trending_up" size="2xl" class="text-white" />
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Estrategia Digital</h3>
+        <p class="text-gray-600">Plan integral de marketing digital personalizado para tu industria</p>
+      </div>
+
+      <div class="bg-purple-50 rounded-2xl p-8 text-center">
+        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <MaterialSymbol icon="analytics" size="2xl" class="text-white" />
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Análisis de Mercado</h3>
+        <p class="text-gray-600">Investigación profunda del mercado morelense y oportunidades</p>
+      </div>
+
+      <div class="bg-purple-50 rounded-2xl p-8 text-center">
+        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <MaterialSymbol icon="school" size="2xl" class="text-white" />
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Capacitación</h3>
+        <p class="text-gray-600">Entrenamiento para que tu equipo domine el marketing digital</p>
+      </div>
+
+    </div>
+
+    <!-- Estadísticas de consultoría -->
+    <div class="bg-purple-50 rounded-3xl p-12 mb-16">
+      <div class="grid md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-4xl font-bold text-purple-600 mb-2">250%</div>
+          <p class="text-gray-700">Crecimiento promedio de clientes asesorados</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-purple-600 mb-2">60%</div>
+          <p class="text-gray-700">Reducción en costos de adquisición</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-purple-600 mb-2">90 días</div>
+          <p class="text-gray-700">para implementar estrategia completa</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-purple-600 mb-2">15 años</div>
+          <p class="text-gray-700">de experiencia en Morelos</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proceso de consultoría -->
+    <div class="text-center">
+      <h3 class="text-3xl font-bold text-gray-900 mb-12">Metodología de <span class="text-purple-600">Consultoría</span></h3>
+      
+      <div class="grid lg:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-xl font-bold text-white">1</span>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Diagnóstico Integral</h4>
+          <p class="text-sm text-gray-600">Auditoría completa del estado actual del negocio</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-xl font-bold text-white">2</span>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Plan Estratégico</h4>
+          <p class="text-sm text-gray-600">Desarrollo de roadmap personalizado</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-xl font-bold text-white">3</span>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Implementación</h4>
+          <p class="text-sm text-gray-600">Ejecución guiada de las estrategias</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-xl font-bold text-white">4</span>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Seguimiento</h4>
+          <p class="text-sm text-gray-600">Monitoreo y ajustes constantes</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

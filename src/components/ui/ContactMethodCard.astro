@@ -1,6 +1,6 @@
 ---
 // src/components/ui/ContactMethodCard.astro
-import MaterialSymbol from './MaterialSymbol.astro';
+import IconWithColor from './IconWithColor.astro';
 
 interface Props {
   title: string;
@@ -45,7 +45,7 @@ const colorClasses = {
 <div class:list={["group relative backdrop-blur-sm rounded-2xl border p-8 transition-all duration-300 shadow-lg hover:shadow-xl", colorClasses.bg[color], colorClasses.border[color]]}>
   <div class="flex items-start gap-6">
     <div class="w-16 h-16 rounded-full border-2 border-blue-600 bg-white text-blue-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-      <MaterialSymbol icon={icon} size="3xl" class="text-blue-600" />
+      <IconWithColor name={icon} context="nav" size="3xl" />
     </div>
     <div class="flex-1 font-dmsans">
       <div class="flex items-center gap-2 mb-2">
@@ -58,7 +58,7 @@ const colorClasses = {
       {ctaText && ctaHref && (
         <a href={ctaHref} target="_blank" class:list={["inline-flex items-center gap-2 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300", colorClasses.ctaBg[color]]}>
           <span>{ctaText}</span>
-          <MaterialSymbol icon="arrow_right_alt" size="md" />
+          <IconWithColor name="arrow_right_alt" color="white" size="md" />
         </a>
       )}
       {!ctaText && !ctaHref && (

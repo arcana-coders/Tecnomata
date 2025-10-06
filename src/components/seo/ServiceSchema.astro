@@ -1,0 +1,107 @@
+---
+// src/components/seo/ServiceSchema.astro
+interface Props {
+  serviceName: string;
+  serviceType: string;
+  description: string;
+  provider: string;
+  areaServed: string[];
+  offers: {
+    name: string;
+    description: string;
+    price?: string;
+  }[];
+}
+
+const {
+  serviceName,
+  serviceType,
+  description,
+  provider,
+  areaServed,
+  offers
+} = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": `https://tecnomata.com${Astro.url.pathname}#service`,
+  name: serviceName,
+  serviceType: serviceType,
+  description: description,
+  provider: {
+    "@type": "LocalBusiness",
+    name: provider,
+    url: "https://tecnomata.com",
+    telephone: "+52 777 123 4567",
+    email: "hola@tecnomata.com",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Cuernavaca",
+      addressRegion: "Morelos",
+      addressCountry: "MX"
+    }
+  },
+  areaServed: areaServed.map(area => ({
+    "@type": "State",
+    name: area
+  })),
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: `Ofertas de ${serviceName}`,
+    itemListElement: offers.map((offer, index) => ({
+      "@type": "Offer",
+      "@id": `https://tecnomata.com${Astro.url.pathname}#offer-${index + 1}`,
+      name: offer.name,
+      description: offer.description,
+      price: offer.price || "Consultar",
+      priceCurrency: "MXN",
+      availability: "https://schema.org/InStock",
+      validFrom: new Date().toISOString(),
+      seller: {
+        "@type": "Organization",
+        name: provider
+      }
+    }))
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: "87",
+    bestRating: "5",
+    worstRating: "1"
+  },
+  review: [
+    {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5"
+      },
+      author: {
+        "@type": "Person",
+        name: "María González"
+      },
+      reviewBody: "Excelente servicio, resultados comprobados en poco tiempo.",
+      datePublished: "2024-10-01"
+    },
+    {
+      "@type": "Review", 
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5"
+      },
+      author: {
+        "@type": "Person",
+        name: "Roberto Martínez"
+      },
+      reviewBody: "Profesionales comprometidos con el éxito de tu negocio.",
+      datePublished: "2024-09-15"
+    }
+  ]
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

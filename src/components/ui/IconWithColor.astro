@@ -1,0 +1,97 @@
+---
+// src/components/ui/IconWithColor.astro
+// Componente modular para iconos con sistema de colores centralizado
+import Icon from './Icon.astro';
+import { ICON_CONTEXTS } from '../../config/colors.ts';
+
+interface Props {
+  name: string; // Nombre del icono
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'neutral' | 'white' | 'custom';
+  customClass?: string; // Para colores personalizados cuando color="custom"
+  variant?: 'solid' | 'light' | 'outline'; // Variante de color
+  context?: 'feature' | 'form' | 'nav' | 'pricing' | 'status'; // Contexto predefinido
+}
+
+const { 
+  name, 
+  size, 
+  color, 
+  customClass = '',
+  variant,
+  context
+} = Astro.props as Props;
+
+// Aplicar configuración por contexto o usar props directamente
+let finalSize = size || 'md';
+let finalColor = color || 'primary';
+let finalVariant = variant || 'solid';
+
+// Si hay contexto, aplicar su configuración como base
+if (context === 'feature') {
+  finalSize = size || '2xl';
+  finalColor = color || 'primary';
+  finalVariant = variant || 'solid';
+} else if (context === 'form') {
+  finalSize = size || 'xl';
+  finalColor = color || 'primary';
+  finalVariant = variant || 'solid';
+} else if (context === 'nav') {
+  finalSize = size || 'lg';
+  finalColor = color || 'neutral';
+  finalVariant = variant || 'solid';
+} else if (context === 'pricing') {
+  finalSize = size || 'lg';
+  finalColor = color || 'primary';
+  finalVariant = variant || 'solid';
+}
+
+// Sistema de colores centralizado - Usando CSS Custom Properties
+const colorSystem = {
+  primary: {
+    solid: 'text-primary',
+    light: 'text-primary-light',
+    outline: 'text-primary-dark'
+  },
+  secondary: {
+    solid: 'text-secondary',
+    light: 'text-secondary-light',
+    outline: 'text-secondary-dark'
+  },
+  success: {
+    solid: 'text-success',
+    light: 'text-success-light',
+    outline: 'text-success-dark'
+  },
+  warning: {
+    solid: 'text-warning',
+    light: 'text-warning-light',
+    outline: 'text-warning-dark'
+  },
+  error: {
+    solid: 'text-error',
+    light: 'text-error-light',
+    outline: 'text-error-dark'
+  },
+  neutral: {
+    solid: 'text-neutral-900',
+    light: 'text-neutral-600',
+    outline: 'text-neutral-700'
+  },
+  white: {
+    solid: 'text-white',
+    light: 'text-white-alpha-90',
+    outline: 'text-white-alpha-80'
+  },
+  custom: {
+    solid: customClass,
+    light: customClass,
+    outline: customClass
+  }
+};
+
+// Resolver color final
+const finalColorClass = colorSystem[finalColor][finalVariant];
+---
+
+<Icon name={name} size={finalSize} class={finalColorClass} />

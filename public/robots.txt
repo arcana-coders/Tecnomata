@@ -1,3 +1,11 @@
 User-agent: *
 Allow: /
-Sitemap: /sitemap.xml
+
+# Sitemap principal
+Sitemap: https://tecnomata.com/sitemap-index.xml
+
+# Crawl-delay para bots más lentos
+Crawl-delay: 1
+
+# Permitir indexación completa del sitio
+Disallow:

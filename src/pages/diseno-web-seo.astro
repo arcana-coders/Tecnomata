@@ -15,7 +15,7 @@ import CTA from '../components/ui/CTA.astro';
   <section class="scroll-animate" data-animate="fade-up" data-once="true">
   <SEOPageHero
     subtitle="Diseño Web + SEO"
-  title="Páginas web que <span class='text-blue-600'>Venden</span> de verdad"
+    title="Páginas web que <span class='text-primary'>Venden</span> de verdad"
     description="Diseño + SEO + Conversión. <strong>Un enfoque integral que funciona.</strong>"
     ctaText="Ver nuestro trabajo"
     ctaHref="/contacto"
@@ -49,22 +49,22 @@ import CTA from '../components/ui/CTA.astro';
 
   <section class="scroll-animate" data-animate="fade-up" data-once="true">
   <Pricing 
-    title="Planes de <span class='text-blue-500'>diseño</span> web"
+    title="Planes de <span class='text-primary'>diseño</span> web"
     description="Elige el plan que mejor se adapte a las necesidades de tu negocio"
     plans={[
       { 
-        name: 'Básico', price: '$8,000', period: 'único', description: 'Perfecto para emprender',
-        features: ['Hasta 5 páginas', 'Diseño responsive', 'SEO básico', 'Formulario de contacto', '6 meses de soporte'],
+        name: 'Básico', price: '$5,000', period: 'único', description: 'Perfecto para emprender',
+        features: ['Hasta 5 páginas', 'Diseño responsive', 'SEO básico', 'Formulario de contacto', '1 año de hospedaje'],
         cta: 'Empezar ahora', href: '/contacto' 
       },
       { 
-        name: 'Profesional', price: '$15,000', period: 'único', description: 'Ideal para crecer', 
-        features: ['Hasta 10 páginas', 'Diseño personalizado', 'SEO avanzado', 'Panel administrador', 'Google Analytics', '6 meses de soporte'],
+        name: 'Profesional', price: '$10,000', period: 'único', description: 'Ideal para crecer', 
+        features: ['Hasta 10 páginas', 'Diseño personalizado', 'SEO avanzado', 'Panel administrador', 'Google Analytics', '1 año de hospedaje'],
         cta: 'Empezar ahora', href: '/contacto', featured: true, badge: 'MÁS POPULAR' 
       },
       { 
-        name: 'E-commerce', price: '$25,000', period: 'único', description: 'Para vender online',
-        features: ['Tienda online completa', 'Pasarela de pagos', 'Control de inventario', 'SEO para productos', 'Capacitación incluida', '6 meses de soporte'],
+        name: 'E-commerce', price: '$15,000', period: 'único', description: 'Para vender online',
+        features: ['Tienda online completa', 'Pasarela de pagos', 'Control de inventario', 'SEO para productos', 'Capacitación incluida', '1 año de hospedaje'],
         cta: 'Empezar ahora', href: '/contacto' 
       },
     ]}
@@ -73,11 +73,11 @@ import CTA from '../components/ui/CTA.astro';
 
   <section class="scroll-animate" data-animate="fade-up" data-once="true">
   <CTA 
-    title="¿Listo para tener la web que tu <span class='text-orange-500'>negocio</span> merece?"
+    title="¿Listo para tener la web que tu <span class='text-primary'>negocio</span> merece?"
     subtitle="Conversemos sobre tu proyecto. Primera consulta completamente gratuita."
     ctaText="Obtener propuesta gratuita"
     ctaLink="/contacto"
-    variant="strong"
+    variant="default"
   />
   </section>
 

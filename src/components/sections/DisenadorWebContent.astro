@@ -1,0 +1,190 @@
+---
+// src/components/sections/DisenadorWebContent.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+---
+
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Diseño Web Profesional"
+      title="Páginas Web Modernas para <span class='text-purple-600'>Empresas de Morelos</span>"
+      subtitle="Creamos sitios web responsivos y optimizados que impulsan el crecimiento de negocios en Cuernavaca, Temixco, Jiutepec y todo Morelos"
+      color="purple"
+    />
+
+    <!-- Servicios de Diseño Web -->
+    <div class="grid lg:grid-cols-2 gap-12 mb-20">
+      
+      <!-- Diseño Responsivo -->
+      <div class="bg-purple-50 rounded-2xl p-8">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center">
+            <MaterialSymbol icon="language" size="2xl" class="text-white" />
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900">Diseño Web Responsivo</h3>
+        </div>
+        <ul class="space-y-3 text-gray-700">
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>Sitios web que funcionan perfectamente en móviles, tablets y desktop</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>Diseño moderno siguiendo tendencias actuales</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>Experiencia de usuario optimizada para conversiones</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Desarrollo Profesional -->
+      <div class="bg-purple-50 rounded-2xl p-8">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center">
+            <MaterialSymbol icon="build" size="2xl" class="text-white" />
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900">Desarrollo Web Profesional</h3>
+        </div>
+        <ul class="space-y-3 text-gray-700">
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>HTML5, CSS3 y JavaScript moderno</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>CMS fácil de usar (WordPress, Astro)</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>SEO integrado desde el desarrollo</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Seguridad -->
+      <div class="bg-purple-50 rounded-2xl p-8">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center">
+            <MaterialSymbol icon="lock" size="2xl" class="text-white" />
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900">Seguridad y Mantenimiento</h3>
+        </div>
+        <ul class="space-y-3 text-gray-700">
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>Certificados SSL incluidos para seguridad total</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>Backups automáticos y protección malware</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>Soporte técnico 24/7 para tranquilidad</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Optimización Móvil -->
+      <div class="bg-purple-50 rounded-2xl p-8">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center">
+            <MaterialSymbol icon="phone_iphone" size="2xl" class="text-white" />
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900">Optimización Móvil</h3>
+        </div>
+        <ul class="space-y-3 text-gray-700">
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>Mobile-first design para la era smartphones</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>Velocidad optimizada en dispositivos móviles</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <MaterialSymbol icon="task_alt" size="sm" class="text-purple-600 mt-1" />
+            <span>Interfaces touch-friendly e intuitivas</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Estadísticas Web -->
+    <div class="bg-purple-50 rounded-3xl p-12 mb-20">
+      <div class="text-center mb-12">
+        <h3 class="text-3xl font-bold text-gray-900 mb-4">¿Por Qué Tu Empresa Necesita una Página Web Profesional?</h3>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Las estadísticas demuestran el impacto de tener presencia web profesional</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="text-4xl font-bold text-purple-600 mb-2">85%</div>
+          <p class="text-gray-700">de consumidores buscan servicios online antes de comprar</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-purple-600 mb-2">75%</div>
+          <p class="text-gray-700">juzga credibilidad por diseño del sitio web</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-purple-600 mb-2">50%</div>
+          <p class="text-gray-700">de ventas provienen de búsquedas móviles</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-purple-600 mb-2">200%</div>
+          <p class="text-gray-700">incremento en ventas con web profesional</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proceso de Diseño -->
+    <div>
+      <div class="text-center mb-16">
+        <h3 class="text-3xl font-bold text-gray-900 mb-4">Nuestro Proceso de <span class="text-purple-600">Diseño Web</span></h3>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Metodología profesional que garantiza resultados excepcionales</p>
+      </div>
+
+      <div class="grid lg:grid-cols-4 gap-8">
+        
+        <div class="text-center">
+          <div class="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold text-white">1</span>
+          </div>
+          <h4 class="text-xl font-bold text-gray-900 mb-3">Consultoría Inicial</h4>
+          <p class="text-gray-600">Análisis de necesidades y revisión de competencia en Morelos</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold text-white">2</span>
+          </div>
+          <h4 class="text-xl font-bold text-gray-900 mb-3">Diseño y Concepto</h4>
+          <p class="text-gray-600">Mockups profesionales y estructura de contenido optimizada</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold text-white">3</span>
+          </div>
+          <h4 class="text-xl font-bold text-gray-900 mb-3">Desarrollo Web</h4>
+          <p class="text-gray-600">Codificación profesional y testing en múltiples dispositivos</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold text-white">4</span>
+          </div>
+          <h4 class="text-xl font-bold text-gray-900 mb-3">Lanzamiento</h4>
+          <p class="text-gray-600">Configuración de hosting y capacitación para uso del CMS</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

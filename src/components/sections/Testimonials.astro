@@ -5,7 +5,7 @@ import TestimonialCard from '../ui/TestimonialCard.astro';
 import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
 ---
 
-<section class="py-24 bg-white scroll-animate" data-animate="fade-up">
+<section class="py-24 bg-white scroll-animate" data-animate="scale-in" data-delay="200">
   <div class="max-w-7xl mx-auto px-6">
     
     <SectionHeader
@@ -15,29 +15,406 @@ import MaterialSymbol from '../ui/MaterialSymbol.astro'; // Added import
       color="blue"
     />
 
-  <div class="grid lg:grid-cols-3 gap-8 scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="150">
-      
-      <TestimonialCard author="Dr. Miguel Hernández" company="Clínica Dental" color="red">
-        <div slot="avatar" class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold"><MaterialSymbol icon="person" size="lg" /></div>
-        <Fragment slot="default">
-          Antes no aparecíamos ni en la página 5 de Google. Ahora somos el primer resultado cuando buscan 'dentista en Cuernavaca'. Las citas se triplicaron en 3 meses.
-        </Fragment>
-      </TestimonialCard>
+  <!-- Contenedor del carrusel con tarjeta principal destacada -->
+    <div class="testimonials-featured-carousel relative">
+      <div class="testimonial-track flex items-center justify-center gap-4 md:gap-6 lg:gap-8">
+        
+        <div class="testimonial-item" data-index="0">
+          <TestimonialCard author="Dr. Miguel Hernández" company="" color="yellow">
+            <div slot="avatar" class="w-8 h-8 bg-yellow-600 rounded-full flex items-center justify-center text-white font-bold text-sm">MH</div>
+            <Fragment slot="default">
+              Antes no aparecíamos ni en la página 5 de Google. Ahora somos el primer resultado cuando buscan 'dentista en Cuernavaca'. Las citas se triplicaron en 3 meses.
+            </Fragment>
+            <div slot="location" class="text-xs opacity-70 mt-1">
+              📍 Cuernavaca, Morelos
+            </div>
+          </TestimonialCard>
+        </div>
 
-      <TestimonialCard author="Restaurante" company="Cuernavaca Centro" color="green">
-        <div slot="avatar" class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold"><MaterialSymbol icon="person" size="lg" /></div>
-        <Fragment slot="default">
-          El SEO local cambió nuestro negocio. De 2 clientes por semana a 20. La inversión se pagó sola en el primer mes.
-        </Fragment>
-      </TestimonialCard>
+        <div class="testimonial-item" data-index="1">
+          <TestimonialCard author="Ana López" company="" color="green">
+            <div slot="avatar" class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-sm">AL</div>
+            <Fragment slot="default">
+              El SEO local cambió nuestro negocio. De 2 clientes por semana a 20. La inversión se pagó sola en el primer mes.
+            </Fragment>
+            <div slot="location" class="text-xs opacity-70 mt-1">
+              📍 Jiutepec, Morelos
+            </div>
+          </TestimonialCard>
+        </div>
 
-      <TestimonialCard author="Ana López" company="Restaurante Tradicional" color="red">
-                <div slot="avatar" class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white font-bold"><MaterialSymbol icon="person" size="lg" /></div>
-        <Fragment slot="default">
-          Tecnomata nos posicionó #1 en Google Maps en Jiutepec. Nuestras ventas aumentaron 400% en 6 meses.
-        </Fragment>
-      </TestimonialCard>
+        <div class="testimonial-item" data-index="2">
+          <TestimonialCard author="Carlos Mendoza" company="" color="blue">
+            <div slot="avatar" class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm">CM</div>
+            <Fragment slot="default">
+              Tecnomata nos posicionó #1 en Google Maps. Nuestras ventas aumentaron 400% en 6 meses. ¡Increíble trabajo!
+            </Fragment>
+            <div slot="location" class="text-xs opacity-70 mt-1">
+              📍 Temixco, Morelos
+            </div>
+          </TestimonialCard>
+        </div>
 
+        <div class="testimonial-item" data-index="3">
+          <TestimonialCard author="María Rodríguez" company="" color="pink">
+            <div slot="avatar" class="w-8 h-8 bg-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm">MR</div>
+            <Fragment slot="default">
+              Pasamos de ser invisibles a recibir 15 llamadas diarias. El ROI ha sido impresionante desde el primer mes.
+            </Fragment>
+            <div slot="location" class="text-xs opacity-70 mt-1">
+              📍 Yautepec, Morelos
+            </div>
+          </TestimonialCard>
+        </div>
+
+        <div class="testimonial-item" data-index="4">
+          <TestimonialCard author="Roberto Silva" company="" color="orange">
+            <div slot="avatar" class="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold text-sm">RS</div>
+            <Fragment slot="default">
+              Mi taller mecánico ahora aparece primero en todas las búsquedas locales. Los clientes nos encuentran fácilmente.
+            </Fragment>
+            <div slot="location" class="text-xs opacity-70 mt-1">
+              📍 Cuautla, Morelos
+            </div>
+          </TestimonialCard>
+        </div>
+
+        <div class="testimonial-item" data-index="5">
+          <TestimonialCard author="Lucia Morales" company="" color="purple">
+            <div slot="avatar" class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">LM</div>
+            <Fragment slot="default">
+              La estrategia de SEO local superó todas nuestras expectativas. Ahora tenemos lista de espera para citas.
+            </Fragment>
+            <div slot="location" class="text-xs opacity-70 mt-1">
+              📍 Xochitepec, Morelos
+            </div>
+          </TestimonialCard>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .testimonials-featured-carousel {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+  }
+
+  .testimonial-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+
+  .testimonial-item {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: center center;
+    transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backface-visibility: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Tamaños para iPad Pro y Desktop grandes - POST-ITS VERTICALES */
+  @media (min-width: 1024px) {
+    .testimonials-featured-carousel {
+      height: 600px;
+    }
+    
+    .testimonial-item {
+      width: 280px;
+      max-width: 280px;
+      height: 380px;
+    }
+  }
+
+  /* Tamaños para iPad y tablets - POST-ITS VERTICALES */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .testimonials-featured-carousel {
+      height: 550px;
+    }
+    
+    .testimonial-item {
+      width: 260px;
+      max-width: 260px;
+      height: 360px;
+    }
+  }
+
+  /* Tamaños para móviles grandes - POST-ITS VERTICALES (+15% más grandes) */
+  @media (min-width: 480px) and (max-width: 767px) {
+    .testimonials-featured-carousel {
+      height: 520px;
+    }
+
+    .testimonial-item {
+      width: 275px;
+      max-width: 275px;
+      height: 390px;
+    }
+  }
+
+  /* Tamaños para móviles pequeños - POST-ITS VERTICALES (+12% más grandes) */
+  @media (max-width: 479px) {
+    .testimonials-featured-carousel {
+      height: 480px;
+    }
+
+    .testimonial-item {
+      width: 245px;
+      max-width: 245px;
+      height: 360px;
+    }
+  }
+
+  /* Estados base del carrusel circular */
+  .testimonial-item {
+    opacity: 0.2;
+    scale: 0.6;
+    z-index: 1;
+  }
+
+  /* Posición principal (frente del carrusel) - TODOS LOS TAMAÑOS */
+  .testimonial-item[data-position="0"] {
+    transform: translate(-50%, -50%) translateZ(0px);
+    opacity: 1;
+    z-index: 5;
+  }
+
+  /* Escalas específicas por tamaño de pantalla para tarjeta principal */
+  @media (min-width: 1024px) {
+    .testimonial-item[data-position="0"] {
+      scale: 1.3;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .testimonial-item[data-position="0"] {
+      scale: 1.25;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .testimonial-item[data-position="0"] {
+      scale: 1.1;
+    }
+  }
+
+  /* Posiciones laterales visibles SOLO en tablet y desktop - Ajustado para post-its verticales */
+  @media (min-width: 768px) {
+    /* Derecha cercana */
+    .testimonial-item[data-position="1"] {
+      transform: translate(-50%, -50%) translateX(280px) translateZ(-100px) rotateY(-25deg) scale(0.85);
+      opacity: 0.6;
+      z-index: 4;
+    }
+
+    /* Izquierda cercana */
+    .testimonial-item[data-position="5"] {
+      transform: translate(-50%, -50%) translateX(-280px) translateZ(-100px) rotateY(25deg) scale(0.85);
+      opacity: 0.6;
+      z-index: 4;
+    }
+
+    /* Derecha lejana */
+    .testimonial-item[data-position="2"] {
+      transform: translate(-50%, -50%) translateX(420px) translateZ(-200px) rotateY(-45deg) scale(0.7);
+      opacity: 0.3;
+      z-index: 2;
+    }
+
+    /* Izquierda lejana */
+    .testimonial-item[data-position="4"] {
+      transform: translate(-50%, -50%) translateX(-420px) translateZ(-200px) rotateY(45deg) scale(0.7);
+      opacity: 0.3;
+      z-index: 2;
+    }
+
+    /* Trasera (completamente oculta) */
+    .testimonial-item[data-position="3"] {
+      transform: translate(-50%, -50%) translateZ(-350px) rotateY(180deg) scale(0.5);
+      opacity: 0;
+      z-index: 1;
+    }
+  }
+
+  /* En móviles SOLO mostrar la principal, perfectamente centrada */
+  @media (max-width: 767px) {
+    .testimonial-item:not([data-position="0"]) {
+      transform: translate(-50%, -50%) scale(0.7);
+      opacity: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* Asegurar centrado perfecto eliminando cualquier offset */
+  .testimonials-featured-carousel * {
+    box-sizing: border-box;
+  }
+
+  .testimonial-item[data-position="0"] {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Animación suave del carrusel */
+  @keyframes carousel-rotate {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+
+  /* Efecto de pausa en hover (desktop) */
+  @media (min-width: 768px) {
+    .testimonial-track:hover .testimonial-item {
+      animation-play-state: paused;
+    }
+  }
+</style>
+
+<script>
+  class CircularTestimonialsCarousel {
+    currentRotation: number;
+    testimonials: NodeListOf<Element>;
+    totalTestimonials: number;
+    interval: ReturnType<typeof setInterval> | null;
+    isAnimating: boolean;
+
+    constructor() {
+      this.currentRotation = 0;
+      this.testimonials = document.querySelectorAll('.testimonial-item');
+      this.totalTestimonials = this.testimonials.length;
+      this.interval = null;
+      this.isAnimating = false;
+      
+      if (this.testimonials.length > 0) {
+        this.init();
+      }
+    }
+
+    init() {
+      // Configurar posiciones iniciales del carrusel circular
+      this.updateCarouselPositions();
+      
+      // Iniciar rotación automática
+      this.startAutoRotation();
+      
+      // Pausar al hacer hover en desktop
+      const carousel = document.querySelector('.testimonials-featured-carousel');
+      if (carousel) {
+        carousel.addEventListener('mouseenter', () => {
+          if (window.innerWidth >= 768) {
+            this.pauseAutoRotation();
+          }
+        });
+        carousel.addEventListener('mouseleave', () => {
+          if (window.innerWidth >= 768) {
+            this.startAutoRotation();
+          }
+        });
+      }
+    }
+
+    updateCarouselPositions() {
+      this.testimonials.forEach((testimonial, index) => {
+        // Calcular la posición en el carrusel circular (0-5)
+        const position = (index - this.currentRotation + this.totalTestimonials) % this.totalTestimonials;
+        
+        // Aplicar la posición como atributo data
+        (testimonial as HTMLElement).setAttribute('data-position', position.toString());
+      });
+    }
+
+    rotateCarousel() {
+      if (this.isAnimating) return;
+      
+      this.isAnimating = true;
+      
+      // Incrementar rotación (mover al siguiente elemento)
+      this.currentRotation = (this.currentRotation + 1) % this.totalTestimonials;
+      
+      // Actualizar posiciones
+      this.updateCarouselPositions();
+      
+      // Esperar a que termine la transición antes de permitir la siguiente
+      setTimeout(() => {
+        this.isAnimating = false;
+      }, 1500); // Duración de la transición CSS (1.5s)
+    }
+
+    startAutoRotation() {
+      this.pauseAutoRotation(); // Limpiar interval existente
+      
+      // Primera rotación después de tiempo inicial de lectura
+      setTimeout(() => {
+        this.rotateCarousel();
+      }, 4000); // 4 segundos para leer la primera
+      
+      // Rotación constante cada 7 segundos - tiempo cómodo para leer
+      this.interval = setInterval(() => {
+        this.rotateCarousel();
+      }, 7000); // 7 segundos para leer cada testimonio cómodamente
+    }
+
+    pauseAutoRotation() {
+      if (this.interval) {
+        clearInterval(this.interval);
+        this.interval = null;
+      }
+    }
+
+    // Método para rotación manual (futuro uso)
+    next() {
+      this.rotateCarousel();
+    }
+
+    previous() {
+      if (this.isAnimating) return;
+      
+      this.isAnimating = true;
+      
+      // Decrementar rotación (mover al elemento anterior)
+      this.currentRotation = (this.currentRotation - 1 + this.totalTestimonials) % this.totalTestimonials;
+      
+      // Actualizar posiciones
+      this.updateCarouselPositions();
+      
+      // Esperar a que termine la transición
+      setTimeout(() => {
+        this.isAnimating = false;
+      }, 1500);
+    }
+  }
+
+  // Inicializar cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', () => {
+    new CircularTestimonialsCarousel();
+  });
+
+  // Reinicializar en cambios de tamaño de pantalla
+  let resizeTimeout: ReturnType<typeof setTimeout>;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      const carousel = document.querySelector('.testimonials-featured-carousel');
+      if (carousel) {
+        new CircularTestimonialsCarousel();
+      }
+    }, 250);
+  });
+</script>

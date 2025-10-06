@@ -1,0 +1,165 @@
+---
+// src/components/sections/ServiceFeatures.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import FeatureCard from '../ui/FeatureCard.astro';
+import MaterialSymbol from '../ui/MaterialSymbol.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  serviceType: 'marketing-internet' | 'diseño-web' | 'publicidad' | 'asesor-marketing';
+}
+
+const { title, subtitle, serviceType } = Astro.props;
+
+// Configuración de características por servicio
+const serviceFeatures = {
+  'marketing-internet': {
+    color: 'blue' as const,
+    features: [
+      {
+        icon: 'search',
+        title: 'SEO y SEM Especializado',
+        description: 'Posicionamiento orgánico y campañas de Google Ads optimizadas para el mercado local de Morelos.',
+        badge: '🎯 Resultados medibles'
+      },
+      {
+        icon: 'person',
+        title: 'Redes Sociales Estratégicas', 
+        description: 'Gestión profesional de Facebook, Instagram y LinkedIn enfocada en generar leads y ventas.',
+        badge: '📱 Engagement real'
+      },
+      {
+        icon: 'mail',
+        title: 'Email Marketing Efectivo',
+        description: 'Campañas de email automatizadas que nutren prospectos y convierten clientes en Morelos.',
+        badge: '💌 Alto ROI'
+      },
+      {
+        icon: 'insights',
+        title: 'Análisis y Reportes',
+        description: 'Métricas claras y reportes detallados del rendimiento de todas tus campañas digitales.',
+        badge: '📊 Data-driven'
+      }
+    ]
+  },
+  'diseño-web': {
+    color: 'purple' as const,
+    features: [
+      {
+        icon: 'language',
+        title: 'Diseño Web Profesional',
+        description: 'Sitios web modernos, responsivos y optimizados para conversiones en dispositivos móviles.',
+        badge: '🎨 Diseño único'
+      },
+      {
+        icon: 'speed',
+        title: 'Optimización de Velocidad',
+        description: 'Páginas web ultrarrápidas que mejoran la experiencia del usuario y el SEO.',
+        badge: '⚡ Carga rápida'
+      },
+      {
+        icon: 'lock',
+        title: 'Seguridad Avanzada',
+        description: 'Certificados SSL, backups automáticos y protección contra malware incluidos.',
+        badge: '🔒 100% Seguro'
+      },
+      {
+        icon: 'edit_note',
+        title: 'Fácil Administración',
+        description: 'Panel de control intuitivo para que puedas actualizar tu contenido sin conocimientos técnicos.',
+        badge: '✏️ Auto-gestionable'
+      }
+    ]
+  },
+  'publicidad': {
+    color: 'red' as const,
+    features: [
+      {
+        icon: 'ads_click',
+        title: 'Campañas Publicitarias Estratégicas',
+        description: 'Desarrollo de campañas creativas para Google, Facebook, Instagram y medios locales.',
+        badge: '🚀 Impacto garantizado'
+      },
+      {
+        icon: 'target',
+        title: 'Segmentación Precisa',
+        description: 'Targeting avanzado para llegar exactamente a tu público objetivo en Morelos.',
+        badge: '🎯 Audiencia exacta'
+      },
+      {
+        icon: 'palette',
+        title: 'Creatividades Impactantes',
+        description: 'Diseño gráfico profesional, videos y copywriting que conecta con tu audiencia.',
+        badge: '🎭 Creativo único'
+      },
+      {
+        icon: 'trending_up',
+        title: 'Optimización Continua',
+        description: 'Monitoreo constante y ajustes para maximizar el retorno de inversión publicitaria.',
+        badge: '📈 ROI optimizado'
+      }
+    ]
+  },
+  'asesor-marketing': {
+    color: 'green' as const,
+    features: [
+      {
+        icon: 'settings',
+        title: 'Estrategia Personalizada',
+        description: 'Análisis profundo de tu negocio para desarrollar estrategias de marketing a medida.',
+        badge: '🧠 Estrategia única'
+      },
+      {
+        icon: 'rate_review',
+        title: 'Auditoría Completa',
+        description: 'Evaluación integral de tu marketing actual y identificación de oportunidades de mejora.',
+        badge: '🔍 Análisis profundo'
+      },
+      {
+        icon: 'assignment_turned_in',
+        title: 'Capacitación de Equipos',
+        description: 'Formación para tu equipo interno en las mejores prácticas de marketing digital.',
+        badge: '🎓 Conocimiento transferido'
+      },
+      {
+        icon: 'contact_support',
+        title: 'Acompañamiento Continuo',
+        description: 'Seguimiento y ajustes constantes para asegurar el éxito de tus estrategias de marketing.',
+        badge: '🤝 Soporte 24/7'
+      }
+    ]
+  }
+};
+
+const config = serviceFeatures[serviceType];
+---
+
+<section class="py-24 bg-white scroll-animate" data-animate="slide-right">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Características"
+      title={title}
+      subtitle={subtitle}
+      color={config.color}
+    />
+
+    <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto scroll-animate" data-stagger data-stagger-target=":scope > *" data-stagger-step="200">
+      
+      {config.features.map((feature) => (
+        <FeatureCard
+          title={feature.title}
+          badge={feature.badge}
+          color={config.color}
+        >
+          <MaterialSymbol slot="icon" icon={feature.icon} size="2xl" />
+          <Fragment slot="description">
+            {feature.description}
+          </Fragment>
+        </FeatureCard>
+      ))}
+
+    </div>
+  </div>
+</section>
