@@ -357,16 +357,28 @@ const {
         // Iniciar rotación automática
         this.startAutoRotation();
         
-        // Pausar al hacer hover en desktop
+        // Pausar al hacer hover en desktop (solo por 10 segundos máximo)
         const carousel = document.querySelector('.testimonials-featured-carousel');
         if (carousel) {
+          let hoverTimeout: ReturnType<typeof setTimeout> | null = null;
+          
           carousel.addEventListener('mouseenter', () => {
             if (window.innerWidth >= 768) {
               this.pauseAutoRotation();
+              
+              // Reanudar automáticamente después de 10 segundos aunque siga el hover
+              hoverTimeout = setTimeout(() => {
+                this.startAutoRotation();
+              }, 10000);
             }
           });
+          
           carousel.addEventListener('mouseleave', () => {
             if (window.innerWidth >= 768) {
+              if (hoverTimeout) {
+                clearTimeout(hoverTimeout);
+                hoverTimeout = null;
+              }
               this.startAutoRotation();
             }
           });
@@ -403,15 +415,10 @@ const {
       startAutoRotation() {
         this.pauseAutoRotation(); // Limpiar interval existente
         
-        // Primera rotación después de tiempo inicial de lectura
-        setTimeout(() => {
-          this.rotateCarousel();
-        }, 4000); // 4 segundos para leer la primera
-        
-        // Rotación constante cada 7 segundos - tiempo cómodo para leer
+        // Rotación constante cada 6 segundos - tiempo consistente para leer cada testimonio
         this.interval = setInterval(() => {
           this.rotateCarousel();
-        }, 7000); // 7 segundos para leer cada testimonio cómodamente
+        }, 6000); // 6 segundos constantes para cada testimonio
       }
 
       pauseAutoRotation() {

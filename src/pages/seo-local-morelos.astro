@@ -5,7 +5,7 @@ import SEOLocalHeroMod from '../components/sections/SEOLocalHeroMod.astro';
 import WhatIsSEOLocal from '../components/sections/WhatIsSEOLocal.astro';
 import SEOPowerStats from '../components/sections/SEOPowerStats.astro';
 import OurProcess from '../components/sections/OurProcess.astro';
-import InteractiveMapTestimonials from '../components/sections/InteractiveMapTestimonials.astro';
+import InteractiveMapTestimonialsSeoCopy from '../components/sections/InteractiveMapTestimonialsSeoCopy.astro';
 import CTA from '../components/ui/CTA.astro';
 import MaterialSymbol from '../components/ui/MaterialSymbol.astro'; // Added import
 import TrustBar from '../components/ui/TrustBar.astro';
@@ -18,7 +18,13 @@ import TrustBar from '../components/ui/TrustBar.astro';
 
 <!-- Banner Superior -->
 <Banner 
-  text="💎 Especialistas en SEO Local Morelos • Más clientes locales • Resultados garantizados"
+  items={[ 
+    { icon: 'star', label: 'ESPECIALISTAS EN SEO LOCAL' },
+    { icon: 'location_on', label: 'MÁS CLIENTES LOCALES' },
+    { icon: 'verified', label: 'RESULTADOS GARANTIZADOS' },
+    { icon: 'trending_up', label: 'POSICIONAMIENTO EN GOOGLE MAPS' },
+    { icon: 'support', label: 'SOPORTE 24/7' },
+  ]}
   variant="accent"
   speed="normal"
 />
@@ -55,7 +61,7 @@ import TrustBar from '../components/ui/TrustBar.astro';
 
 <!-- Mapa Interactivo de Casos de Éxito -->
 <section class="scroll-animate" data-animate="fade-up" data-once="true">
-  <InteractiveMapTestimonials />
+  <InteractiveMapTestimonialsSeoCopy />
 </section>
 
 <!-- CTA Final -->

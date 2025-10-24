@@ -2,55 +2,39 @@
 // src/components/sections/Testimonials.astro - Usando el componente unificado
 import UnifiedTestimonials from './UnifiedTestimonials.astro';
 
-// Datos de testimonios para el carrusel del Home
+// Datos de testimonios auténticos para el carrusel del Home (primer testimonio de cada servicio)
 const homeTestimonials = [
   {
-    author: "Dr. Miguel Hernández",
+    author: "Lupita Mendoza",
     company: "",
     location: "Cuernavaca, Morelos",
-    avatar: "MH",
-    content: "Antes no aparecíamos ni en la página 5 de Google. Ahora somos el primer resultado cuando buscan 'dentista en Cuernavaca'. Las citas se triplicaron en 3 meses.",
+    avatar: "LM",
+    content: "La neta no creía que algo así funcionara pa' un negocio chiquito como el mío… pero desde que aparecí en Google, ya me andan buscando hasta de Temixco. Ayer mismo me pidieron 3 pasteles pa' una fiesta. ¡Y todo por internet!",
     color: "yellow" as const
   },
   {
-    author: "Ana López", 
+    author: "Chuy Méndez", 
     company: "",
-    location: "Jiutepec, Morelos",
-    avatar: "AL",
-    content: "El SEO local cambió nuestro negocio. De 2 clientes por semana a 20. La inversión se pagó sola en el primer mes.",
+    location: "Emiliano Zapata, Morelos",
+    avatar: "CM",
+    content: "Mi página anterior era un desastre: se veía mal en el celular, tardaba en cargar… Mis clientas me decían 'no puedo ver los diseños'. La nueva es limpia, rápida y hasta tiene botón de WhatsApp directo. ¡Ya no pierdo ventas por eso!",
     color: "green" as const
   },
   {
-    author: "Carlos Mendoza",
+    author: "Nacho Limón",
     company: "",
     location: "Temixco, Morelos", 
-    avatar: "CM",
-    content: "Tecnomata nos posicionó #1 en Google Maps. Nuestras ventas aumentaron 400% en 6 meses. ¡Increíble trabajo!",
+    avatar: "NL",
+    content: "Invertí $2,000 en anuncios antes y no pasó nada. Con ellos, gasté lo mismo y en 10 días ya tenía 8 llamadas de gente interesada en mi taller de autos. ¿La diferencia? Saben a quién mostrarle los anuncios.",
     color: "blue" as const
   },
   {
-    author: "María Rodríguez",
+    author: "Karla Espinoza",
     company: "",
-    location: "Yautepec, Morelos",
-    avatar: "MR", 
-    content: "Pasamos de ser invisibles a recibir 15 llamadas diarias. El ROI ha sido impresionante desde el primer mes.",
+    location: "Jiutepec, Morelos",
+    avatar: "KE", 
+    content: "No sabía ni por dónde empezar con mi spa. Mi asesor me ayudó a definir a quién hablarle, qué decir y cuándo. Hoy tengo un flujo constante de clientas, no solo en temporada alta.",
     color: "pink" as const
-  },
-  {
-    author: "Roberto Silva",
-    company: "",
-    location: "Cuautla, Morelos",
-    avatar: "RS",
-    content: "Mi taller mecánico ahora aparece primero en todas las búsquedas locales. Los clientes nos encuentran fácilmente.", 
-    color: "orange" as const
-  },
-  {
-    author: "Lucia Morales",
-    company: "",
-    location: "Xochitepec, Morelos",
-    avatar: "LM",
-    content: "La estrategia de SEO local superó todas nuestras expectativas. Ahora tenemos lista de espera para citas.",
-    color: "purple" as const
   }
 ];
 ---

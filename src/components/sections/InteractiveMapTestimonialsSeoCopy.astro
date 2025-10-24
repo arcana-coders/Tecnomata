@@ -1,0 +1,341 @@
+---
+// src/components/sections/InteractiveMapTestimonialsSeoCopy.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import TestimonialCard from '../ui/TestimonialCard.astro';
+
+// Datos de testimonios auténticos con coordenadas y pin para SEO Local
+const mapTestimonials = [
+  {
+    author: "Beto Ramírez",
+    company: "",
+    location: "Cuernavaca, Morelos",
+    avatar: "BR",
+    content: "Mi taquería era de barrio, nomás la conocían los vecinos. Ahora, cuando alguien busca 'tacos al pastor Cuernavaca centro', ¡sale mi local! Hasta turistas me han encontrado. Ya no necesito repartir volantes.",
+    color: "blue" as const,
+    coordinates: { lat: 18.9261, lng: -99.2319 },
+    address: "Centro de Cuernavaca",
+    pinPosition: { x: 45, y: 35 }
+  },
+  {
+    author: "Claudia M.",
+    company: "",
+    location: "Jiutepec, Morelos",
+    avatar: "CM",
+    content: "Funcionó. Ya me escriben todos los días por Instagram. Antes tenía 20 seguidores… hoy más de 800, y casi todos de aquí.",
+    color: "green" as const,
+    coordinates: { lat: 18.8814, lng: -99.1822 },
+    address: "Centro de Jiutepec",
+    pinPosition: { x: 55, y: 45 }
+  },
+  {
+    author: "Don Raúl",
+    company: "",
+    location: "Cuautla, Morelos",
+    avatar: "DR",
+    content: "Tengo 58 años y nunca creí en lo de 'marketing digital', pero mi hijo me insistió. Hoy recibo llamadas de gente que dice: 'vi tu anuncio en internet'. Hasta me dieron propina por primera vez… ¡por un servicio de plomero!",
+    color: "purple" as const,
+    coordinates: { lat: 18.8073, lng: -98.9545 },
+    address: "Centro de Cuautla",
+    pinPosition: { x: 75, y: 70 }
+  },
+  {
+    author: "Mariana L.",
+    company: "",
+    location: "Ciudad de México",
+    avatar: "ML",
+    content: "Mi estudio de yoga es pequeño, pero ahora aparece en búsquedas como 'clases de yoga en casa CDMX'. Tengo 3 nuevas alumnas esta semana, todas me encontraron en Google. No hice nada más que seguir sus indicaciones.",
+    color: "orange" as const,
+    coordinates: { lat: 19.4326, lng: -99.1332 },
+    address: "Ciudad de México",
+    pinPosition: { x: 30, y: 20 }
+  },
+  {
+    author: "Tere",
+    company: "",
+    location: "Yautepec, Morelos",
+    avatar: "TR",
+    content: "Antes me costaba llenar mis talleres de repostería. Ahora, desde que salgo en internet, se agotan en dos días. Hasta me pidieron uno en Cuernavaca… ¡y acepté!",
+    color: "red" as const,
+    coordinates: { lat: 18.8833, lng: -99.0667 },
+    address: "Centro de Yautepec",
+    pinPosition: { x: 65, y: 40 }
+  },
+  {
+    author: "Iván",
+    company: "",
+    location: "Temixco, Morelos",
+    avatar: "IV",
+    content: "No sé cómo lo hicieron, pero ahora cuando busco 'servicio técnico Temixco' en mi propio celular… ¡aparezco yo primero! Mis vecinos me dicen: '¿tú eres el de la pantalla?' Jajaja. Ya tengo trabajo pa' toda la semana.",
+    color: "yellow" as const,
+    coordinates: { lat: 18.8458, lng: -99.2353 },
+    address: "Centro de Temixco",
+    pinPosition: { x: 35, y: 80 }
+  }
+];
+---
+
+<section class="py-24 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <SectionHeader
+      pill="Casos de Éxito"
+      title="Negocios reales con <span class='text-blue-600'>resultados reales</span> en Morelos"
+      subtitle="Descubre cómo hemos transformado la presencia digital de negocios en diferentes municipios de Morelos."
+      color="blue"
+    />
+
+    <!-- Contenedor del mapa interactivo -->
+    <div class="relative">
+      
+      <!-- Mapa de Google -->
+      <div id="interactive-map" class="w-full h-[600px] rounded-2xl overflow-hidden shadow-2xl relative bg-gradient-to-br from-blue-400 via-blue-500 to-purple-600">
+        <!-- El pin se agregará aquí dinámicamente -->
+      </div>
+
+      <!-- Tarjeta de testimonio flotante -->
+  <div id="floating-testimonial" class="absolute top-8 left-8 w-80 max-w-sm z-10 transform transition-all duration-500 opacity-0 scale-95 pointer-events-none">
+        <!-- El testimonio activo se mostrará aquí -->
+      </div>
+
+      <!-- Indicador de ubicación actual -->
+      <div id="location-indicator" class="absolute bottom-8 left-8 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
+        <div class="flex items-center gap-3">
+          <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+          <span id="current-location" class="text-sm font-semibold text-gray-800">Cargando...</span>
+        </div>
+      </div>
+
+      <!-- Controles de navegación -->
+      <div class="absolute bottom-8 right-8 flex gap-2">
+        <button id="prev-location" class="bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:bg-white transition-colors" 
+                title="Testimonio anterior" aria-label="Ver testimonio anterior">
+          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button id="next-location" class="bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg hover:bg-white transition-colors"
+                title="Siguiente testimonio" aria-label="Ver siguiente testimonio">
+          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Plantillas de testimonios (ocultas, usadas por JavaScript) -->
+    <div id="testimonial-templates" class="hidden">
+      {mapTestimonials.map((testimonial, index) => (
+        <div class="testimonial-template" data-index={index}>
+          <TestimonialCard author={testimonial.author} company={testimonial.company} color={testimonial.color}>
+            <div slot="avatar" class={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+              testimonial.color === 'blue' ? 'bg-blue-600' :
+              testimonial.color === 'green' ? 'bg-green-600' :
+              testimonial.color === 'purple' ? 'bg-purple-600' :
+              testimonial.color === 'orange' ? 'bg-orange-600' :
+              testimonial.color === 'red' ? 'bg-red-600' :
+              testimonial.color === 'yellow' ? 'bg-yellow-600' : 'bg-gray-600'
+            }`}>
+              {testimonial.avatar}
+            </div>
+            <span slot="default">
+              {testimonial.content}
+            </span>
+            <div slot="location" class="text-xs opacity-70 mt-1">
+              📍 {testimonial.location}
+            </div>
+          </TestimonialCard>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Estilos para el mapa interactivo */
+  #interactive-map {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+  }
+
+  /* Animaciones para la transición de testimonios */
+  .testimonial-enter {
+    opacity: 1 !important;
+    transform: scale(1) translateY(0) !important;
+    pointer-events: auto;
+  }
+
+  .testimonial-exit {
+    opacity: 0 !important;
+    transform: scale(0.95) translateY(-20px) !important;
+    pointer-events: none;
+  }
+
+  /* Hover effects para controles */
+  button:hover {
+    transform: scale(1.05);
+  }
+
+  /* Estilos para el pin */
+  .map-pin {
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 5;
+  }
+
+  .map-pin.animate-bounce {
+    animation: bounce 2s infinite;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    #interactive-map {
+      height: 400px;
+    }
+    
+    #floating-testimonial {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: 100%;
+      max-width: none;
+      margin-top: 2rem;
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto;
+    }
+    
+    #location-indicator,
+    .absolute.bottom-8.right-8 {
+      position: relative;
+      bottom: auto;
+      right: auto;
+      left: auto;
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Script para manejar la interacción del mapa (con animación de pin)
+  document.addEventListener('DOMContentLoaded', function() {
+    const testimonials = [
+      {
+        author: "Beto Ramírez",
+        location: "Cuernavaca, Morelos",
+        address: "Centro de Cuernavaca",
+        pinPosition: { x: 45, y: 35 }
+      },
+      {
+        author: "Claudia M.",
+        location: "Jiutepec, Morelos",
+        address: "Centro de Jiutepec",
+        pinPosition: { x: 55, y: 45 }
+      },
+      {
+        author: "Don Raúl",
+        location: "Cuautla, Morelos",
+        address: "Centro de Cuautla",
+        pinPosition: { x: 75, y: 70 }
+      },
+      {
+        author: "Mariana L.",
+        location: "Ciudad de México",
+        address: "Ciudad de México",
+        pinPosition: { x: 30, y: 20 }
+      },
+      {
+        author: "Tere",
+        location: "Yautepec, Morelos",
+        address: "Centro de Yautepec",
+        pinPosition: { x: 65, y: 40 }
+      },
+      {
+        author: "Iván",
+        location: "Temixco, Morelos",
+        address: "Centro de Temixco",
+        pinPosition: { x: 35, y: 80 }
+      }
+    ];
+
+    let currentTestimonialIndex = 0;
+    const floatingTestimonial = document.getElementById('floating-testimonial');
+    const currentLocation = document.getElementById('current-location');
+    const prevButton = document.getElementById('prev-location');
+    const nextButton = document.getElementById('next-location');
+    const testimonialTemplates = document.querySelectorAll('.testimonial-template');
+    const mapContainer = document.getElementById('interactive-map');
+
+    // Crear pin del mapa si no existe
+    let mapPin = document.getElementById('map-pin');
+    if (!mapPin && mapContainer) {
+      mapPin = document.createElement('div');
+      mapPin.id = 'map-pin';
+      mapPin.className = 'absolute w-8 h-8 transform -translate-x-1/2 -translate-y-1/2 opacity-0 map-pin';
+      mapPin.innerHTML = `
+        <div class="relative">
+          <div class="w-8 h-8 bg-red-500 rounded-full border-4 border-white shadow-lg animate-bounce">
+            <div class="absolute inset-0 w-8 h-8 bg-red-500 rounded-full animate-ping opacity-30"></div>
+          </div>
+          <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-4 border-l-transparent border-r-transparent border-t-red-500"></div>
+        </div>
+      `;
+      mapContainer.appendChild(mapPin);
+    }
+
+    function showTestimonial(index: number): void {
+      const testimonial = testimonials[index];
+      const template = testimonialTemplates[index];
+      if (!template || !testimonial || !floatingTestimonial || !currentLocation || !mapPin) return;
+
+      // Secuencia de animación optimizada:
+      // 1. Ocultar tarjeta actual (300ms)
+      // 2. Mover pin a nueva posición (700ms)  
+      // 3. Mostrar nueva tarjeta (500ms)
+      // Total: 1.5s de animación
+
+      // Paso 1: Ocultar tarjeta actual
+      floatingTestimonial.classList.remove('testimonial-enter');
+      floatingTestimonial.classList.add('testimonial-exit');
+
+      setTimeout(() => {
+        // Paso 2: Mover pin a nueva posición
+        mapPin.style.left = testimonial.pinPosition.x + '%';
+        mapPin.style.top = testimonial.pinPosition.y + '%';
+        mapPin.style.opacity = '1';
+
+        // Actualizar indicador de ubicación
+        currentLocation.textContent = testimonial.address;
+
+        setTimeout(() => {
+          // Paso 3: Mostrar nueva tarjeta después de que el pin se posicione
+          floatingTestimonial.innerHTML = template.innerHTML;
+          floatingTestimonial.classList.remove('testimonial-exit');
+          floatingTestimonial.classList.add('testimonial-enter');
+        }, 700);
+      }, 300);
+    }
+
+    function nextTestimonial() {
+      currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
+      showTestimonial(currentTestimonialIndex);
+    }
+
+    function prevTestimonial() {
+      currentTestimonialIndex = currentTestimonialIndex === 0 ? testimonials.length - 1 : currentTestimonialIndex - 1;
+      showTestimonial(currentTestimonialIndex);
+    }
+
+    // Event listeners
+    nextButton?.addEventListener('click', nextTestimonial);
+    prevButton?.addEventListener('click', prevTestimonial);
+
+    // Mostrar primer testimonio
+    showTestimonial(0);
+
+    // Auto-rotate cada 7 segundos (1.5s animación + 5.5s lectura = tiempo perfecto)
+    setInterval(nextTestimonial, 7000);
+  });
+</script>

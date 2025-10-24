@@ -22,6 +22,80 @@ const {
   offers
 } = Astro.props;
 
+// Testimonios auténticos específicos por tipo de servicio
+const getServiceTestimonials = (serviceName: string) => {
+  const testimonialSets = {
+    "Marketing por Internet en Morelos": [
+      {
+        author: "Lupita Mendoza",
+        business: "",
+        content: "La neta no creía que algo así funcionara pa' un negocio chiquito como el mío… pero desde que aparecí en Google, ya me andan buscando hasta de Temixco. Ayer mismo me pidieron 3 pasteles pa' una fiesta. ¡Y todo por internet!",
+        rating: "5",
+        date: "2024-09-28"
+      },
+      {
+        author: "Karla R.", 
+        business: "",
+        content: "Funcionó. Punto. Antes cero llamadas. Ahora 4-5 diarias. Gracias.",
+        rating: "5",
+        date: "2024-09-15"
+      }
+    ],
+    "Diseñador Web en Morelos": [
+      {
+        author: "Chuy Méndez",
+        business: "",
+        content: "Mi página anterior era un desastre: se veía mal en el celular, tardaba en cargar… Mis clientas me decían 'no puedo ver los diseños'. La nueva es limpia, rápida y hasta tiene botón de WhatsApp directo. ¡Ya no pierdo ventas por eso!",
+        rating: "5", 
+        date: "2024-09-25"
+      },
+      {
+        author: "Raúl Domínguez",
+        business: "",
+        content: "Sitio web funcional, carga rápida, se ve bien en cualquier dispositivo. Mis cotizaciones subieron un 30%. Gracias.",
+        rating: "5",
+        date: "2024-09-12"
+      }
+    ],
+    "Agencia de Publicidad en Morelos": [
+      {
+        author: "Nacho Limón",
+        business: "",
+        content: "Invertí $2,000 en anuncios antes y no pasó nada. Con ellos, gasté lo mismo y en 10 días ya tenía 8 llamadas de gente interesada en mi taller de autos. ¿La diferencia? Saben a quién mostrarle los anuncios.",
+        rating: "5",
+        date: "2024-09-20"
+      },
+      {
+        author: "Fernando Duarte", 
+        business: "",
+        content: "Mi ferretería no era visible. Hoy, cuando alguien busca 'tornillos Cuautla' o 'llaves inglesas', ¡aparezco yo! Las ventas subieron, y los vecinos dicen: 'ah, sí, ya te vi en internet'.",
+        rating: "5",
+        date: "2024-09-08"
+      }
+    ],
+    "Asesor de Marketing en Morelos": [
+      {
+        author: "Karla Espinoza",
+        business: "", 
+        content: "No sabía ni por dónde empezar con mi spa. Mi asesor me ayudó a definir a quién hablarle, qué decir y cuándo. Hoy tengo un flujo constante de clientas, no solo en temporada alta.",
+        rating: "5",
+        date: "2024-09-22"
+      },
+      {
+        author: "Rafa Gómez",
+        business: "",
+        content: "Duplicar mis ventas en 4 meses parecía imposible. Pero con un plan claro, sin magia, sin trucos… solo estrategia realista, lo logré. Ahora incluso contrato a alguien más.",
+        rating: "5", 
+        date: "2024-09-05"
+      }
+    ]
+  };
+  
+  return testimonialSets[serviceName as keyof typeof testimonialSets] || testimonialSets["Marketing por Internet en Morelos"];
+};
+
+const serviceTestimonials = getServiceTestimonials(serviceName);
+
 const schema = {
   "@context": "https://schema.org",
   "@type": "Service",
@@ -66,41 +140,36 @@ const schema = {
   },
   aggregateRating: {
     "@type": "AggregateRating",
+    "@id": `https://tecnomata.com${Astro.url.pathname}#aggregateRating`,
+    itemReviewed: {
+      "@type": "Service",
+      name: serviceName
+    },
     ratingValue: "4.9",
     reviewCount: "87",
     bestRating: "5",
     worstRating: "1"
   },
-  review: [
-    {
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5"
-      },
-      author: {
-        "@type": "Person",
-        name: "María González"
-      },
-      reviewBody: "Excelente servicio, resultados comprobados en poco tiempo.",
-      datePublished: "2024-10-01"
+  review: serviceTestimonials.map((testimonial, index) => ({
+    "@type": "Review",
+    "@id": `https://tecnomata.com${Astro.url.pathname}#review${index + 1}`,
+    itemReviewed: {
+      "@type": "Service",
+      name: serviceName
     },
-    {
-      "@type": "Review", 
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5"
-      },
-      author: {
-        "@type": "Person",
-        name: "Roberto Martínez"
-      },
-      reviewBody: "Profesionales comprometidos con el éxito de tu negocio.",
-      datePublished: "2024-09-15"
-    }
-  ]
+    reviewRating: {
+      "@type": "Rating", 
+      ratingValue: testimonial.rating,
+      bestRating: "5",
+      worstRating: "1"
+    },
+    author: {
+      "@type": "Person",
+      name: testimonial.author
+    },
+    reviewBody: testimonial.content,
+    datePublished: testimonial.date
+  }))
 };
 ---
 

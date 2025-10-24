@@ -1,0 +1,238 @@
+---
+// src/components/sections/TestimonialsNewDisenoWeb.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import TestimonialCard from '../ui/TestimonialCard.astro';
+
+// Datos de testimonios auténticos específicos para Diseñador Web en Morelos
+const webDesignTestimonials = [
+  {
+    author: "Chuy Méndez",
+    company: "",
+    location: "Emiliano Zapata, Morelos",
+    avatar: "CM",
+    content: "Mi página anterior era un desastre: se veía mal en el celular, tardaba en cargar… Mis clientas me decían 'no puedo ver los diseños'. La nueva es limpia, rápida y hasta tiene botón de WhatsApp directo. ¡Ya no pierdo ventas por eso!",
+    color: "blue" as const
+  },
+  {
+    author: "Lucía Peña", 
+    company: "",
+    location: "Cuernavaca, Morelos",
+    avatar: "LP",
+    content: "Ahora sí parezco profesional. Antes solo tenía Facebook; hoy tengo una web donde muestro mis servicios de maquillaje, precios y disponibilidad. Me escriben más, y con mejor intención.",
+    color: "green" as const
+  },
+  {
+    author: "Raúl Domínguez",
+    company: "",
+    location: "Xochitepec, Morelos", 
+    avatar: "RD",
+    content: "Sitio web funcional, carga rápida, se ve bien en cualquier dispositivo. Mis cotizaciones subieron un 30%. Gracias.",
+    color: "purple" as const
+  },
+  {
+    author: "Sofi Carranza",
+    company: "",
+    location: "Monterrey, Nuevo León",
+    avatar: "SC", 
+    content: "No quería algo genérico, y no lo fue. Mi web de cerámica refleja exactamente mi estilo: cálido, artesanal, sin tanto relleno. Hasta mi mamá dice que 'se siente como mi taller'.",
+    color: "pink" as const
+  },
+  {
+    author: "Mario Quintana",
+    company: "",
+    location: "Jiutepec, Morelos",
+    avatar: "MQ",
+    content: "La verdad, pensé que era puro gasto. Pero desde que tengo mi página de servicios de plomería, me llaman más personas serias, no solo los que quieren 'una cotización gratis'. Ya no pierdo tiempo.", 
+    color: "orange" as const
+  },
+  {
+    author: "Carla Vargas",
+    company: "",
+    location: "Cuautla, Morelos",
+    avatar: "CV",
+    content: "¿Sabes ese momento en que un cliente te dice 'no encontré tu página'? Ya no pasa. Ahora hasta me recomiendan por cómo se ve todo. Sencillo, bonito y al punto.",
+    color: "yellow" as const
+  }
+];
+---
+
+
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <SectionHeader
+      pill="Testimonios"
+      title="Lo Que Dicen Nuestros <span class='text-blue-600'>Clientes</span>"
+      subtitle="Descubre cómo hemos transformado la presencia digital de negocios locales con sitios web profesionales."
+      color="blue"
+    />
+    <!-- Carrusel de Post-its Circular 3D -->
+    <div class="testimonials-featured-carousel relative">
+      <div class="testimonial-track flex items-center justify-center gap-4 md:gap-6 lg:gap-8">
+        {webDesignTestimonials.map((testimonial, index) => (
+          <div class="testimonial-item" data-index={index}>
+            <TestimonialCard author={testimonial.author} company={testimonial.company || ""} color={testimonial.color}>
+              <div slot="avatar" class={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+                testimonial.color === 'blue' ? 'bg-blue-600' :
+                testimonial.color === 'green' ? 'bg-green-600' :
+                testimonial.color === 'purple' ? 'bg-purple-600' :
+                testimonial.color === 'orange' ? 'bg-orange-600' :
+                testimonial.color === 'pink' ? 'bg-pink-600' :
+                testimonial.color === 'yellow' ? 'bg-yellow-600' : 'bg-gray-600'
+              }`}>
+                {testimonial.avatar}
+              </div>
+              <span slot="default">
+                {testimonial.content}
+              </span>
+              {testimonial.location && (
+                <div slot="location" class="text-xs opacity-70 mt-1">
+                  📍 {testimonial.location}
+                </div>
+              )}
+            </TestimonialCard>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Copia los estilos del carrusel circular de UnifiedTestimonials.astro aquí */
+  .testimonials-featured-carousel {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+  }
+  .testimonial-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+  .testimonial-item {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: center center;
+    transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backface-visibility: hidden;
+    margin: 0;
+    padding: 0;
+    opacity: 0.2;
+    scale: 0.6;
+    z-index: 1;
+  }
+  @media (min-width: 1024px) {
+    .testimonials-featured-carousel { height: 600px; }
+    .testimonial-item { width: 280px; max-width: 280px; height: 380px; }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .testimonials-featured-carousel { height: 550px; }
+    .testimonial-item { width: 260px; max-width: 260px; height: 360px; }
+  }
+  @media (min-width: 480px) and (max-width: 767px) {
+    .testimonials-featured-carousel { height: 520px; }
+    .testimonial-item { width: 275px; max-width: 275px; height: 390px; }
+  }
+  @media (max-width: 479px) {
+    .testimonials-featured-carousel { height: 480px; }
+    .testimonial-item { width: 245px; max-width: 245px; height: 360px; }
+  }
+  .testimonial-item[data-position="0"] { transform: translate(-50%, -50%) translateZ(0px); opacity: 1; z-index: 5; }
+  @media (min-width: 1024px) { .testimonial-item[data-position="0"] { scale: 1.3; } }
+  @media (min-width: 768px) and (max-width: 1023px) { .testimonial-item[data-position="0"] { scale: 1.25; } }
+  @media (max-width: 767px) { .testimonial-item[data-position="0"] { scale: 1.1; } }
+  @media (min-width: 768px) {
+    .testimonial-item[data-position="1"] { transform: translate(-50%, -50%) translateX(280px) translateZ(-100px) rotateY(-25deg) scale(0.85); opacity: 0.6; z-index: 4; }
+    .testimonial-item[data-position="5"] { transform: translate(-50%, -50%) translateX(-280px) translateZ(-100px) rotateY(25deg) scale(0.85); opacity: 0.6; z-index: 4; }
+    .testimonial-item[data-position="2"] { transform: translate(-50%, -50%) translateX(420px) translateZ(-200px) rotateY(-45deg) scale(0.7); opacity: 0.3; z-index: 2; }
+    .testimonial-item[data-position="4"] { transform: translate(-50%, -50%) translateX(-420px) translateZ(-200px) rotateY(45deg) scale(0.7); opacity: 0.3; z-index: 2; }
+    .testimonial-item[data-position="3"] { transform: translate(-50%, -50%) translateZ(-350px) rotateY(180deg) scale(0.5); opacity: 0; z-index: 1; }
+  }
+  @media (max-width: 767px) {
+    .testimonial-item:not([data-position="0"]) { transform: translate(-50%, -50%) scale(0.7); opacity: 0; z-index: 0; pointer-events: none; }
+  }
+  .testimonials-featured-carousel * { box-sizing: border-box; }
+  .testimonial-item[data-position="0"] { margin-left: 0 !important; margin-right: 0 !important; }
+  @media (min-width: 768px) { .testimonial-track:hover .testimonial-item { animation-play-state: paused; } }
+</style>
+
+<script>
+  // @ts-nocheck
+  if (document.querySelector('.testimonials-featured-carousel')) {
+    class CircularTestimonialsCarousel {
+      constructor() {
+        this.currentRotation = 0;
+        this.testimonials = document.querySelectorAll('.testimonial-item');
+        this.totalTestimonials = this.testimonials.length;
+        this.interval = null;
+        this.isAnimating = false;
+        if (this.testimonials.length > 0) { this.init(); }
+      }
+      init() {
+        this.updateCarouselPositions();
+        this.startAutoRotation();
+        const carousel = document.querySelector('.testimonials-featured-carousel');
+        if (carousel) {
+          var hoverTimeout = null;
+          carousel.addEventListener('mouseenter', () => {
+            if (window.innerWidth >= 768) {
+              this.pauseAutoRotation();
+              hoverTimeout = setTimeout(() => { this.startAutoRotation(); }, 10000);
+            }
+          });
+          carousel.addEventListener('mouseleave', () => {
+            if (window.innerWidth >= 768) {
+              if (hoverTimeout) { clearTimeout(hoverTimeout); hoverTimeout = null; }
+              this.startAutoRotation();
+            }
+          });
+        }
+      }
+      updateCarouselPositions() {
+        this.testimonials.forEach((testimonial, index) => {
+          const position = (index - this.currentRotation + this.totalTestimonials) % this.totalTestimonials;
+          testimonial.setAttribute('data-position', position.toString());
+        });
+      }
+      rotateCarousel() {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
+        this.currentRotation = (this.currentRotation + 1) % this.totalTestimonials;
+        this.updateCarouselPositions();
+        setTimeout(() => { this.isAnimating = false; }, 1500);
+      }
+      startAutoRotation() {
+        this.pauseAutoRotation();
+        this.interval = setInterval(() => { this.rotateCarousel(); }, 6000);
+      }
+      pauseAutoRotation() {
+        if (this.interval) { clearInterval(this.interval); this.interval = null; }
+      }
+      next() { this.rotateCarousel(); }
+      previous() {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
+        this.currentRotation = (this.currentRotation - 1 + this.totalTestimonials) % this.totalTestimonials;
+        this.updateCarouselPositions();
+        setTimeout(() => { this.isAnimating = false; }, 1500);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => { new CircularTestimonialsCarousel(); });
+    
+    var resizeTimeout = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const carousel = document.querySelector('.testimonials-featured-carousel');
+        if (carousel) { new CircularTestimonialsCarousel(); }
+      }, 250);
+    });
+  }
+</script>

@@ -2,7 +2,7 @@
 import IconWithColor from './IconWithColor.astro';
 import CTATab from './CTATab.astro'; // 👈 1. Importamos el nuevo componente
 ---
-<div class="fixed right-0 bottom-4 z-40 xl:hidden" style="right: max(0px, env(safe-area-inset-right))">
+<div class="fixed right-0 bottom-4 z-40 xl:hidden mobile-cta-safe-area">
   <div class="absolute right-0 bottom-0 translate-y-0 h-36 w-10 bg-gradient-to-b from-black/5 via-white/30 to-black/5 backdrop-blur-sm rounded-l-2xl border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"></div>
   <div class="relative flex flex-col items-end gap-2 pr-0.5">
 
@@ -96,5 +96,10 @@ import CTATab from './CTATab.astro'; // 👈 1. Importamos el nuevo componente
   .cta-zoom {
     animation: ctaZoomPulse 320ms cubic-bezier(0.2, 0.8, 0.25, 1) both;
     will-change: transform;
+  }
+  
+  /* Safe area para CTAs móviles */
+  .mobile-cta-safe-area {
+    right: max(0px, env(safe-area-inset-right));
   }
 </style>

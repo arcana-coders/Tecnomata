@@ -18,11 +18,11 @@ const { title, subtitle, ctaText, ctaLink, phone } = Astro.props;
     <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-6" set:html={title} />
     <p class="text-xl text-gray-600 mb-8 leading-relaxed" set:html={subtitle} />
     <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
-      <a href={ctaLink} class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 transition-all duration-300 hover:scale-105 rounded-lg shadow-lg hover:shadow-blue-500/30">
+      <a href="https://wa.me/5217774094647" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-4 transition-all duration-300 hover:scale-105 rounded-lg shadow-lg hover:shadow-green-500/30">
         <MaterialSymbol icon="chat" size="lg" class="mr-2" />{ctaText}
       </a>
-      <a href={`tel:${phone}`} class="inline-block border-2 border-gray-900 hover:bg-gray-900 hover:text-white text-gray-900 font-bold px-8 py-4 transition-all duration-300 rounded-lg">
-        <MaterialSymbol icon="call" size="lg" class="mr-2" />{phone}
+      <a href="tel:7774094647" class="inline-block border-2 border-gray-900 hover:bg-gray-900 hover:text-white text-gray-900 font-bold px-8 py-4 transition-all duration-300 rounded-lg">
+        <MaterialSymbol icon="call" size="lg" class="mr-2" />777 409 4647
       </a>
     </div>
   </div>
