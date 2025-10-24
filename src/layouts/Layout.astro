@@ -1,7 +1,5 @@
 ---
-import "../styles/fonts.css";
 import "../styles/global.css";
-import "../styles/animations.css";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
@@ -26,6 +24,37 @@ const {
     <meta name="description" content={description} />
     <meta name="author" content="Tecnómata" />
     <meta name="robots" content="index, follow" />
+  
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://tecnomata.com" />
+    <link rel="dns-prefetch" href="https://tecnomata.com" />
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="/fonts/Inter/Inter-VariableFont_opsz,wght.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf" as="font" type="font/ttf" crossorigin />
+    
+    <!-- Critical inline CSS for fonts (evita FOUT) -->
+    <style>
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url('/fonts/Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 100 1000;
+        font-display: swap;
+        src: url('/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
+      }
+    </style>
+    
+    <!-- Load animations CSS async (no bloquea renderizado) -->
+    <link rel="preload" href="/src/styles/animations.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="/src/styles/animations.css" /></noscript>
+  
   <!-- Site Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg" />
@@ -54,7 +83,7 @@ const {
     <slot />
     <Footer />
     
-    <!-- Sistema de animaciones modularizado -->
-    <script src="../scripts/animations.js"></script>
+    <!-- Sistema de animaciones modularizado - defer para no bloquear renderizado -->
+    <script src="../scripts/animations.js" defer></script>
   </body>
 </html>

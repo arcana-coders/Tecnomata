@@ -135,12 +135,21 @@ class VisinexAnimations {
     });
 
     // Observar contadores independientemente de scroll-animate con fallback para mobile
-    document.querySelectorAll('.counter').forEach(counter => {
+    // Batch read para evitar forced reflows
+    const counters = Array.from(document.querySelectorAll('.counter'));
+    const viewportHeight = window.innerHeight;
+    
+    // Leer todas las posiciones primero (batch read)
+    const counterData = counters.map(counter => ({
+      element: counter,
+      rect: counter.getBoundingClientRect()
+    }));
+    
+    // Luego procesar (batch write si es necesario)
+    counterData.forEach(({element: counter, rect}) => {
       observer.observe(counter);
       
-      // Fallback para mobile: detectar si ya está visible
-      const rect = counter.getBoundingClientRect();
-      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      const isVisible = rect.top < viewportHeight && rect.bottom > 0;
       
       if (isVisible && !counter.dataset.animated) {
         // Delay pequeño para mobile
@@ -190,12 +199,17 @@ class VisinexAnimations {
     });
 
     // Reservar altura para evitar saltos del layout mientras escribe
-    try {
-      const h = element.getBoundingClientRect().height;
-      if (h > 0) {
-        element.style.minHeight = h + 'px';
-      }
-    } catch {}
+    // Usar requestAnimationFrame para batch reads/writes
+    requestAnimationFrame(() => {
+      try {
+        const h = element.getBoundingClientRect().height;
+        if (h > 0) {
+          requestAnimationFrame(() => {
+            element.style.minHeight = h + 'px';
+          });
+        }
+      } catch {}
+    });
 
   element.innerHTML = '';
   let i = 0;
@@ -356,36 +370,56 @@ class VisinexAnimations {
   setupCounters() {
     // Fallback para mobile que ejecuta después de cargar la página
     setTimeout(() => {
-      document.querySelectorAll('.counter').forEach(counter => {
-        if (!counter.dataset.animated) {
-          const rect = counter.getBoundingClientRect();
-          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-          
-          if (isVisible) {
-            this.animateCounter(counter);
-          }
+      const counters = Array.from(document.querySelectorAll('.counter:not([data-animated="true"])'));
+      if (counters.length === 0) return;
+      
+      // Batch read todas las posiciones
+      const viewportHeight = window.innerHeight;
+      const counterData = counters.map(counter => ({
+        element: counter,
+        rect: counter.getBoundingClientRect()
+      }));
+      
+      // Batch process
+      counterData.forEach(({element: counter, rect}) => {
+        const isVisible = rect.top < viewportHeight && rect.bottom > 0;
+        if (isVisible) {
+          this.animateCounter(counter);
         }
       });
     }, 1000);
 
-    // También revisar en scroll para mobile
+    // También revisar en scroll para mobile con throttling
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          document.querySelectorAll('.counter:not([data-animated="true"])').forEach(counter => {
-            const rect = counter.getBoundingClientRect();
-            const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
-            
+          const counters = Array.from(document.querySelectorAll('.counter:not([data-animated="true"])'));
+          if (counters.length === 0) {
+            ticking = false;
+            return;
+          }
+          
+          // Batch read
+          const viewportHeight = window.innerHeight;
+          const counterData = counters.map(counter => ({
+            element: counter,
+            rect: counter.getBoundingClientRect()
+          }));
+          
+          // Batch process
+          counterData.forEach(({element: counter, rect}) => {
+            const isVisible = rect.top < viewportHeight * 0.8 && rect.bottom > 0;
             if (isVisible) {
               this.animateCounter(counter);
             }
           });
+          
           ticking = false;
         });
         ticking = true;
       }
-    });
+    }, { passive: true });
   }
 
   /**
@@ -438,46 +472,49 @@ class VisinexAnimations {
       }
     });
 
-    // Función para calcular el progreso de scroll de un elemento
-    const getScrollProgress = (element) => {
-      const rect = element.getBoundingClientRect();
-      const elementTop = rect.top;
-      const windowHeight = window.innerHeight;
-      
-      // Rango ajustado para que se llenen antes de llegar al fondo
-      const fillStartZone = windowHeight * 0.8; // Empieza a llenarse cuando está al 80%
-      const fillEndZone = windowHeight * 0.3;   // Se llena completamente al 30%
-      
-      if (elementTop >= fillStartZone) {
-        return 0; // Aún no empieza a llenarse
-      } else if (elementTop <= fillEndZone) {
-        return 1; // Completamente llena
-      } else {
-        // Progreso proporcional entre las zonas - responsivo al scroll
-        const totalDistance = fillStartZone - fillEndZone;
-        const currentDistance = fillStartZone - elementTop;
-        return currentDistance / totalDistance;
-      }
-    };
-
-    // Función para actualizar las barras
+    // Función para actualizar las barras - OPTIMIZADA para batch reads
     const updateScrollBars = () => {
-  // Calcular progreso general del scroll para desktop
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  const documentHeight = document.documentElement.scrollHeight;
-  const viewportHeight = window.innerHeight;
-  const maxScroll = documentHeight - viewportHeight;
-  const generalScrollProgress = scrollTop / maxScroll;
-  const isDesktop = window.innerWidth >= 1024;
+      // BATCH READ: Leer todas las dimensiones primero
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const documentHeight = document.documentElement.scrollHeight;
+      const viewportHeight = window.innerHeight;
+      const windowHeight = window.innerHeight;
+      const windowWidth = window.innerWidth;
+      const maxScroll = documentHeight - viewportHeight;
+      const generalScrollProgress = scrollTop / maxScroll;
+      const isDesktop = windowWidth >= 1024;
       
-  scrollBars.forEach((container, index) => {
-        const colorBar = container.querySelector('.scroll-color-fill');
-        if (!colorBar) return;
-
-        let progress = getScrollProgress(container);
-        const direction = container.dataset.scrollDirection || 'left-right';
+      const fillStartZone = windowHeight * 0.8;
+      const fillEndZone = windowHeight * 0.3;
+      const totalDistance = fillStartZone - fillEndZone;
+      
+      // Leer todas las posiciones de elementos en un solo batch
+      const barData = Array.from(scrollBars).map(container => {
+        const rect = container.getBoundingClientRect();
+        const elementTop = rect.top;
         
-        // Sin modificaciones adicionales - usar el progreso calculado directamente
+        // Calcular progreso inmediatamente con la data leída
+        let progress;
+        if (elementTop >= fillStartZone) {
+          progress = 0;
+        } else if (elementTop <= fillEndZone) {
+          progress = 1;
+        } else {
+          const currentDistance = fillStartZone - elementTop;
+          progress = currentDistance / totalDistance;
+        }
+        
+        return {
+          container,
+          progress,
+          direction: container.dataset.scrollDirection || 'left-right',
+          colorBar: container.querySelector('.scroll-color-fill')
+        };
+      });
+      
+      // BATCH WRITE: Ahora aplicar todos los estilos
+      barData.forEach(({container, progress, direction, colorBar}, index) => {
+        if (!colorBar) return;
         
         // Aplicar diferentes estilos según la dirección
         switch (direction) {
@@ -507,10 +544,6 @@ class VisinexAnimations {
         // Suavizar la transición
         colorBar.style.transition = 'all 0.2s ease-out';
         
-        // Debug temporal para desktop (solo cada 30 frames para no saturar)
-        if (isDesktop && index === 0 && Math.random() < 0.03) {
-          console.log(`Barra ${index}: progress=${progress.toFixed(3)}, generalScroll=${generalScrollProgress.toFixed(3)}, elementTop=${container.getBoundingClientRect().top.toFixed(0)}`);
-        }
       });
     };
 
