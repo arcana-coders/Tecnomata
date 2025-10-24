@@ -72,14 +72,27 @@ class VisinexAnimations {
           }
 
           // data-typewriter: escribe el contenido HTML de forma progresiva
+          // OPTIMIZACIÓN LCP: Diferir para h1 en hero
           if (el.dataset.typewriter !== undefined) {
             const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const isH1 = el.tagName === 'H1';
+            
             if (!prefersReduced) {
               const speed = parseInt(el.dataset.typeSpeed || '34', 10);
               const delay = parseInt(el.dataset.typeDelay || '0', 10);
               const loop = el.dataset.typeLoop === 'true';
               const loopPause = parseInt(el.dataset.typeLoopPause || '2400', 10);
-              this.typewriter(el, { speed, delay, loop, loopPause });
+              
+              // Si es H1, diferir hasta después de load para no bloquear LCP
+              if (isH1) {
+                window.addEventListener('load', () => {
+                  setTimeout(() => {
+                    this.typewriter(el, { speed, delay, loop, loopPause });
+                  }, 1500);
+                }, { once: true });
+              } else {
+                this.typewriter(el, { speed, delay, loop, loopPause });
+              }
             }
           }
 

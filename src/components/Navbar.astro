@@ -11,9 +11,7 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
 ---
 <nav class="w-full bg-white/80 backdrop-blur-md shadow-lg border-b border-white/40 py-4 px-6 flex justify-between items-center fixed top-0 z-50">
   <a href="/" class="flex items-center gap-2 group" aria-label="Tecnómata">
-    <span id="brand-scramble" class="text-2xl md:text-3xl font-black tracking-tight select-none">
-      <span class="text-blue-600">Tecnómata</span>
-    </span>
+    <span id="brand-scramble" class="text-2xl md:text-3xl font-black tracking-tight select-none text-blue-600" style="content-visibility: auto;">Tecnómata</span>
   </a>
   
   <!-- Desktop Menu: only from xl and up -->
@@ -423,15 +421,11 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
         rafId = requestAnimationFrame(frame);
       }
 
-      // Kick off the loop - DELAYED para no bloquear LCP
-      // Usar requestIdleCallback o timeout para ejecutar después del renderizado inicial
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-          setTimeout(runScramble, 800); // Esperar 800ms después de idle
-        });
-      } else {
-        setTimeout(runScramble, 1500); // Fallback: esperar 1.5s
-      }
+      // Kick off the loop - DELAYED agresivamente para no bloquear LCP
+      // Solo ejecutar después de que la página esté completamente cargada
+      window.addEventListener('load', () => {
+        setTimeout(runScramble, 2000); // Esperar 2s después de load completo
+      });
 
       // Expose pause/resume controls to menu toggle
       pauseScramble = () => {
