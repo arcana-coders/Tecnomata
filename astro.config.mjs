@@ -11,4 +11,20 @@ export default defineConfig({
     tailwind()
     // sitemap desactivado - usamos sitemap.xml manual en /public
   ],
+  
+  // Optimizaciones de build para mejor performance
+  build: {
+    inlineStylesheets: 'auto', // Inline CSS pequeños automáticamente
+  },
+  
+  vite: {
+    build: {
+      cssCodeSplit: true, // Split CSS por ruta para cargas más rápidas
+      rollupOptions: {
+        output: {
+          manualChunks: undefined, // Permite mejor tree-shaking
+        }
+      }
+    }
+  }
 });
