@@ -25,6 +25,22 @@ const {
     <meta name="description" content={description} />
     <meta name="author" content="Tecnómata" />
     <meta name="robots" content="index, follow" />
+    
+    <!-- Activar la clase 'js' en <html> lo antes posible para evitar parpadeos -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+    <!-- Inyectar override temporal para que NADA se oculte antes de inicializar animaciones -->
+    <script is:inline>
+      (function(){
+        try {
+          var s = document.createElement('style');
+          s.id = 'pre-js-style';
+          s.textContent = '.scroll-animate, .animate-fade-in-up, .animate-slide-in-left, .animate-slide-in-right, .animate-scale-in, .animate-bounce-in{opacity:1!important;transform:none!important;animation:none!important}';
+          document.head.appendChild(s);
+        } catch(e){}
+      })();
+    </script>
   
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://tecnomata.com" />
@@ -82,6 +98,20 @@ const {
       }
     </style>
     
+    <!-- Mientras no exista la clase .js en <html>, nunca ocultar secciones -->
+    <style id="pre-js-visibility">
+      html:not(.js) .scroll-animate,
+      html:not(.js) .animate-fade-in-up,
+      html:not(.js) .animate-slide-in-left,
+      html:not(.js) .animate-slide-in-right,
+      html:not(.js) .animate-scale-in,
+      html:not(.js) .animate-bounce-in {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+      }
+    </style>
+    
   <!-- Load animations CSS async (no bloquea renderizado) -->
   <link rel="preload" href={animationsCssUrl} as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href={animationsCssUrl} /></noscript>
@@ -108,13 +138,22 @@ const {
     <!-- Local fonts loaded via CSS imports -->
     
     <!-- Sistema centralizado de colores ya integrado en global.css -->
+    
+    <!-- Si no hay JS, aseguramos que el contenido no quede oculto -->
+    <noscript>
+      <style>
+        .scroll-animate { opacity: 1 !important; transform: none !important; animation: none !important; }
+      </style>
+    </noscript>
   </head>
   <body class="bg-white text-gray-900">
     <Navbar />
     <slot />
     <Footer />
     
-    <!-- Sistema de animaciones modularizado - defer para no bloquear renderizado -->
-    <script src="../scripts/animations.js" defer></script>
+    <!-- Sistema de animaciones modularizado: usar import para que Vite lo procese en build -->
+    <script type="module" is:inline>
+      import '../scripts/animations.js';
+    </script>
   </body>
 </html>

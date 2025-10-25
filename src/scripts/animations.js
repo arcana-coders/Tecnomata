@@ -30,6 +30,12 @@ class VisinexAnimations {
         setTimeout(() => {
           if (!this.reducedMode) this.setupScrollBars();
         }, 1000);
+
+        // Quitar el override temporal de visibilidad para permitir animaciones reales
+        setTimeout(() => {
+          const pre = document.getElementById('pre-js-style');
+          if (pre && pre.parentNode) pre.parentNode.removeChild(pre);
+        }, 400);
       };
 
       // Defer heavy init with idle callback or small timeout to reduce TBT

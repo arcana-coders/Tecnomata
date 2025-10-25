@@ -68,27 +68,22 @@
 /* Clases de animación */
 .animate-fade-in-up {
   animation: fadeInUp 0.8s ease-out forwards;
-  opacity: 0;
 }
 
 .animate-slide-in-left {
   animation: slideInLeft 0.8s ease-out forwards;
-  opacity: 0;
 }
 
 .animate-slide-in-right {
   animation: slideInRight 0.8s ease-out forwards;
-  opacity: 0;
 }
 
 .animate-scale-in {
   animation: scaleIn 0.6s ease-out forwards;
-  opacity: 0;
 }
 
 .animate-bounce-in {
   animation: bounceIn 0.8s ease-out forwards;
-  opacity: 0;
 }
 
 /* Delays para animaciones secuenciales */
@@ -101,17 +96,7 @@
 .animate-delay-700 { animation-delay: 0.7s; }
 .animate-delay-800 { animation-delay: 0.8s; }
 
-/* Sistema de scroll animations */
-.scroll-animate {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.scroll-animate.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* Sistema de scroll animations: sin ocultar por defecto */
 
 /* Hover effects mejorados */
 .hover-scale {

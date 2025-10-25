@@ -156,15 +156,7 @@
   }
 }
 
-/* Baseline scroll-animate visibility */
-.scroll-animate {
-  opacity: 0;
-  transform: translateY(16px);
-}
-.scroll-animate.in-view {
-  opacity: 1;
-  transform: none;
-}
+/* Eliminado: no ocultamos .scroll-animate por defecto para evitar pantallas en blanco */
 
 /* Typewriter helper: avoid layout shifts while typing long lines */
 [data-typewriter] {
