@@ -5,7 +5,7 @@ import IconWithColor from './IconWithColor.astro';
 <section class="font-dmsans scroll-animate" data-animate="scale-in">
   <div class="max-w-7xl mx-auto px-6">
     <div class="tb-ribbon rounded-2xl py-4 sm:py-5 px-5 sm:px-7">
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm md:text-base">
+  <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm md:text-base tb-items">
         <!-- Item 1 -->
         <div class="tb-item inline-flex items-center gap-3 group">
           <span class="tb-icon text-white">
@@ -14,7 +14,6 @@ import IconWithColor from './IconWithColor.astro';
           <span class="tb-text">Transparencia y enfoque en resultados</span>
         </div>
 
-        <div class="tb-sep hidden sm:block"></div>
 
         <!-- Item 2 -->
         <div class="tb-item inline-flex items-center gap-3 group">
@@ -24,7 +23,6 @@ import IconWithColor from './IconWithColor.astro';
           <span class="tb-text">Atención directa por WhatsApp</span>
         </div>
 
-        <div class="tb-sep hidden sm:block"></div>
 
         <!-- Item 3 -->
         <div class="tb-item inline-flex items-center gap-3 group">
@@ -39,29 +37,33 @@ import IconWithColor from './IconWithColor.astro';
 </section>
 
 <style>
-  /* Ribbon container with gradient border and subtle sheen */
+  /* Ribbon container with gradient border and subtle sheen - COMPOSITED */
   .tb-ribbon {
     position: relative;
     background:
       linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.98)) padding-box,
       linear-gradient(90deg, rgba(59,130,246,0.35), rgba(14,165,233,0.35), rgba(59,130,246,0.35)) border-box;
     border: 1.5px solid transparent;
-    box-shadow: 0 14px 35px -16px rgba(37,99,235,0.35), 0 6px 18px -12px rgba(14,165,233,0.25);
+    /* reemplazar box-shadow pesado por drop-shadow acelerado */
+    filter: drop-shadow(0 14px 22px rgba(37,99,235,0.20)) drop-shadow(0 6px 12px rgba(14,165,233,0.18));
   }
   .tb-ribbon::after {
     content: "";
     position: absolute;
     inset: -1px;
     border-radius: inherit;
+    /* Usar transform para animación compuesta */
     background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.55) 15%, transparent 32%, transparent 68%, rgba(255,255,255,0.45) 85%, transparent 100%);
-    background-size: 220% 100%;
+    width: 100%; height: 100%;
+    transform: translateX(-120%);
+    will-change: transform;
     animation: tb-sheen 6.5s linear infinite;
     pointer-events: none;
     mix-blend-mode: screen;
   }
   @keyframes tb-sheen {
-    0%   { background-position: -120% 0; }
-    100% { background-position: 120% 0; }
+    0%   { transform: translateX(-120%); }
+    100% { transform: translateX(120%); }
   }
   @media (prefers-reduced-motion: reduce) {
     .tb-ribbon::after { animation: none; }
@@ -83,31 +85,52 @@ import IconWithColor from './IconWithColor.astro';
     width: 38px; height: 38px;
     border-radius: 9999px;
     background: radial-gradient(120% 120% at 30% 30%, #93c5fd 0%, #60a5fa 45%, #3b82f6 100%);
-    box-shadow: 0 10px 24px -12px rgba(59,130,246,0.65), inset 0 0 0 1px rgba(255,255,255,0.25);
+    /* reemplazar sombras por drop-shadow */
+    filter: drop-shadow(0 8px 16px rgba(59,130,246,0.35));
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25);
     position: relative;
     overflow: visible;
   }
   .tb-item:nth-child(1) .tb-icon { /* Verified keeps blue gradient */ }
   .tb-item:nth-child(3) .tb-icon { background: radial-gradient(120% 120% at 30% 30%, #a3a3a3 0%, #525252 65%, #171717 100%); }
 
+  /* Pulse amigable con GPU: sin box-shadow animado */
   .tb-icon::after {
     content: "";
     position: absolute; inset: 0;
     border-radius: inherit;
-    box-shadow: 0 0 0 0 rgba(59,130,246,0.45);
-    animation: tb-pulse 2.6s ease-out infinite;
+    background: radial-gradient(circle, rgba(59,130,246,0.45) 0%, rgba(59,130,246,0.0) 60%);
+    transform: scale(1);
+    opacity: .55;
+    will-change: transform, opacity;
+    animation: tb-pulse-gpu 2.6s ease-out infinite;
   }
-  .tb-item:nth-child(2) .tb-icon::after { box-shadow: 0 0 0 0 rgba(34,197,94,0.42); }
-  .tb-item:nth-child(3) .tb-icon::after { box-shadow: 0 0 0 0 rgba(15,23,42,0.36); }
-  @keyframes tb-pulse {
-    0%   { transform: scale(1); opacity: .6; box-shadow: 0 0 0 0 currentColor; }
-    70%  { transform: scale(1.35); opacity: 0; box-shadow: 0 0 0 10px transparent; }
-    100% { transform: scale(1.35); opacity: 0; }
+  .tb-item:nth-child(2) .tb-icon::after { background: radial-gradient(circle, rgba(34,197,94,0.42) 0%, rgba(34,197,94,0.0) 60%); }
+  .tb-item:nth-child(3) .tb-icon::after { background: radial-gradient(circle, rgba(15,23,42,0.36) 0%, rgba(15,23,42,0.0) 60%); }
+  @keyframes tb-pulse-gpu {
+    0%   { transform: scale(1);   opacity: .55; }
+    70%  { transform: scale(1.45); opacity: 0; }
+    100% { transform: scale(1.45); opacity: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
     .tb-icon::after { animation: none; }
   }
 
-  /* Separators */
-  .tb-sep { width: 1px; height: 22px; background: linear-gradient(180deg, rgba(2,6,23,0), rgba(2,6,23,0.22), rgba(2,6,23,0)); }
+  /* Separators via pseudo-element to reduce DOM */
+  .tb-items { gap: 1rem; }
+  .tb-items .tb-item { position: relative; }
+  .tb-items .tb-item + .tb-item::before {
+    content: "";
+    display: none;
+  }
+  @media (min-width: 640px) {
+    .tb-items { gap: 2rem; }
+    .tb-items .tb-item + .tb-item::before {
+      display: block;
+      position: absolute;
+      left: -1rem; top: 50%; transform: translateY(-50%);
+      width: 1px; height: 22px;
+      background: linear-gradient(180deg, rgba(2,6,23,0), rgba(2,6,23,0.22), rgba(2,6,23,0));
+    }
+  }
 </style>

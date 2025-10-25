@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import animationsCssUrl from "../styles/animations.css?url";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
@@ -81,9 +82,9 @@ const {
       }
     </style>
     
-    <!-- Load animations CSS async (no bloquea renderizado) -->
-    <link rel="preload" href="/src/styles/animations.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="/src/styles/animations.css" /></noscript>
+  <!-- Load animations CSS async (no bloquea renderizado) -->
+  <link rel="preload" href={animationsCssUrl} as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href={animationsCssUrl} /></noscript>
   
   <!-- Site Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
