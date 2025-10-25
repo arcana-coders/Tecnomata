@@ -6,28 +6,44 @@
 
 class VisinexAnimations {
   constructor() {
+    this.reducedMode = false;
     this.init();
   }
 
   init() {
     if (typeof window !== 'undefined') {
+      // Determine reduction mode for animations (mobile or prefers-reduced-motion)
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isMobile = (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) || window.innerWidth < 769;
+      this.reducedMode = !!(prefersReduced || isMobile);
+
       const initComponents = () => {
+        // In reduced mode, minimize JS work to lower TBT/CLS
         this.setupScrollAnimations();
-        this.setupCounters();
-        this.setupParallax();
-        this.setupScrollBars();
+        if (!this.reducedMode) {
+          this.setupCounters();
+          this.setupParallax();
+          this.setupScrollBars();
+        }
         
         // Re-escanear después para contenido dinámico
         setTimeout(() => {
-          this.setupScrollBars();
+          if (!this.reducedMode) this.setupScrollBars();
         }, 1000);
       };
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initComponents);
+      // Defer heavy init with idle callback or small timeout to reduce TBT
+      const defer = () => {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initComponents, { once: true });
+        } else {
+          initComponents();
+        }
+      };
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => defer(), { timeout: 800 });
       } else {
-        // DOM ya cargado, ejecutar inmediatamente
-        initComponents();
+        setTimeout(defer, 120);
       }
     }
   }
@@ -36,6 +52,16 @@ class VisinexAnimations {
    * Configura las animaciones on scroll
    */
   setupScrollAnimations() {
+    // In reduced mode: reveal immediately and skip observers to prevent reflows/CLS
+    if (this.reducedMode) {
+      const immediate = document.querySelectorAll('.scroll-animate, [data-animate]');
+      immediate.forEach((el) => {
+        el.classList.add('in-view');
+        // Do not run typewriter in reduced mode
+      });
+      return;
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const el = entry.target;
@@ -76,23 +102,13 @@ class VisinexAnimations {
           if (el.dataset.typewriter !== undefined) {
             const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             const isH1 = el.tagName === 'H1';
-            
-            if (!prefersReduced) {
+            // Skip typewriter on H1 or when reduced/mobiles to avoid CLS/TBT
+            if (!prefersReduced && !this.reducedMode && !isH1) {
               const speed = parseInt(el.dataset.typeSpeed || '34', 10);
               const delay = parseInt(el.dataset.typeDelay || '0', 10);
               const loop = el.dataset.typeLoop === 'true';
               const loopPause = parseInt(el.dataset.typeLoopPause || '2400', 10);
-              
-              // Si es H1, diferir hasta después de load para no bloquear LCP
-              if (isH1) {
-                window.addEventListener('load', () => {
-                  setTimeout(() => {
-                    this.typewriter(el, { speed, delay, loop, loopPause });
-                  }, 1500);
-                }, { once: true });
-              } else {
-                this.typewriter(el, { speed, delay, loop, loopPause });
-              }
+              this.typewriter(el, { speed, delay, loop, loopPause });
             }
           }
 
@@ -138,12 +154,15 @@ class VisinexAnimations {
       rootMargin: '50px 0px'
     });
 
-  // Candidatos: secciones, [data-animate], .scroll-animate, [data-observe], [data-typewriter]
-  const candidates = document.querySelectorAll('section, [data-animate], .scroll-animate, [data-observe], [data-typewriter]');
+  // Limit candidates to essential animation targets to reduce work
+  const candidates = document.querySelectorAll('.scroll-animate, [data-animate]');
+  const maxObserve = 160;
     candidates.forEach(el => {
       if (!el.classList.contains('scroll-animate')) {
         el.classList.add('scroll-animate');
       }
+      // Limit the number of observed elements to keep IO/lightwork bounded
+      if (observer.takeRecords && observer.takeRecords().length > maxObserve) return;
       observer.observe(el);
     });
 
@@ -181,6 +200,12 @@ class VisinexAnimations {
   typewriter(element, { speed = 34, delay = 0, loop = false, loopPause = 2400 } = {}) {
     // Evitar repetir
     if (element.dataset.typing === 'true' || element.dataset.typed === 'true') return;
+    // Safety: disable completely in reduced mode
+    if (this.reducedMode) {
+      element.dataset.typed = 'true';
+      element.dataset.typing = 'false';
+      return;
+    }
     element.dataset.typing = 'true';
 
   const original = element.innerHTML;

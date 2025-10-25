@@ -160,3 +160,28 @@
     box-shadow: none !important;
   }
 }
+
+/* Mobile safety: disable heavy animations on small screens to reduce TBT/CLS */
+@media (max-width: 768px) {
+  .animate-fade-in-up,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-scale-in,
+  .animate-bounce-in,
+  .scroll-animate,
+  .animate-pulse,
+  .animate-ping,
+  .animate-bounce,
+  .animate-spin,
+  .animate-marquee-fast,
+  .animate-marquee-normal,
+  .animate-marquee-slow {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-typewriter] {
+    animation: none !important;
+  }
+}
