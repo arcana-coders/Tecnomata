@@ -151,9 +151,7 @@ const {
     <slot />
     <Footer />
     
-    <!-- Sistema de animaciones modularizado: usar import para que Vite lo procese en build -->
-    <script type="module" is:inline>
-      import '../scripts/animations.js';
-    </script>
+    <!-- Sistema de animaciones modularizado: referenciar desde /src para que Vite/Astro reescriba a asset en build -->
+    <script type="module" src="/src/scripts/animations.js"></script>
   </body>
 </html>
