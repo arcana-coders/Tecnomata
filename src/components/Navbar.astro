@@ -90,7 +90,7 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
 </nav>
 
 <!-- Mobile Menu Overlay (Visinex Style) -->
-<div id="mobile-menu" class="fixed inset-0 bg-black z-40 transform -translate-y-full transition-transform duration-500 ease-in-out flex flex-col" aria-hidden="true">
+<div id="mobile-menu" class="fixed inset-0 bg-black z-40 transform -translate-y-full transition-transform duration-500 ease-in-out flex flex-col invisible opacity-0" aria-hidden="true" style="visibility: hidden;">
   <div class="flex-grow flex flex-col justify-center items-center px-8 sm:px-16">
     <ul class="font-dmsans flex flex-col gap-y-6 lg:gap-y-4">
       <li><a href="/" class:list={["font-bold text-2xl sm:text-3xl lg:text-3xl transition-colors", (currentPath === '/' || currentPath === '') ? 'text-blue-500' : 'text-white hover:text-orange-500']}>INICIO</a></li>
@@ -156,7 +156,8 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
   /* Override Tailwind's -translate-y-full */
   --tw-translate-y: 0 !important;
   transform: translate3d(0, 0, 0) !important;
-  opacity: 1;
+  opacity: 1 !important;
+  visibility: visible !important;
   will-change: transform;
   }
   :global(body.menu-open) #mobile-menu-btn span:first-child {
@@ -255,6 +256,9 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
       mobileMenuBtn?.setAttribute('aria-expanded', String(isOpen));
       // Explicitly toggle Tailwind translate classes for reliability
       if (isOpen) {
+        // Hacer visible inmediatamente antes de animar
+        mobileMenu.style.visibility = 'visible';
+        mobileMenu.style.opacity = '1';
         mobileMenu.classList.add('translate-y-0');
         mobileMenu.classList.remove('-translate-y-full');
         // Force reflow so staggered transitions start cleanly
@@ -262,6 +266,13 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
       } else {
         mobileMenu.classList.add('-translate-y-full');
         mobileMenu.classList.remove('translate-y-0');
+        // Esconder después de que termine la animación
+        setTimeout(() => {
+          if (!body.classList.contains('menu-open')) {
+            mobileMenu.style.visibility = 'hidden';
+            mobileMenu.style.opacity = '0';
+          }
+        }, 500); // Duración de la transición
         // Reset list items for next open
         mobileMenu.querySelectorAll('ul li').forEach((li) => {
           (li as HTMLElement).style.transitionDelay = '';
