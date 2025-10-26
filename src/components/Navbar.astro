@@ -83,15 +83,15 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
   </ul>
 
   <!-- Mobile Menu Button (visible until xl) -->
-  <button class="xl:hidden w-8 h-8 flex flex-col justify-center items-center gap-y-2 z-50" id="mobile-menu-btn" aria-label="Toggle Menu">
+  <button class="xl:hidden w-8 h-8 flex flex-col justify-center items-center gap-y-2 z-[100]" id="mobile-menu-btn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-menu">
     <span class="w-6 h-1 bg-gray-800 transition-transform duration-500 ease-in-out"></span>
     <span class="w-6 h-1 bg-gray-800 transition-transform duration-500 ease-in-out"></span>
   </button>
 </nav>
 
 <!-- Mobile Menu Overlay (Visinex Style) -->
-<div id="mobile-menu" class="fixed inset-0 bg-black z-40 transform -translate-y-full transition-transform duration-500 ease-in-out flex flex-col">
-  <div class="flex-grow flex flex-col justify-center items-start px-8 sm:px-16">
+<div id="mobile-menu" class="fixed inset-0 bg-black z-40 transform -translate-y-full transition-transform duration-500 ease-in-out flex flex-col" aria-hidden="true">
+  <div class="flex-grow flex flex-col justify-center items-center px-8 sm:px-16">
     <ul class="font-dmsans flex flex-col gap-y-6 lg:gap-y-4">
       <li><a href="/" class:list={["font-bold text-2xl sm:text-3xl lg:text-3xl transition-colors", (currentPath === '/' || currentPath === '') ? 'text-blue-500' : 'text-white hover:text-orange-500']}>INICIO</a></li>
       
@@ -231,6 +231,11 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
   .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
     transform: rotate(180deg);
   }
+
+  /* Ensure the off-canvas menu is fully centered when open */
+  :global(body.menu-open) #mobile-menu > div {
+    align-items: center;
+  }
 </style>
 
 <script>
@@ -246,6 +251,8 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
       body.classList.toggle('menu-open');
       if (!mobileMenu) return;
       const isOpen = body.classList.contains('menu-open');
+      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+      mobileMenuBtn?.setAttribute('aria-expanded', String(isOpen));
       // Explicitly toggle Tailwind translate classes for reliability
       if (isOpen) {
         mobileMenu.classList.add('translate-y-0');
@@ -271,7 +278,7 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
       }
     }
 
-    mobileMenuBtn?.addEventListener('click', (e) => {
+  mobileMenuBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
         toggleMenu();
     });

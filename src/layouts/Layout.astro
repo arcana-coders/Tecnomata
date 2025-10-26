@@ -46,9 +46,7 @@ const {
     <link rel="preconnect" href="https://tecnomata.com" />
     <link rel="dns-prefetch" href="https://tecnomata.com" />
     
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="/fonts/Inter/Inter-VariableFont_opsz,wght.ttf" as="font" type="font/ttf" crossorigin />
-    <link rel="preload" href="/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf" as="font" type="font/ttf" crossorigin />
+  <!-- Nota: evitamos preloads de fuentes variables para no generar warnings si el uso se difiere; usamos font-display: swap en @font-face -->
     
     <!-- Critical inline CSS for fonts (evita FOUT) -->
     <style>
