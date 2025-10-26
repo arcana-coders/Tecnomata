@@ -363,50 +363,57 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
     });
 
     // Brand scramble effect: "Tecnómata" every 3s in a loop (color + case-aware)
-  const brandEl = document.getElementById('brand-scramble');
-  if (brandEl) {
+    // OPTIMIZACIÓN: Solo correr en desktop + después de idle para no afectar métricas core
+    const brandEl = document.getElementById('brand-scramble');
+    if (brandEl) {
       const target = 'Tecnómata';
-      const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
-      const upperChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const duration = 2200; // faster formation
-  const pause = 1200; // longer pause between cycles
+      
+      // Render final state immediately to avoid layout shift
+      const escapeHTML = (s: string) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const renderLocked = () => Array.from(target).map(ch => `<span class=\"text-blue-600\">${escapeHTML(ch)}</span>`).join('');
+      (brandEl as HTMLElement).innerHTML = renderLocked();
 
-      // Detect if a character is alphabetic (supports accents)
-  const isAlpha = (ch: string) => ch.toLocaleUpperCase() !== ch.toLocaleLowerCase();
-  const isUpper = (ch: string) => isAlpha(ch) && ch === ch.toLocaleUpperCase();
-  const isLower = (ch: string) => isAlpha(ch) && ch === ch.toLocaleLowerCase();
-
-  function randCharFor(ch: string) {
-        if (isUpper(ch)) return upperChars[Math.floor(Math.random() * upperChars.length)];
-        if (isLower(ch)) return lowerChars[Math.floor(Math.random() * lowerChars.length)];
-        // Fallback for non-letters: use lower set
-        return lowerChars[Math.floor(Math.random() * lowerChars.length)];
+      // Solo ejecutar scramble en desktop (no móvil) y después de estar idle
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+      if (!isDesktop) {
+        // En mobile, nunca correr el efecto (ahorro crítico de rendimiento)
+        pauseScramble = () => {};
+        resumeScramble = () => {};
+        return;
       }
 
-  const escapeHTML = (s: string) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
+      const upperChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const duration = 2200;
+      const pause = 1200;
+
+      const isAlpha = (ch: string) => ch.toLocaleUpperCase() !== ch.toLocaleLowerCase();
+      const isUpper = (ch: string) => isAlpha(ch) && ch === ch.toLocaleUpperCase();
+      const isLower = (ch: string) => isAlpha(ch) && ch === ch.toLocaleLowerCase();
+
+      function randCharFor(ch: string) {
+        if (isUpper(ch)) return upperChars[Math.floor(Math.random() * upperChars.length)];
+        if (isLower(ch)) return lowerChars[Math.floor(Math.random() * lowerChars.length)];
+        return lowerChars[Math.floor(Math.random() * lowerChars.length)];
+      }
 
       let rafId: number | null = null;
       let nextTimeout: number | null = null;
       let paused = false;
 
-      const renderLocked = () => Array.from(target).map(ch => `<span class=\"text-blue-600\">${escapeHTML(ch)}</span>`).join('');
-
-      // Delay inicio de la animación para no bloquear LCP
       function runScramble() {
         const len = target.length;
-        // Assign a lock time for each index across the duration with slight jitter
         const baseStep = duration / (len + 1);
         const locks = Array.from({ length: len }, (_, i) => Math.min(duration - 50, Math.max(200, Math.round((i + 1) * baseStep + (Math.random() * baseStep * 0.4 - baseStep * 0.2)))));
         const start = performance.now();
 
-  function frame(now: number) {
+        function frame(now: number) {
           const t = now - start;
           if (paused) {
             (brandEl as HTMLElement).innerHTML = renderLocked();
-            return; // stop updating until resumed
+            return;
           }
           if (t >= duration) {
-            // Final state: all letters locked and blue
             (brandEl as HTMLElement).innerHTML = renderLocked();
             nextTimeout = window.setTimeout(() => {
               if (!paused) runScramble();
@@ -428,13 +435,26 @@ if (currentPath !== '/' && currentPath.endsWith('/')) {
         rafId = requestAnimationFrame(frame);
       }
 
-      // Kick off the loop - DELAYED agresivamente para no bloquear LCP
-      // Solo ejecutar después de que la página esté completamente cargada
-      window.addEventListener('load', () => {
-        setTimeout(runScramble, 2000); // Esperar 2s después de load completo
-      });
+      // CRITICAL: Esperar a que el navegador esté completamente idle antes de iniciar
+      // requestIdleCallback garantiza que no interferimos con LCP/FCP/TBT
+      if (typeof requestIdleCallback !== 'undefined') {
+        requestIdleCallback(() => {
+          // Esperar 3s adicionales después de idle para estar seguros
+          setTimeout(runScramble, 3000);
+        }, { timeout: 5000 });
+      } else {
+        // Fallback: esperar muchísimo más si no hay rIC
+        setTimeout(() => {
+          if (document.readyState === 'complete') {
+            setTimeout(runScramble, 5000);
+          } else {
+            addEventListener('load', () => {
+              setTimeout(runScramble, 5000);
+            });
+          }
+        }, 0);
+      }
 
-      // Expose pause/resume controls to menu toggle
       pauseScramble = () => {
         paused = true;
         if (rafId !== null) cancelAnimationFrame(rafId);
