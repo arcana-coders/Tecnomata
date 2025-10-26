@@ -29,7 +29,7 @@ const { subtitle, title, description, ctaText, ctaHref } = Astro.props;
       </div>
       <!-- Right: visual -->
       <div class="flex items-center justify-center">
-        <img src={storeSvgUrl} alt="Ilustración de tiendas con estrella" class="w-full max-w-[520px] h-auto" loading="lazy" />
+        <img src={storeSvgUrl} alt="Ilustración de tiendas con estrella" class="w-full max-w-[520px] h-auto" width="520" height="520" loading="eager" fetchpriority="high" decoding="async" />
       </div>
     </div>
   </div>
