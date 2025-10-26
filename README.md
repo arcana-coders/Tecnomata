@@ -8,6 +8,15 @@
 - Build: run the task "astro: build" to generate `dist/`.
 - Preview: run the task "astro: preview" to serve the production build.
 
+## Safe QA workflow (no risky deploys)
+
+Before merging to `main`, validate changes locally or in CI:
+
+- Smoke tests (headless browser): `npm run test:e2e` — builds the site, serves the production build, and verifies that the home page renders, animations init (no hidden content), and there are no 404/console errors.
+- Full QA pipeline: `npm run qa` — builds, runs Playwright smoke tests, then runs Lighthouse CI against `dist/`.
+
+On GitHub, opening a Pull Request to `main` triggers the workflow “QA (Build + E2E + Lighthouse)”, which runs the same checks automatically. Only merge when it’s green.
+
 ## VS Code tasks
 
 - astro: dev — start local dev server
@@ -60,6 +69,8 @@ All commands are run from the root of the project, from a terminal:
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
 | `npm run build`           | Build your production site to `./dist/`          |
 | `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run test:e2e`        | Run Playwright smoke tests against the built site |
+| `npm run qa`              | Build, E2E tests, then Lighthouse CI             |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
