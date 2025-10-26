@@ -112,8 +112,9 @@ const {
       }
     </style>
     
-  <!-- Load animations CSS inline crítico (evitar FOUC) -->
-  <link rel="stylesheet" href={animationsCssUrl} />
+  <!-- Load animations CSS async (no bloquea renderizado) -->
+  <link rel="preload" href={animationsCssUrl} as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href={animationsCssUrl} /></noscript>
   
   <!-- Site Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -150,9 +151,275 @@ const {
     <slot />
     <Footer />
     
-    <!-- Sistema de animaciones inline (optimizado pero completo) -->
+    <!-- Sistema de animaciones inline (NO TOCAR - código optimizado y probado) -->
     <script is:inline>
-class V{constructor(){this.r=0;this.init()}init(){if(typeof window==='undefined')return;const p=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;const m=(window.matchMedia&&window.matchMedia('(max-width: 768px)').matches)||window.innerWidth<769;this.r=!!(p||m);const i=()=>{this.s();this.setupScrollBars();if(!this.r){this.c();this.p()}setTimeout(()=>{const e=document.getElementById('pre-js-style');if(e&&e.parentNode)e.parentNode.removeChild(e)},100)};if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',i,{once:true})}else{setTimeout(i,0)}}s(){if(this.r){document.querySelectorAll('.scroll-animate, [data-animate]').forEach((e)=>{e.classList.add('in-view')});return}const o=new IntersectionObserver((en)=>{en.forEach(e=>{const el=e.target;const on=el.dataset.once==='true';if(e.isIntersecting){el.classList.add('in-view');const a=el.dataset.animate;if(a){const m={'fade-up':'animate-fade-in-up','slide-left':'animate-slide-in-left','slide-right':'animate-slide-in-right','scale-in':'animate-scale-in','bounce-in':'animate-bounce-in'};const c=m[a]||'animate-fade-in-up';const d=el.dataset.delay;if(d){setTimeout(()=>{el.classList.add(c)},parseInt(d,10))}else{el.classList.add(c)}}if(el.classList.contains('counter')){this.ac(el)}if(on)o.unobserve(el)}else if(!on&&e.boundingClientRect.top>0){const a=el.dataset.animate;if(a){const m={'fade-up':'animate-fade-in-up','slide-left':'animate-slide-in-left','slide-right':'animate-slide-in-right','scale-in':'animate-scale-in','bounce-in':'animate-bounce-in'};el.classList.remove(m[a]||'animate-fade-in-up')}el.classList.remove('in-view')}})},{threshold:0.1,rootMargin:'50px 0px'});document.querySelectorAll('.scroll-animate, [data-animate]').forEach(e=>{if(!e.classList.contains('scroll-animate'))e.classList.add('scroll-animate');o.observe(e)});document.querySelectorAll('.counter').forEach(c=>{o.observe(c)})}ac(e){if(e.dataset.animated==='true')return;e.dataset.animated='true';const t=parseInt(e.dataset.target||'0');const s=e.dataset.suffix||'';const p=e.dataset.prefix||'';const d=parseInt(e.dataset.duration||'2000');if(t===0)return;const st=performance.now();const a=(c)=>{const el=c-st;const pr=Math.min(el/d,1);const ea=1-Math.pow(1-pr,4);const cu=Math.floor(t*ea);e.textContent=p+cu+s;if(pr<1){requestAnimationFrame(a)}else{e.textContent=p+t+s}};requestAnimationFrame(a)}c(){setTimeout(()=>{const cs=document.querySelectorAll('.counter:not([data-animated="true"])');if(cs.length===0)return;const vh=window.innerHeight;cs.forEach(c=>{const r=c.getBoundingClientRect();if(r.top<vh&&r.bottom>0){this.ac(c)}})},1000)}p(){const hs=document.querySelectorAll('.parallax-hero');if(hs.length===0)return;window.addEventListener('scroll',()=>{const s=window.pageYOffset;hs.forEach(h=>{if(s<window.innerHeight){h.style.transform=`translateY(${s*0.5}px)`}})})}setupScrollBars(){const bars=document.querySelectorAll('[data-scroll-bar]');if(bars.length===0)return;const o=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){const bar=entry.target;const fill=bar.querySelector('.scroll-color-fill');if(fill){fill.style.transition='width 1.2s cubic-bezier(0.4, 0, 0.2, 1)';fill.style.width='100%'}o.unobserve(bar)}})},{threshold:0.3});bars.forEach(bar=>o.observe(bar))}}const v=new V();window.V=V;
+class VisinexAnimations {
+  constructor() {
+    this.reducedMode = false;
+    this.init();
+  }
+
+  init() {
+    if (typeof window === 'undefined') return;
+
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) || window.innerWidth < 769;
+    this.reducedMode = !!(prefersReduced || isMobile);
+
+    const initAnimations = () => {
+      this.setupScrollAnimations();
+      this.setupScrollBars(); // IMPORTANTE: barras con lógica random
+      
+      if (!this.reducedMode) {
+        this.setupCounters();
+        this.setupParallax();
+      }
+
+      // Quitar override temporal
+      setTimeout(() => {
+        const preJsStyle = document.getElementById('pre-js-style');
+        if (preJsStyle && preJsStyle.parentNode) {
+          preJsStyle.parentNode.removeChild(preJsStyle);
+        }
+      }, 400);
+    };
+
+    const delayInit = () => {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAnimations, { once: true });
+      } else {
+        initAnimations();
+      }
+    };
+
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(() => delayInit(), { timeout: 800 });
+    } else {
+      setTimeout(delayInit, 120);
+    }
+  }
+
+  setupScrollAnimations() {
+    if (this.reducedMode) {
+      document.querySelectorAll('.scroll-animate, [data-animate]').forEach((el) => {
+        el.classList.add('in-view');
+      });
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const el = entry.target;
+        const once = el.dataset.once === 'true';
+
+        if (entry.isIntersecting) {
+          el.classList.add('in-view');
+          
+          const animType = el.dataset.animate;
+          if (animType) {
+            const animMap = {
+              'fade-up': 'animate-fade-in-up',
+              'slide-left': 'animate-slide-in-left',
+              'slide-right': 'animate-slide-in-right',
+              'scale-in': 'animate-scale-in',
+              'bounce-in': 'animate-bounce-in'
+            };
+            const animClass = animMap[animType] || 'animate-fade-in-up';
+            const delay = el.dataset.delay;
+            
+            if (delay) {
+              setTimeout(() => { el.classList.add(animClass); }, parseInt(delay, 10));
+            } else {
+              el.classList.add(animClass);
+            }
+          }
+
+          if (el.classList.contains('counter')) {
+            this.animateCounter(el);
+          }
+
+          if (once) observer.unobserve(el);
+        } else if (!once && entry.boundingClientRect.top > 0) {
+          const animType = el.dataset.animate;
+          if (animType) {
+            const animMap = {
+              'fade-up': 'animate-fade-in-up',
+              'slide-left': 'animate-slide-in-left',
+              'slide-right': 'animate-slide-in-right',
+              'scale-in': 'animate-scale-in',
+              'bounce-in': 'animate-bounce-in'
+            };
+            el.classList.remove(animMap[animType] || 'animate-fade-in-up');
+          }
+          el.classList.remove('in-view');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '50px 0px' });
+
+    document.querySelectorAll('.scroll-animate, [data-animate]').forEach(el => {
+      if (!el.classList.contains('scroll-animate')) {
+        el.classList.add('scroll-animate');
+      }
+      observer.observe(el);
+    });
+
+    document.querySelectorAll('.counter').forEach(c => {
+      observer.observe(c);
+    });
+  }
+
+  animateCounter(el) {
+    if (el.dataset.animated === 'true') return;
+    el.dataset.animated = 'true';
+
+    const target = parseInt(el.dataset.target || '0');
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    const duration = parseInt(el.dataset.duration || '2000');
+
+    if (target === 0) return;
+
+    const startTime = performance.now();
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 4);
+      const current = Math.floor(target * easeOut);
+      
+      el.textContent = prefix + current + suffix;
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        el.textContent = prefix + target + suffix;
+      }
+    };
+    
+    requestAnimationFrame(animate);
+  }
+
+  setupCounters() {
+    setTimeout(() => {
+      const counters = document.querySelectorAll('.counter:not([data-animated="true"])');
+      if (counters.length === 0) return;
+
+      const viewportHeight = window.innerHeight;
+      counters.forEach(counter => {
+        const rect = counter.getBoundingClientRect();
+        if (rect.top < viewportHeight && rect.bottom > 0) {
+          this.animateCounter(counter);
+        }
+      });
+    }, 1000);
+  }
+
+  setupParallax() {
+    const heroElements = document.querySelectorAll('.parallax-hero');
+    if (heroElements.length === 0) return;
+
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.pageYOffset;
+      heroElements.forEach(hero => {
+        if (scrollPos < window.innerHeight) {
+          hero.style.transform = `translateY(${scrollPos * 0.5}px)`;
+        }
+      });
+    });
+  }
+
+  setupScrollBars() {
+    const scrollBars = document.querySelectorAll('[data-scroll-bar]');
+    if (scrollBars.length === 0) return;
+
+    // Asignar direcciones random a cada barra
+    const randomDirections = ['left-right', 'right-left', 'center'];
+    scrollBars.forEach((bar) => {
+      if (!bar.dataset.scrollDirection || bar.dataset.scrollDirection === 'random') {
+        const randomDir = randomDirections[Math.floor(Math.random() * randomDirections.length)];
+        bar.dataset.scrollDirection = randomDir;
+        bar.dataset.scrollOffset = Math.random() * 0.15;
+      }
+    });
+
+    const updateScrollBars = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const documentHeight = document.documentElement.scrollHeight;
+      const viewportHeight = window.innerHeight;
+      const windowHeight = window.innerHeight;
+      const windowWidth = window.innerWidth;
+      const fillStartZone = windowHeight * 0.8;
+      const fillEndZone = windowHeight * 0.3;
+      const totalDistance = fillStartZone - fillEndZone;
+
+      const barData = Array.from(scrollBars).map(container => {
+        const rect = container.getBoundingClientRect();
+        const elementTop = rect.top;
+
+        let progress;
+        if (elementTop >= fillStartZone) {
+          progress = 0;
+        } else if (elementTop <= fillEndZone) {
+          progress = 1;
+        } else {
+          const currentDistance = fillStartZone - elementTop;
+          progress = currentDistance / totalDistance;
+        }
+
+        return {
+          container,
+          progress,
+          direction: container.dataset.scrollDirection || 'left-right',
+          colorBar: container.querySelector('.scroll-color-fill')
+        };
+      });
+
+      barData.forEach(({container, progress, direction, colorBar}) => {
+        if (!colorBar) return;
+
+        switch (direction) {
+          case 'left-right':
+            colorBar.style.width = `${progress * 100}%`;
+            colorBar.style.transformOrigin = 'left';
+            colorBar.style.transform = 'scaleX(1)';
+            break;
+          case 'right-left':
+            colorBar.style.width = `${progress * 100}%`;
+            colorBar.style.transformOrigin = 'right';
+            colorBar.style.transform = 'scaleX(1)';
+            colorBar.style.marginLeft = `${(1 - progress) * 100}%`;
+            break;
+          case 'center':
+            colorBar.style.width = `${progress * 100}%`;
+            colorBar.style.transformOrigin = 'center';
+            colorBar.style.transform = 'scaleX(1)';
+            colorBar.style.marginLeft = `${((1 - progress) / 2) * 100}%`;
+            break;
+          default:
+            colorBar.style.width = `${progress * 100}%`;
+        }
+
+        colorBar.style.transition = 'all 0.2s ease-out';
+      });
+    };
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateScrollBars();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateScrollBars();
+  }
+}
+
+const visinexAnim = new VisinexAnimations();
+window.VisinexAnimations = VisinexAnimations;
     </script>
   </body>
 </html>
