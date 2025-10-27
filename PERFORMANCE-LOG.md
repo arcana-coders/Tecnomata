@@ -120,6 +120,16 @@ class V{constructor(){this.r=0;this.init()}init(){...}s(){...}ac(){...}c(){...}p
 - Botón: `fixed top-6 right-6 z-[100]`
 - Overlay: `fixed inset-0 z-40 invisible opacity-0` + inline `visibility:hidden`
 
+### Overflow Prevention (Commit d54ac19)
+```css
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+```
+- Previene scroll horizontal en tablets/iPad
+- TimelineCard con padding responsive para evitar overflow
+
 ---
 
 ## 🚨 Reglas de Oro
