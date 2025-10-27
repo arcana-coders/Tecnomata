@@ -1,6 +1,29 @@
 # 🎯 Accessibility Improvement Plan
 
-**Baseline:** Accessibility 86 | Performance 99 (Tag: v1.0-perf99-baseline)  
+**SWEET POINT ACTUAL:** v1.1-perf100-ux-fixed (Commit: 615a117)  
+**Performance:** 100 🏆 | **Accessibility:** 86  
+**Target:** Accessibility 90+ | Performance ≥ 95
+
+---
+
+## ⚠️ IMPORTANTE: Estado de los archivos en sweet point
+
+**Footer.astro (v1.1-perf100-ux-fixed):**
+- Subtítulos: `text-gray-500` (Ubicación, Contacto, Servicios)
+- Contenido: `text-gray-600` (direcciones, teléfonos, links de servicios)
+
+**SectionHeader.astro (v1.1-perf100-ux-fixed):**
+- Subtitle: `text-gray-600` (tema light)
+
+**Hero.astro (v1.1-perf100-ux-fixed):**
+- Description: `text-gray-600`
+- Stat labels: `text-gray-600 font-medium`
+
+**⚠️ NO CAMBIAR ESTOS VALORES** - Cualquier cambio a gray-700/gray-800 **destruye Performance** (-21 puntos)
+
+---
+
+**Baseline anterior:** v1.0-perf99-baseline (Performance 99)  
 **Target:** Accessibility 90+ | Performance ≥ 95
 
 ---
@@ -32,6 +55,68 @@
 ---
 
 ## 📝 Log de Cambios
+
+### ❌ Intento 2: Footer + SectionHeader + Hero - Cambiar contraste (FALLIDO - REVERTIDO)
+
+**Fecha:** 2025-10-26 23:24  
+**Commit:** cd50373 → b908ec7 → 81d2592 (revertido con force push a 615a117)  
+**Hipótesis:** Mejorar contraste de texto gray-600 → gray-800 para subir Accessibility  
+
+**Cambios aplicados en 2 fases:**
+
+**Fase 1 - Footer (Cambio 1.1):**
+```diff
+Footer.astro:
+- text-gray-500 (subtítulos)
++ text-gray-700 font-medium
+
+- text-gray-600 (contenido)
++ text-gray-800
+```
+
+**Resultado Fase 1:** Accessibility **86** (sin cambio), Performance no medido inmediatamente
+
+**Fase 2 - SectionHeader + Hero (Cambio 2):**
+```diff
+SectionHeader.astro (línea 27):
+- text-gray-600
++ text-gray-800
+
+Hero.astro (línea 80):
+- text-gray-600
++ text-gray-800 font-medium
+
+Hero.astro (línea 129):
+- text-gray-600 font-medium
++ text-gray-800 font-semibold
+```
+
+**Resultados Lighthouse Mobile (Chrome DevTools) - Fase 1+2 combinadas:**
+- Performance: **79** ❌ (bajó de 100, **-21 puntos CRÍTICO**)
+- Accessibility: **86** ❌ (sin cambio, 0 mejora)
+- FCP: 3.8s (degradado desde 1.5s, **+153%**)
+- TBT: 0ms (OK)
+- Speed Index: 3.8s (degradado desde 1.5s, **+153%**)
+- CLS: 0.002 (OK)
+
+**Conclusión CRÍTICA:**
+- ❌ **Cambiar gray-600 → gray-800 DESTRUYE Performance** (-21 puntos)
+- ❌ **FCP y Speed Index se DUPLICAN** (1.5s → 3.8s)
+- ❌ **Accessibility NO mejora** (86 → 86, cero impacto)
+- ⚠️ **Causa probable:** Cambios en componentes core usados en TODAS las páginas (SectionHeader/Hero)
+- ⚠️ **Lighthouse no distingue** entre cambios en Footer solo vs Footer+SectionHeader+Hero
+- ✅ Build exitoso pero métricas Production colapsaron
+
+**Lecciones aprendidas:**
+1. ⚠️ **NO cambiar colores en componentes globales** (SectionHeader, Hero, Footer)
+2. ⚠️ **Los cambios CSS "simples" SÍ afectan Performance** cuando son masivos
+3. ⚠️ **Accessibility no se arregla con cambios de color generales** en texto estático
+4. 💡 **El problema de contraste NO es texto descriptivo** (gray-600 está bien)
+5. 💡 **Buscar elementos INTERACTIVOS** con bajo contraste (botones, links, CTAs)
+
+**Acción:** Revertido con `git reset --hard v1.1-perf100-ux-fixed` + `git push --force` + commit vacío para forzar redeploy
+
+---
 
 ### ❌ Intento 1: Footer h1 → div[role=heading] (FALLIDO - REVERTIDO)
 
